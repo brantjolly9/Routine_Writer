@@ -1,0 +1,12 @@
+build
+exeTesting
+configenv
+__pycache__
+pycom_testing
+routine_writer.spec
+dist
+*.json
+*.xlsx
+*.L5X
+*.xml
+*.xlsm

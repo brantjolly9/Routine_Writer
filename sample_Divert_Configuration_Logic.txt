@@ -1,0 +1,3 @@
+OTE(Divert[6].Config.Present) OTE(Divert[6].Config.Chute) OTE(Divert[6].Config.BagPresent) 
+,MOVE(130,Divert[6].Config.Offset) MOVE('CH3005',Divert[6].Config.Name) 
+,MOVE(2,Divert[6].Config.Arm) MOVE(1,Divert[6].Config.ArmAb[0]) MOVE(2,Divert[6].Config.ArmAb[1])
