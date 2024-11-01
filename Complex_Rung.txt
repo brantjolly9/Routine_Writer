@@ -1,0 +1,5 @@
+[XIC(SLS1.Sorter.LostBearingFault)
+[XIO(Hmi.Sorter[0].Faults.MissingBearingFault)ADD(Hmi.Sorter[0].Stats.MissingBearingFaultCount,1,Hmi.Sorter[0].Stats.MissingBearingFaultCount)ADD(Hmi.Sorter[0].Stats.TotalFaultCount,1,Hmi.Sorter[0].Stats.TotalFaultCount)
+    ,OTE(Hmi.Sorter[0].Faults.MissingBearingFault)
+    ,XIC(OneSecondPulse)ADD(Hmi.Sorter[0].Stats.MissingBearingCurrentTime,1,Hmi.Sorter[0].Stats.MissingBearingCurrentTime)ADD(Hmi.Sorter[0].Stats.MissingBearingTotalTime,1,Hmi.Sorter[0].Stats.MissingBearingTotalTime)]
+,XIO(SLS1.Sorter.LostBearingFault)CLR(Hmi.Sorter[0].Stats.MissingBearingCurrentTime)];

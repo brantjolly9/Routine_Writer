@@ -5,6 +5,7 @@ __pycache__
 pycom_testing
 routine_writer.spec
 dist
+Complex_Rung.txt
 *.json
 *.xlsx
 *.L5X
