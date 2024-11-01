@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger("main.log")
 
-def get_all_rungs(l5xPath):
+def get_all_rung_strings(l5xPath):
     try:
         xmlDoc = et.parse(l5xPath)
     except Exception as e:
