@@ -12,20 +12,14 @@ try:
     #from createLogger import makeLogger
     from utilities.excel_utils import *
     from utilities.os_utils import *
+    from utilities.xml_utils import *
     from utilities import makeLogger
     
 except ModuleNotFoundError as mnf:
     print("Custom Modules Not Found")
 
 
-# add CDATA prefix & suffix to element text; required to use special characters in L5X document
-# <Tag> SOME TEXT </Tag> --> <Tag> <![CDATA[ SOME TEXT ]]> </Tag>
-def add_cdata(text = str()):
-    try:
-        text = et.CDATA(text)
-    except Exception as e:
-        logger.error("ADD CDATA ERROR", exc_info=True)
-    return text
+
 
 def fill_rung_template(root, rungNum, text, comment=None):
 
@@ -72,19 +66,7 @@ def attach_rungs(dataframe):
         for rungNum, rung in enumerate(rungs):
             filledTemplate = fill_rung_template(root, rungNum, rung)
 
-def write_to_file(xmlFile, resultPath):
-    # arg 2-4 populate xml declaration
-    # <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-    try:
-        xmlFile.write(
-            resultPath,
-            xml_declaration=True,
-            encoding="UTF-8",
-            standalone=True)
-        return True
-    except Exception as e:
-        logger.error(f"Cant write to file: {resultPath}", exc_info=True)
-        return False
+
 
 def main():
     # Refer to directory structure in README.txt
