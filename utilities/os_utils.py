@@ -51,7 +51,7 @@ def get_path_from_user(defaultPath="C:\\", defaultFolder="C:\\exeTesting"):
         "The full file path should resemble C:\\...\\...\\my_folder\n"
         "A relative file will instruct the program to create a folder in the current one\n"
         )
-    
+
     workingDir = ""
     exeDirPath = os.path.dirname(os.path.realpath(__file__))
     print(f"Your Current Directory:\n{exeDirPath}\n")

@@ -63,23 +63,24 @@ def attach_rungs(dataframe):
         for rungNum, rung in enumerate(rungs):
             filledTemplate = fill_rung_template(root, rungNum, rung)
 
+
 def main():
     # Refer to directory structure in README.txt
     # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
     # leave testRootDir as is for this to work (will be changed later)
     rootDir = os.getcwd()
-    
+
     userPath = get_path_from_user(defaultPath=rootDir, defaultFolder="exeTesting")
     userFolder = os.path.basename(userPath)
     exportedFilesFolder = "Exported_Files"
     resultFilesFolder = "Result_Files"
-    
+
     # Preparing working dir and testing for relevant files
     exeDirPath = os.path.dirname(os.path.realpath(__file__))
 
     # Returns a Dictionary of verified paths
     verifiedPaths = prepare_working_dir(workingDir=userPath)
-    
+
     # Get relevant path from the dictionary of verified paths
     workingDir = verifiedPaths[userFolder]
     makeLogFile(workingDir)
@@ -101,7 +102,7 @@ def main():
             fullFileName = f"{fileName}_Routine_RLL.L5X"
             fullResultPath = os.path.join(resultFilesPath, fullFileName)
             fullExportedFilePath = os.path.join(exportedFilesPath, fullFileName)
-            if fullFileName in l5xFiles: 
+            if fullFileName in l5xFiles:
                 print(f"Currently Editing: {fullFileName}")
                 indivXmlFile = et.parse(fullExportedFilePath)
                 root = indivXmlFile.getroot()
