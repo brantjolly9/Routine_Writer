@@ -14,7 +14,7 @@ try:
     from utilities.os_utils import *
     from utilities.xml_utils import *
     from utilities import makeLogger
-    
+
 except ModuleNotFoundError as mnf:
     print("Custom Modules Not Found")
 
@@ -25,7 +25,7 @@ def fill_rung_template(root, rungNum, text, comment=None):
 
     # Get the RLLContent container tag to append rung tags to
     RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent')
-    
+
     # Create an XML element from a blank Rung element
     template = et.fromstring(
         '<Rung Number="" Type="N">'

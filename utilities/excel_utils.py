@@ -13,6 +13,8 @@ logger = logging.getLogger("main.py")
 # Open the Excel doc at the given path and returns the relevant sheet,
 # sheet default is "RawData"
 def open_excel(excelPath, sheetName="RawData"):
+    # Simpply opens excel and returns the passed in sheet name (defaults to "RawData")
+
     try:
         wb = openpyxl.load_workbook(excelPath)
         sheet = wb[sheetName]
@@ -20,13 +22,13 @@ def open_excel(excelPath, sheetName="RawData"):
     except Exception as e:
         logger.error(f"Cant open excel sheet at {excelPath}", exc_info=True)
         return None
-"""
-THIS IS THE ONLY FUNCTION USED, IGNORE OTHERS FOR NOW
-Convert the excel sheet (at "sheetName" of "excelPath") to a python dictionary and replace NaN with None (Conversion between different formats of the same thing)
-Write the Dictionary to the file sheet.json
-except statements are general error handling
-"""
 def open_excel_as_pd(excelPath, sheetName="RawData"):
+    """
+    THIS IS THE ONLY FUNCTION USED, IGNORE OTHERS FOR NOW
+    Convert the excel sheet (at "sheetName" of "excelPath") to a python dictionary and replace NaN with None (Conversion between different formats of the same thing)
+    Write the Dictionary to the file sheet.json
+    except statements are general error handling
+    """
     toReturn = {}
     try:
         sheet = pd.read_excel(excelPath, sheet_name=sheetName)
@@ -48,9 +50,9 @@ def open_excel_as_pd(excelPath, sheetName="RawData"):
     finally:
         return toReturn
 
-# Read column from passed sheet, column defaults to 2, but each column should have a different routine
 def read_column(sheet, column):
 
+    # Read column from passed sheet, column defaults to 2, but each column should have a different routine
     rungNum = 0
     rungsText = []
     rungText = ""
@@ -68,8 +70,8 @@ def read_column(sheet, column):
     rungsText.remove(None)
     return rungsText
 
-# Returns list of column titles from _sheet_
 def get_column_titles(sheet):
+    # Returns list of column titles from _sheet_
     columnTitles = []
     data = {}
     rows = sheet["1"]
