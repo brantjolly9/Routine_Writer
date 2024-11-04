@@ -39,3 +39,4 @@ may contain useful information or surface to automate
 
 Guide used for connecting pycomm3 to emulator 
 https://github.com/dmroeder/pylogix/blob/master/docs/Emulate.md
+https://www.rockwellautomation.com/en-us/docs/factorytalk-edge-gateway/1-04-00/ft-edge-gateway-help-ditamap/data-sources/data-source-configuration/add-auto-discovery-and-model/ftlinx-and-ft-logix-echo-binding.html
