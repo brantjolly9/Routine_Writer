@@ -63,20 +63,20 @@ def attach_rungs(dataframe):
         for rungNum, rung in enumerate(rungs):
             filledTemplate = fill_rung_template(root, rungNum, rung)
 
-
 def main():
     # Refer to directory structure in README.txt
     # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
     # leave testRootDir as is for this to work (will be changed later)
     rootDir = os.getcwd()
 
+    # Preparing working dir and testing for relevant files
+    #exeDirPath = os.path.dirname(os.path.realpath(__file__))
+
     userPath = get_path_from_user(defaultPath=rootDir, defaultFolder="exeTesting")
     userFolder = os.path.basename(userPath)
     exportedFilesFolder = "Exported_Files"
     resultFilesFolder = "Result_Files"
 
-    # Preparing working dir and testing for relevant files
-    exeDirPath = os.path.dirname(os.path.realpath(__file__))
 
     # Returns a Dictionary of verified paths
     verifiedPaths = prepare_working_dir(workingDir=userPath)
@@ -85,7 +85,7 @@ def main():
     workingDir = verifiedPaths[userFolder]
     makeLogFile(workingDir)
     excelPath, l5xFiles = check_working_files(workingDir, logger)
-    exportedFilesPath = verifiedPaths[exportedFilesFolder] 
+    exportedFilesPath = verifiedPaths[exportedFilesFolder]
     resultFilesPath = verifiedPaths[resultFilesFolder]
 
     print("\nThe Program has created or verified the following paths:")

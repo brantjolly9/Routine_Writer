@@ -42,6 +42,7 @@ def prepare_working_dir(
             #logger.error(f"Could not verify {path}", exc_info=True)
     #os.chdir(startDir)
     return verifiedPaths
+
 def get_path_from_user(defaultPath="C:\\", defaultFolder="C:\\exeTesting"):
 
     print(

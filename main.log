@@ -72,3 +72,31 @@ Traceback (most recent call last):
     for fileName, rungs in dataframe.items():
                            ^^^^^^^^^^^^^^^
 AttributeError: 'NoneType' object has no attribute 'items'
+2024-11-04 15:30:26 - CRITICAL - No Excel File
+2024-11-04 15:30:26 - CRITICAL - No L5X File
+2024-11-04 15:30:26 - ERROR - General Error creating dataframe
+Traceback (most recent call last):
+  File "/home/cessator/Programming/Routine_Writer/utilities/excel_utils.py", line 34, in open_excel_as_pd
+    sheet = pd.read_excel(excelPath, sheet_name=sheetName)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cessator/Programming/Routine_Writer/configenv/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 495, in read_excel
+    io = ExcelFile(
+         ^^^^^^^^^^
+  File "/home/cessator/Programming/Routine_Writer/configenv/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 1550, in __init__
+    ext = inspect_excel_format(
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cessator/Programming/Routine_Writer/configenv/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 1402, in inspect_excel_format
+    with get_handle(
+         ^^^^^^^^^^^
+  File "/home/cessator/Programming/Routine_Writer/configenv/lib/python3.12/site-packages/pandas/io/common.py", line 728, in get_handle
+    ioargs = _get_filepath_or_buffer(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/cessator/Programming/Routine_Writer/configenv/lib/python3.12/site-packages/pandas/io/common.py", line 472, in _get_filepath_or_buffer
+    raise ValueError(msg)
+ValueError: Invalid file path or buffer object type: <class 'NoneType'>
+2024-11-04 15:30:26 - ERROR - Unable to find dataframe
+Traceback (most recent call last):
+  File "/home/cessator/Programming/Routine_Writer/main.py", line 100, in main
+    for fileName, rungs in dataframe.items():
+                           ^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'items'
