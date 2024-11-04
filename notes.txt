@@ -36,3 +36,6 @@ create a class for each type of rung and init with configuration info
 
 Initiliaztion structured texted program in ContinuousProgram -> Initialization
 may contain useful information or surface to automate
+
+Guide used for connecting pycomm3 to emulator 
+https://github.com/dmroeder/pylogix/blob/master/docs/Emulate.md

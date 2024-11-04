@@ -18,9 +18,6 @@ try:
 except ModuleNotFoundError as mnf:
     print("Custom Modules Not Found")
 
-
-
-
 def fill_rung_template(root, rungNum, text, comment=None):
 
     # Convert int to str
@@ -65,8 +62,6 @@ def attach_rungs(dataframe):
         root = indivXmlFile.getroot()
         for rungNum, rung in enumerate(rungs):
             filledTemplate = fill_rung_template(root, rungNum, rung)
-
-
 
 def main():
     # Refer to directory structure in README.txt

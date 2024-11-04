@@ -1,24 +1,40 @@
 import lxml.etree as et
 from pprint import pprint
 import logging
+import re
 
 logger = logging.getLogger("main.log")
 
 def get_all_rung_strings(l5xPath):
-    try:
-        xmlDoc = et.parse(l5xPath)
-    except Exception as e:
-        print(f"Error reading L5X File at {l5xPath}")
-        return None
+    """
+    Function to return a list of tuples container all tags present in the L5X file
+    For non-bool tags it returns (value, tagName)
+    For bool tags it returns (1, tagName)
+    For NOP it returns (0, tagName (NOP()))
 
+    rungs=[
+        (value, tagName),
+        (1, tagName),
+        (0, NOP())
+    ]
+    
+    """
+    rungs = []
+    xmlDoc = et.parse(l5xPath)
     root = xmlDoc.getroot()
-    RLLcontent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent/Rung')
-    rungList = []
-    for rung in RLLcontent[:10]:
+    RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent/Rung')
+    for rung in RLLContent:
         rungText = rung.find("Text").text.strip()
-        print(rungText)
-        rungList.append(rungText)
-    return rungList
+        if "NOP" in rungText:
+            rungs.append((0, rungText.replace(";", "")))
+        else:
+            pairs = re.findall(r"\((.*?)\)", rungText)
+            for pair in pairs:
+                if "," in pair:
+                    rungs.append(tuple(pair.split(",")))
+                else:
+                    rungs.append(("1", pair))
+    return rungs
 
 def add_cdata(text = str()):
     # add CDATA prefix & suffix to element text; required to use special characters in L5X document
