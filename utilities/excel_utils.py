@@ -7,6 +7,7 @@ import numpy as np
 import logging
 import json
 import logging
+import csv
 #from utilities import logger
 logger = logging.getLogger("main.py")
 
@@ -79,3 +80,31 @@ def get_column_titles(sheet):
     for columnTitle in rows:
         columnTitles.append(columnTitle.value)
     return columnTitles
+
+def write_param_sheet(routine, filename):
+    header = ["Rung", "Function", "Arguments"]
+    new_rung = [""]
+
+    formatted_routine = []
+    for rung in routine:
+        for function in rung:
+            line_holder = []
+            position = f"{function[0][0]}-{function[0][1]}-{function[0][2]}"
+            line_holder.append(position)
+
+            for item in function[1]:
+                line_holder.append(item)
+        
+            formatted_routine.append(line_holder)
+        formatted_routine.append(new_rung)
+
+    for i in formatted_routine:
+        print(i)
+
+    # Writing to CSV using csv.writer
+    #Create Exception if write permission is denied for file being open in another location
+    with open(filename, "w", newline="") as file:
+        writer = csv.writer(file)
+        writer.writerow(header)
+        
+        writer.writerows(formatted_routine)
