@@ -5,7 +5,7 @@ import re                           # REGEX library for working with strings
 from pprint import pprint           # Pretty Printing (For testing)
 import pandas as pd                 # Pandas Library for Excel to Dict Conversion
 import os                           # Operating System Library for working with folders
-
+from rung_parser.py import parse_routine
 # Try to import custom Libraries stored in .\Utilities
 # Print an error if not found
 try:
@@ -63,6 +63,15 @@ def attach_rungs(dataframe):
         for rungNum, rung in enumerate(rungs):
             filledTemplate = fill_rung_template(root, rungNum, rung)
 
+def combo():
+    allRungs = get_all_rung_strings(l5xPath)
+    parsedRungs = parse_routine(allRungs)
+    exl = write_param_sheet(parsedRungs, "csv_testing") 
+    print("RAN")
+
+
+
+
 
 def main():
     # Refer to directory structure in README.txt
@@ -118,4 +127,4 @@ def main():
 
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
-    main()
+    combo()
