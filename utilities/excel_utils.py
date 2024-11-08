@@ -6,8 +6,9 @@ import pandas as pd
 import numpy as np
 import logging
 import json
-import logging
+from utilities.os_utils import get_path_from_user
 import csv
+
 #from utilities import logger
 logger = logging.getLogger("main.py")
 
@@ -89,7 +90,7 @@ def write_param_sheet(routine, filename):
     for rung in routine:
         for function in rung:
             line_holder = []
-            position = f"{function[0][0]}-{function[0][1]}-{function[0][2]}"
+            position = f"{function[0][0]},{function[0][1]},{function[0][2]}"
             line_holder.append(position)
 
             for item in function[1]:
@@ -98,13 +99,24 @@ def write_param_sheet(routine, filename):
             formatted_routine.append(line_holder)
         formatted_routine.append(new_rung)
 
-    for i in formatted_routine:
-        print(i)
-
+    continueCheck = True
+    #verifiedOutputFilePath = get_path_from_user()
+    #print(verifiedOutputFilePath)
     # Writing to CSV using csv.writer
     #Create Exception if write permission is denied for file being open in another location
-    with open(filename, "w", newline="") as file:
-        writer = csv.writer(file)
-        writer.writerow(header)
-        
-        writer.writerows(formatted_routine)
+    while continueCheck:
+            
+
+        try:
+            input(f"Enter to write to {filename} ")
+            with open(filename, "w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(header)
+                
+                writer.writerows(formatted_routine)
+            continueCheck = False
+        except PermissionError as pe:
+            logger.error(f"{filename} is already open, please close it and try again", exc_info=True)
+            print(f"{filename} is already open, please close it and try again")
+    #csvFile = pd.read_csv(filename)
+    #csvFile.to_excel(cs)

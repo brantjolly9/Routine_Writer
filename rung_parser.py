@@ -1,4 +1,4 @@
-def parse_funtion_block(cur_pos, cur_block):
+def parse_funtion_block(cur_pos=list(), cur_block=str()):
     position_found = False
     function_pos = cur_pos.copy()
 
@@ -27,7 +27,7 @@ def parse_funtion_block(cur_pos, cur_block):
 
     return [function_pos, function]
 
-def parse_routine(raw_routine_data):
+def parse_routine(raw_routine_data=list()):
     '''     
     Description
     -------
