@@ -18,7 +18,6 @@ try:
 except ModuleNotFoundError as mnf:
     print("Custom Modules Not Found")
 
-
 def fill_rung_template(root, rungNum, text, comment=None):
 
     # Convert int to str
@@ -31,7 +30,7 @@ def fill_rung_template(root, rungNum, text, comment=None):
     template = et.fromstring(
         '<Rung Number="" Type="N">'
             '\n<Comment></Comment>'
-            '\n<Text></Text>\n'
+            '\n<Text></Text>\n.'
         '</Rung>')
     oldRung = RLLContent.xpath(f"//Rung[contains(@Number, {rungNum})]")
     oldComment = oldRung.find("Comment").text
@@ -56,13 +55,7 @@ def fill_rung_template(root, rungNum, text, comment=None):
     # Return the Filled Template
     return template
 
-def attach_rungs(rungList, root):
-    for rungNum, rung in enumerate(rungList):
-        rungText = rung[0]
-        rungComment = rung[1]
-        filledTemplate = fill_rung_template(root, rungNum, rungText, rungComment)
-
-def old_attach_rungs(dataframe):
+def attach_rungs(dataframe):
     for fileName, rungs in dataframe.items():
         fullFileName = f"{fileName}_Routing_RLL.L5X"
         indivXmlFile = et.parse(fullFileName)
