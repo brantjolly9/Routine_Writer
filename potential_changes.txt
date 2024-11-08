@@ -1,0 +1,6 @@
+rewrite the deconstruction function as a class instead of nested for loops
+
+add colors & general formatting to the excel file
+csvData --> formatter() --> excel
+
+

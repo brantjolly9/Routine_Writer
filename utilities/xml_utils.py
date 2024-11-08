@@ -5,7 +5,7 @@ import re
 
 logger = logging.getLogger("main.log")
 
-def get_all_rung_strings(l5xPath):
+def get_all_rung_params(l5xPath):
     """
     Function to return a list of tuples container all tags present in the L5X file
     For non-bool tags it returns (value, tagName)
@@ -50,7 +50,7 @@ def get_all_rungs(l5xPath):
         rungs.append((rungText, comment))
 
     return rungs
-    
+
 def add_cdata(text = str()):
     # add CDATA prefix & suffix to element text; required to use special characters in L5X document
     # <Tag> SOME TEXT </Tag> --> <Tag> <![CDATA[ SOME TEXT ]]> </Tag>
