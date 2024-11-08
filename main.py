@@ -69,10 +69,6 @@ def combo(l5xPath):
     exl = write_param_sheet(parsedRungs, "csv_testing.csv") 
     print("RAN")
 
-
-
-
-
 def main():
     # Refer to directory structure in README.txt
     # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir

@@ -69,6 +69,12 @@ def get_path_from_user(defaultPath="C:\\", defaultFolder="C:\\exeTesting"):
 
     return workingDir
 
+def compare_strings(oldString, newString):
+    print(oldString, newString)
+    oldSet = set(oldString)
+    newSet = set(newString)
+    diff = oldSet - newSet
+    return diff
 
 def check_working_files(workingDir, logger):
     # workingDir is assumed to be the direcotry containing the xl and l5x files
