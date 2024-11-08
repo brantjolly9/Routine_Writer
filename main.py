@@ -33,9 +33,6 @@ def fill_rung_template(root, rungNum, text, comment=None):
             '\n<Comment></Comment>'
             '\n<Text></Text>\n'
         '</Rung>')
-    oldRung = RLLContent.xpath(f"//Rung[contains(@Number, {rungNum})]")
-    oldComment = oldRung.find("Comment").text
-    print(oldComment)
     # Check if rungnum is a digit, and fill Rung Number in element  
     if re.search(r"^\d+$", rungNum):
         template.set("Number", rungNum)
@@ -51,6 +48,7 @@ def fill_rung_template(root, rungNum, text, comment=None):
     if isinstance(template, et._Element):
         RLLContent.append(template)
     else:
+        print(f"Number {rungNum} is not valid XML")
         logging.warning(f"Number {rungNum} is not valid XML")
 
     # Return the Filled Template
