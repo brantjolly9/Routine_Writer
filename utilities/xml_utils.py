@@ -36,6 +36,17 @@ def get_all_rung_strings(l5xPath):
                     rungs.append(("1", pair))
     return rungs
 
+def get_all_rungs(l5xPath):
+    rungs = []
+    xmlDoc = et.parse(l5xPath)
+    root = xmlDoc.getroot()
+    RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent/Rung')
+    for rung in RLLContent:
+        rungText = rung.find("Text").text.strip()
+        rungs.append(rungText)
+        print(rungText)
+        print(type(rungText))
+    
 def add_cdata(text = str()):
     # add CDATA prefix & suffix to element text; required to use special characters in L5X document
     # <Tag> SOME TEXT </Tag> --> <Tag> <![CDATA[ SOME TEXT ]]> </Tag>
