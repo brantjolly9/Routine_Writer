@@ -123,8 +123,6 @@ def main():
     except AttributeError as ae:
         logger.error("Unable to find dataframe", exc_info=True)
 
-<<<<<<< HEAD
-=======
 def deconstruct(l5xPath):
 
     # Refer to directory structure in README.txt
@@ -161,7 +159,6 @@ def deconstruct(l5xPath):
 
 def reconstruct(routingList)
 
->>>>>>> 0a42ccd0217be97d99f6efb01b3f45a2ac32dff0
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
     combo("24-071-Configuration_Routine_RLL.L5X")
