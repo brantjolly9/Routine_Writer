@@ -48,7 +48,7 @@ def fill_rung_template(root, rungNum, text, comment=None):
     if isinstance(template, et._Element):
         RLLContent.append(template)
     else:
-        print(f"Number {rungNum} is not valid XML")
+        print(f"Rung Number {rungNum} is not valid XML")
         logging.warning(f"Number {rungNum} is not valid XML")
 
     # Return the Filled Template
@@ -163,6 +163,8 @@ def deconstruct(l5xPath):
     # Create the dicionary object (dataframe) from the excel sheet
     #dataframe = open_excel_as_pd(excelPath)
     combo(l5xPath)
+
+def reconstruct(routingList)
 
 if __name__ == "__main__":
     l5xPath = "24-071-Configuration_Routine_RLL.L5X"
