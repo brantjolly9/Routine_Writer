@@ -32,9 +32,6 @@ def fill_rung_template(root, rungNum, text, comment=None):
             '\n<Comment></Comment>'
             '\n<Text></Text>\n.'
         '</Rung>')
-    oldRung = RLLContent.xpath(f"//Rung[contains(@Number, {rungNum})]")
-    oldComment = oldRung.find("Comment").text
-    print(oldComment)
     # Check if rungnum is a digit, and fill Rung Number in element  
     if re.search(r"^\d+$", rungNum):
         template.set("Number", rungNum)
@@ -50,6 +47,7 @@ def fill_rung_template(root, rungNum, text, comment=None):
     if isinstance(template, et._Element):
         RLLContent.append(template)
     else:
+        print(f"Rung Number {rungNum} is not valid XML")
         logging.warning(f"Number {rungNum} is not valid XML")
 
     # Return the Filled Template
@@ -125,6 +123,45 @@ def main():
     except AttributeError as ae:
         logger.error("Unable to find dataframe", exc_info=True)
 
+<<<<<<< HEAD
+=======
+def deconstruct(l5xPath):
+
+    # Refer to directory structure in README.txt
+    # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
+    # leave testRootDir as is for this to work (will be changed later)
+    rootDir = os.getcwd()
+
+    # Preparing working dir and testing for relevant files
+    exeDirPath = os.path.dirname(os.path.realpath(__file__))
+
+    userPath = get_path_from_user(defaultPath=rootDir, defaultFolder="exeTesting")
+    userFolder = os.path.basename(userPath)
+    exportedFilesFolder = "Exported_Files"
+    resultFilesFolder = "Result_Files"
+
+
+    # Returns a Dictionary of verified paths
+    verifiedPaths = prepare_working_dir(workingDir=userPath)
+
+    # Get relevant path from the dictionary of verified paths
+    workingDir = verifiedPaths[userFolder]
+    makeLogFile(workingDir)
+    excelPath, l5xFiles = check_working_files(workingDir, logger)
+    exportedFilesPath = verifiedPaths[exportedFilesFolder] 
+    resultFilesPath = verifiedPaths[resultFilesFolder]
+
+    print("\nThe Program has created or verified the following paths:")
+    for path in verifiedPaths.values():
+        print(path)
+    print("File Operations Completed\n--------------------\n")
+    # Create the dicionary object (dataframe) from the excel sheet
+    #dataframe = open_excel_as_pd(excelPath)
+    combo(l5xPath)
+
+def reconstruct(routingList)
+
+>>>>>>> 0a42ccd0217be97d99f6efb01b3f45a2ac32dff0
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
     combo("24-071-Configuration_Routine_RLL.L5X")
