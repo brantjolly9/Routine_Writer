@@ -113,7 +113,7 @@ def write_param_sheet(routine, filename):
 
             for item in function[1]:
                 line_holder.append(item)
-        
+
             formatted_routine.append(line_holder)
         formatted_routine.append(new_rung)
 
@@ -123,14 +123,12 @@ def write_param_sheet(routine, filename):
     # Writing to CSV using csv.writer
     #Create Exception if write permission is denied for file being open in another location
     while continueCheck:
-            
-
         try:
             input(f"Enter to write to {filename} ")
             with open(filename, "w", newline="") as file:
                 writer = csv.writer(file)
                 writer.writerow(header)
-                
+
                 writer.writerows(formatted_routine)
             continueCheck = False
         except PermissionError as pe:
