@@ -1,0 +1,42 @@
+remove line break at line 80 of Rung15 "Read/Write ^ Conveyor
+remove line break at line 3688 of Rung15 "arrived. ^ If"
+"" line 3819 "ok ^ 0"
+
+in Conf_rout_RLL.L5X 
+    function blocks are defined by all caps name followed by values in parenthesis
+    rungs are seperated by commas outside of funciton blocks
+    refer to sample_rung.txt
+
+
+3 parts of project
+
+1:
+    read data from Q Excel sheet
+
+2:
+    read str() from S5K export
+
+3:
+    fill str() with data & rewrite xml doc
+
+
+start working on conatiner modules and a custom logger
+
+Some sites will have a variable number of sorters & other compones, so the script must be abe to loop through each of those components
+Many instances of conveyor rung with the comment "Conveyor Configuration Mapping \n <Conveyor Number>"
+Many instances of "Divert Configuration Logic"
+
+Possible SOlutions for n of rung problem:
+
+store a template for each type of rung then iterate over a function filling the template
+    the template must contain all common blocks but be able to add more
+    a template must be created a stored for each type of rung
+
+create a class for each type of rung and init with configuration info
+
+Initiliaztion structured texted program in ContinuousProgram -> Initialization
+may contain useful information or surface to automate
+
+Guide used for connecting pycomm3 to emulator 
+https://github.com/dmroeder/pylogix/blob/master/docs/Emulate.md
+https://www.rockwellautomation.com/en-us/docs/factorytalk-edge-gateway/1-04-00/ft-edge-gateway-help-ditamap/data-sources/data-source-configuration/add-auto-discovery-and-model/ftlinx-and-ft-logix-echo-binding.html
