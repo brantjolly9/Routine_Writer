@@ -123,7 +123,7 @@ def main():
     except AttributeError as ae:
         logger.error("Unable to find dataframe", exc_info=True)
 
-def deconstruct(l5xPath):
+def deconstruct():
 
     # Refer to directory structure in README.txt
     # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
@@ -155,10 +155,9 @@ def deconstruct(l5xPath):
     print("File Operations Completed\n--------------------\n")
     # Create the dicionary object (dataframe) from the excel sheet
     #dataframe = open_excel_as_pd(excelPath)
-    combo(l5xPath)
+    combo(l5xFiles[0])
 
-def reconstruct(routingList)
 
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
-    combo("24-071-Configuration_Routine_RLL.L5X")
+    deconstruct()
