@@ -44,8 +44,8 @@ def get_all_rungs(l5xPath):
     for rung in RLLContent:
         rungText = rung.find("Text").text.strip()
         rungs.append(rungText)
-        print(rungText)
-        print(type(rungText))
+
+    return rungs
     
 def add_cdata(text = str()):
     # add CDATA prefix & suffix to element text; required to use special characters in L5X document
@@ -70,3 +70,4 @@ def write_to_file(xmlFile, resultPath):
     except Exception as e:
         logger.error(f"Cant write to file: {resultPath}", exc_info=True)
         return False
+
