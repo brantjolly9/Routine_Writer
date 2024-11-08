@@ -86,9 +86,27 @@ def write_param_sheet(routine, filename):
     header = ["Rung", "Function", "Arguments"]
     new_rung = [""]
 
+    '''
+    routine structure
+
+    routine = [
+    [[Rung Data 1], [Comment Data 1]],
+    [[Rung Data 2], [Comment Data 2]]...
+    ]
+
+    Rung Data = [[Function Data 1], [Function Data 2], [Function Data 3]...]]
+    Comment Data = ["Comment Header", "Comment"]
+
+    Function Data = [[Function Position], [Function Data]]
+
+    Function = ["Command", "Argument 1", "Argument 2", "Argument 3"...]
+    '''
+
     formatted_routine = []
     for rung in routine:
-        for function in rung:
+        rung_comment = rung[1]
+        formatted_routine.append(rung_comment)
+        for function in rung[0]:
             line_holder = []
             position = f"{function[0][0]},{function[0][1]},{function[0][2]}"
             line_holder.append(position)

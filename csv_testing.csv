@@ -1,6 +1,8 @@
 Rung,Function,Arguments
+Rung Comment:,Routine takes Program Parameters and sets values necessary for the type of system the PLC is controlling
 "0,0,0",NOP,
 ""
+Rung Comment:,"Set the Parameter values associated with the system. All Parameters are Initialized to default values (typically zero) in the Initialization Routine. Any Parameter that needs set, can be set here."
 "1,1,0",MOVE,'CABLL',Param.BuildingName
 "1,1,0",MOVE,'SL-0001',Param.SorterName
 "1,1,0",MOVE,5,Param.TotalNumberOfBelts
@@ -62,16 +64,24 @@ Rung,Function,Arguments
 "1,1,13",MOVE,80,Param.BackupCameraIpAddress[2]
 "1,1,13",MOVE,164,Param.BackupCameraIpAddress[3]
 ""
+Rung Comment:,The Pre-Trip Timer Preset is calculated in the Commissioning Divert Offsets Routine and put into the Param.PreTripTime[#].PRE value. Zero this tag iniitally and then it needs to be hardcoded once it is calculated.
 "2,0,0",MOVE,13776,Param.PreTripTime[0]
 ""
+Rung Comment:,Set the Network Switch Panel (NSP) Present bits
 "3,0,0",OTE,MCP.NetworkSwitch[0].Present
 ""
+Rung Comment:,Set the Network Switch Panel (NSP) Present bits
 "4,0,0",NOP,
 ""
+Rung Comment:,Set the Network Switch Panel (NSP) Present bits
 "5,0,0",NOP,
 ""
+Rung Comment:,Set the Network Switch Panel (NSP) Present bits
 "6,0,0",NOP,
 ""
+Rung Comment:,"Conveyor Configuration mapping
+
+SAI1-7"
 "7,1,0",OTL,Conveyor[1].Config.BeltPresent
 "7,1,0",OTL,Conveyor[1].Config.CameraBelt
 "7,1,0",OTL,Conveyor[1].Config.HslaInterlockingBelt
@@ -95,6 +105,9 @@ Rung,Function,Arguments
 "7,1,7",MOVE,Conveyor[1].Config.ConvNumber,Conveyor[1].Config.VfdNumber
 "7,1,8",MOVE,'192.168.1.37',Conveyor[1].Config.VfdIpAddress
 ""
+Rung Comment:,"Conveyor Configuration mapping
+
+SAI1-8G1"
 "8,1,0",OTL,Conveyor[2].Config.BeltPresent
 "8,1,1",MOVE,2,Conveyor[2].Config.ConvNumber
 "8,1,1",MOVE,0,Conveyor[2].Config.Nsp
@@ -116,6 +129,9 @@ Rung,Function,Arguments
 "8,1,7",MOVE,Conveyor[2].Config.ConvNumber,Conveyor[2].Config.VfdNumber
 "8,1,8",MOVE,'192.168.1.36',Conveyor[2].Config.VfdIpAddress
 ""
+Rung Comment:,"Conveyor Configuration mapping
+
+SAI1-8G2"
 "9,1,0",OTL,Conveyor[3].Config.BeltPresent
 "9,1,1",MOVE,3,Conveyor[3].Config.ConvNumber
 "9,1,1",MOVE,0,Conveyor[3].Config.Nsp
@@ -137,6 +153,9 @@ Rung,Function,Arguments
 "9,1,7",MOVE,Conveyor[3].Config.ConvNumber,Conveyor[3].Config.VfdNumber
 "9,1,8",MOVE,'192.168.1.39',Conveyor[3].Config.VfdIpAddress
 ""
+Rung Comment:,"Conveyor Configuration mapping
+
+SAI1-8G3"
 "10,1,0",OTL,Conveyor[4].Config.BeltPresent
 "10,1,0",OTL,Conveyor[4].Config.SorterDownstream
 "10,1,0",OTL,Conveyor[4].Config.LastPresortBelt
@@ -160,6 +179,9 @@ Rung,Function,Arguments
 "10,1,7",MOVE,Conveyor[4].Config.ConvNumber,Conveyor[4].Config.VfdNumber
 "10,1,8",MOVE,'192.168.1.38',Conveyor[4].Config.VfdIpAddress
 ""
+Rung Comment:,"Conveyor Configuration mapping
+
+SLS1"
 "11,1,0",OTL,Conveyor[Sorter0Conv].Config.BeltPresent
 "11,1,0",OTL,Conveyor[Sorter0Conv].Config.SorterBelt
 "11,1,0",OTL,Conveyor[Sorter0Conv].Config.FirstSorterBelt
@@ -188,12 +210,22 @@ Rung,Function,Arguments
 "11,1,9",MOVE,'SLS1-ARM-7',Conveyor[Sorter0Conv].Config.AbName[1]
 "11,1,10",MOVE,1.025,Conveyor[Sorter0Conv].Config.PulseMultiplier
 ""
+Rung Comment:,"Conveyor Configuration mapping
+
+SLS1"
 "12,0,0",NOP,
 ""
+Rung Comment:,"Conveyor Configuration mapping
+
+SLS1"
 "13,0,0",NOP,
 ""
+Rung Comment:,"Conveyor Configuration mapping
+
+SLS1"
 "14,0,0",NOP,
 ""
+Rung Comment:,Sorter Armor Block IP Addresses
 "15,1,0",MOVE,'SLS1-ARM-1',Conveyor[Sorter0Conv].Sorter.Config.Arm[1].Name
 "15,1,0",MOVE,'192.168.1.201',Conveyor[Sorter0Conv].Sorter.Config.Arm[1].AbIpAddress[1]
 "15,1,0",MOVE,'192.168.1.202',Conveyor[Sorter0Conv].Sorter.Config.Arm[1].AbIpAddress[2]
@@ -213,22 +245,30 @@ Rung,Function,Arguments
 "15,1,5",MOVE,'192.168.1.211',Conveyor[Sorter0Conv].Sorter.Config.Arm[6].AbIpAddress[1]
 "15,1,5",MOVE,'192.168.1.212',Conveyor[Sorter0Conv].Sorter.Config.Arm[6].AbIpAddress[2]
 ""
+Rung Comment:,Sorter Armor Block IP Addresses
 "16,0,0",NOP,
 ""
+Rung Comment:,Sorter Armor Block IP Addresses
 "17,0,0",NOP,
 ""
+Rung Comment:,Sorter Armor Block IP Addresses
 "18,0,0",NOP,
 ""
+Rung Comment:,Map the Train data into the configuration Routine
 "19,0,0",MOVE,1,Config.FirstConveyorInTheTrain
 "19,0,0",MOVE,5,Config.LastConveyorInTheTrain
 "19,0,0",MOVE,'SAI',Train.Config.Name
 ""
+Rung Comment:,Map the Train data into the configuration Routine
 "20,0,0",NOP,
 ""
+Rung Comment:,Map the Train data into the configuration Routine
 "21,0,0",NOP,
 ""
+Rung Comment:,Map the Train data into the configuration Routine
 "22,0,0",NOP,
 ""
+Rung Comment:,Divert Configuration
 "23,1,0",MOVE,Param.OverflowDestination,Config.OverflowDestination
 "23,1,0",SUB,Config.OverflowDestination,1,Config.NumberOfDivertPoints
 "23,1,1",MOVE,Param.MinimumDivertLength,Config.MinimumDivertLength
@@ -236,6 +276,7 @@ Rung,Function,Arguments
 "23,1,2",MOVE,2999,Param.ChuteNumberingOffsetLeft
 "23,1,2",MOVE,3001,Param.ChuteNumberingOffsetRight
 ""
+Rung Comment:,Divert Configuration Logic
 "24,1,0",OTE,Divert[3].Config.Present
 "24,1,0",OTE,Divert[3].Config.Chute
 "24,1,0",OTE,Divert[3].Config.BagPresent
@@ -244,6 +285,7 @@ Rung,Function,Arguments
 "24,1,2",MOVE,2,Divert[3].Config.Arm
 "24,1,2",MOVE,1,Divert[3].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "25,1,0",OTE,Divert[4].Config.Present
 "25,1,0",OTE,Divert[4].Config.Chute
 "25,1,1",XIC,SafetyConsumed.data[0].3
@@ -253,6 +295,7 @@ Rung,Function,Arguments
 "25,1,3",MOVE,1,Divert[4].Config.Arm
 "25,1,3",MOVE,1,Divert[4].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "26,1,0",OTE,Divert[5].Config.Present
 "26,1,0",OTE,Divert[5].Config.Chute
 "26,1,0",OTE,Divert[5].Config.BagPresent
@@ -261,6 +304,7 @@ Rung,Function,Arguments
 "26,1,2",MOVE,2,Divert[5].Config.Arm
 "26,1,2",MOVE,1,Divert[5].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "27,1,0",OTE,Divert[6].Config.Present
 "27,1,0",OTE,Divert[6].Config.Chute
 "27,1,0",OTE,Divert[6].Config.BagPresent
@@ -269,6 +313,7 @@ Rung,Function,Arguments
 "27,1,2",MOVE,1,Divert[6].Config.Arm
 "27,1,2",MOVE,1,Divert[6].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "28,1,0",OTE,Divert[7].Config.Present
 "28,1,0",OTE,Divert[7].Config.Chute
 "28,1,0",OTE,Divert[7].Config.BagPresent
@@ -277,6 +322,7 @@ Rung,Function,Arguments
 "28,1,2",MOVE,2,Divert[7].Config.Arm
 "28,1,2",MOVE,1,Divert[7].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "29,1,0",OTE,Divert[8].Config.Present
 "29,1,0",OTE,Divert[8].Config.Chute
 "29,1,0",OTE,Divert[8].Config.BagPresent
@@ -285,6 +331,7 @@ Rung,Function,Arguments
 "29,1,2",MOVE,1,Divert[8].Config.Arm
 "29,1,2",MOVE,1,Divert[8].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "30,1,0",OTE,Divert[9].Config.Present
 "30,1,0",OTE,Divert[9].Config.Chute
 "30,1,0",OTE,Divert[9].Config.BagPresent
@@ -293,6 +340,7 @@ Rung,Function,Arguments
 "30,1,2",MOVE,2,Divert[9].Config.Arm
 "30,1,2",MOVE,1,Divert[9].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "31,1,0",OTE,Divert[10].Config.Present
 "31,1,0",OTE,Divert[10].Config.Chute
 "31,1,0",OTE,Divert[10].Config.BagPresent
@@ -301,6 +349,7 @@ Rung,Function,Arguments
 "31,1,2",MOVE,1,Divert[10].Config.Arm
 "31,1,2",MOVE,1,Divert[10].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "32,1,0",OTE,Divert[11].Config.Present
 "32,1,0",OTE,Divert[11].Config.Chute
 "32,1,0",OTE,Divert[11].Config.BagPresent
@@ -309,6 +358,7 @@ Rung,Function,Arguments
 "32,1,2",MOVE,2,Divert[11].Config.Arm
 "32,1,2",MOVE,1,Divert[11].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "33,1,0",OTE,Divert[12].Config.Present
 "33,1,0",OTE,Divert[12].Config.Chute
 "33,1,0",OTE,Divert[12].Config.BagPresent
@@ -317,6 +367,7 @@ Rung,Function,Arguments
 "33,1,2",MOVE,1,Divert[12].Config.Arm
 "33,1,2",MOVE,1,Divert[12].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "34,1,0",OTE,Divert[13].Config.Present
 "34,1,0",OTE,Divert[13].Config.Chute
 "34,1,0",OTE,Divert[13].Config.BagPresent
@@ -325,6 +376,7 @@ Rung,Function,Arguments
 "34,1,2",MOVE,2,Divert[13].Config.Arm
 "34,1,2",MOVE,1,Divert[13].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "35,1,0",OTE,Divert[14].Config.Present
 "35,1,0",OTE,Divert[14].Config.Chute
 "35,1,0",OTE,Divert[14].Config.BagPresent
@@ -333,6 +385,7 @@ Rung,Function,Arguments
 "35,1,2",MOVE,1,Divert[14].Config.Arm
 "35,1,2",MOVE,1,Divert[14].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "36,1,0",OTE,Divert[15].Config.Present
 "36,1,0",OTE,Divert[15].Config.Chute
 "36,1,0",OTE,Divert[15].Config.BagPresent
@@ -341,6 +394,7 @@ Rung,Function,Arguments
 "36,1,2",MOVE,2,Divert[15].Config.Arm
 "36,1,2",MOVE,1,Divert[15].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "37,1,0",OTE,Divert[16].Config.Present
 "37,1,0",OTE,Divert[16].Config.Chute
 "37,1,0",OTE,Divert[16].Config.BagPresent
@@ -349,6 +403,7 @@ Rung,Function,Arguments
 "37,1,2",MOVE,1,Divert[16].Config.Arm
 "37,1,2",MOVE,1,Divert[16].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "38,1,0",OTE,Divert[17].Config.Present
 "38,1,0",OTE,Divert[17].Config.Chute
 "38,1,0",OTE,Divert[17].Config.BagPresent
@@ -357,6 +412,7 @@ Rung,Function,Arguments
 "38,1,2",MOVE,1,Divert[17].Config.Arm
 "38,1,2",MOVE,2,Divert[17].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "39,1,0",OTE,Divert[18].Config.Present
 "39,1,0",OTE,Divert[18].Config.Chute
 "39,1,0",OTE,Divert[18].Config.BagPresent
@@ -365,6 +421,7 @@ Rung,Function,Arguments
 "39,1,2",MOVE,1,Divert[18].Config.Arm
 "39,1,2",MOVE,2,Divert[18].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "40,1,0",OTE,Divert[19].Config.Present
 "40,1,0",OTE,Divert[19].Config.Chute
 "40,1,0",OTE,Divert[19].Config.BagPresent
@@ -373,6 +430,7 @@ Rung,Function,Arguments
 "40,1,2",MOVE,2,Divert[19].Config.Arm
 "40,1,2",MOVE,2,Divert[19].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "41,1,0",OTE,Divert[20].Config.Present
 "41,1,0",OTE,Divert[20].Config.Chute
 "41,1,0",OTE,Divert[20].Config.BagPresent
@@ -381,6 +439,7 @@ Rung,Function,Arguments
 "41,1,2",MOVE,1,Divert[20].Config.Arm
 "41,1,2",MOVE,2,Divert[20].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "42,1,0",OTE,Divert[21].Config.Present
 "42,1,0",OTE,Divert[21].Config.Chute
 "42,1,0",OTE,Divert[21].Config.BagPresent
@@ -389,6 +448,7 @@ Rung,Function,Arguments
 "42,1,2",MOVE,2,Divert[21].Config.Arm
 "42,1,2",MOVE,2,Divert[21].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "43,1,0",OTE,Divert[22].Config.Present
 "43,1,0",OTE,Divert[22].Config.Chute
 "43,1,0",OTE,Divert[22].Config.BagPresent
@@ -397,6 +457,7 @@ Rung,Function,Arguments
 "43,1,2",MOVE,1,Divert[22].Config.Arm
 "43,1,2",MOVE,2,Divert[22].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "44,1,0",OTE,Divert[23].Config.Present
 "44,1,0",OTE,Divert[23].Config.Chute
 "44,1,0",OTE,Divert[23].Config.BagPresent
@@ -405,6 +466,7 @@ Rung,Function,Arguments
 "44,1,2",MOVE,2,Divert[23].Config.Arm
 "44,1,2",MOVE,2,Divert[23].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "45,1,0",OTE,Divert[24].Config.Present
 "45,1,0",OTE,Divert[24].Config.Chute
 "45,1,0",OTE,Divert[24].Config.BagPresent
@@ -413,6 +475,7 @@ Rung,Function,Arguments
 "45,1,2",MOVE,1,Divert[24].Config.Arm
 "45,1,2",MOVE,2,Divert[24].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "46,1,0",OTE,Divert[25].Config.Present
 "46,1,0",OTE,Divert[25].Config.Chute
 "46,1,0",OTE,Divert[25].Config.BagPresent
@@ -421,6 +484,7 @@ Rung,Function,Arguments
 "46,1,2",MOVE,2,Divert[25].Config.Arm
 "46,1,2",MOVE,2,Divert[25].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "47,1,0",OTE,Divert[26].Config.Present
 "47,1,0",OTE,Divert[26].Config.Chute
 "47,1,0",OTE,Divert[26].Config.BagPresent
@@ -429,6 +493,7 @@ Rung,Function,Arguments
 "47,1,2",MOVE,1,Divert[26].Config.Arm
 "47,1,2",MOVE,2,Divert[26].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "48,1,0",OTE,Divert[27].Config.Present
 "48,1,0",OTE,Divert[27].Config.Chute
 "48,1,0",OTE,Divert[27].Config.BagPresent
@@ -437,6 +502,7 @@ Rung,Function,Arguments
 "48,1,2",MOVE,2,Divert[27].Config.Arm
 "48,1,2",MOVE,2,Divert[27].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "49,1,0",OTE,Divert[28].Config.Present
 "49,1,0",OTE,Divert[28].Config.Chute
 "49,1,0",OTE,Divert[28].Config.BagPresent
@@ -445,6 +511,7 @@ Rung,Function,Arguments
 "49,1,2",MOVE,1,Divert[28].Config.Arm
 "49,1,2",MOVE,2,Divert[28].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "50,1,0",OTE,Divert[29].Config.Present
 "50,1,0",OTE,Divert[29].Config.Chute
 "50,1,0",OTE,Divert[29].Config.BagPresent
@@ -453,6 +520,7 @@ Rung,Function,Arguments
 "50,1,2",MOVE,4,Divert[29].Config.Arm
 "50,1,2",MOVE,1,Divert[29].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "51,1,0",OTE,Divert[30].Config.Present
 "51,1,0",OTE,Divert[30].Config.Chute
 "51,1,0",OTE,Divert[30].Config.BagPresent
@@ -461,6 +529,7 @@ Rung,Function,Arguments
 "51,1,2",MOVE,3,Divert[30].Config.Arm
 "51,1,2",MOVE,1,Divert[30].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "52,1,0",OTE,Divert[31].Config.Present
 "52,1,0",OTE,Divert[31].Config.Chute
 "52,1,0",OTE,Divert[31].Config.BagPresent
@@ -469,6 +538,7 @@ Rung,Function,Arguments
 "52,1,2",MOVE,4,Divert[31].Config.Arm
 "52,1,2",MOVE,1,Divert[31].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "53,1,0",OTE,Divert[32].Config.Present
 "53,1,0",OTE,Divert[32].Config.Chute
 "53,1,0",OTE,Divert[32].Config.BagPresent
@@ -477,6 +547,7 @@ Rung,Function,Arguments
 "53,1,2",MOVE,3,Divert[32].Config.Arm
 "53,1,2",MOVE,1,Divert[32].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "54,1,0",OTE,Divert[33].Config.Present
 "54,1,0",OTE,Divert[33].Config.Chute
 "54,1,0",OTE,Divert[33].Config.BagPresent
@@ -485,6 +556,7 @@ Rung,Function,Arguments
 "54,1,2",MOVE,4,Divert[33].Config.Arm
 "54,1,2",MOVE,1,Divert[33].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "55,1,0",OTE,Divert[34].Config.Present
 "55,1,0",OTE,Divert[34].Config.Chute
 "55,1,0",OTE,Divert[34].Config.BagPresent
@@ -493,6 +565,7 @@ Rung,Function,Arguments
 "55,1,2",MOVE,3,Divert[34].Config.Arm
 "55,1,2",MOVE,1,Divert[34].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "56,1,0",OTE,Divert[35].Config.Present
 "56,1,0",OTE,Divert[35].Config.Chute
 "56,1,0",OTE,Divert[35].Config.BagPresent
@@ -501,6 +574,7 @@ Rung,Function,Arguments
 "56,1,2",MOVE,4,Divert[35].Config.Arm
 "56,1,2",MOVE,1,Divert[35].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "57,1,0",OTE,Divert[36].Config.Present
 "57,1,0",OTE,Divert[36].Config.Chute
 "57,1,0",OTE,Divert[36].Config.BagPresent
@@ -509,6 +583,7 @@ Rung,Function,Arguments
 "57,1,2",MOVE,3,Divert[36].Config.Arm
 "57,1,2",MOVE,1,Divert[36].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "58,1,0",OTE,Divert[37].Config.Present
 "58,1,0",OTE,Divert[37].Config.Chute
 "58,1,0",OTE,Divert[37].Config.BagPresent
@@ -517,6 +592,7 @@ Rung,Function,Arguments
 "58,1,2",MOVE,4,Divert[37].Config.Arm
 "58,1,2",MOVE,1,Divert[37].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "59,1,0",OTE,Divert[38].Config.Present
 "59,1,0",OTE,Divert[38].Config.Chute
 "59,1,0",OTE,Divert[38].Config.BagPresent
@@ -525,6 +601,7 @@ Rung,Function,Arguments
 "59,1,2",MOVE,3,Divert[38].Config.Arm
 "59,1,2",MOVE,1,Divert[38].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "60,1,0",OTE,Divert[39].Config.Present
 "60,1,0",OTE,Divert[39].Config.Chute
 "60,1,0",OTE,Divert[39].Config.BagPresent
@@ -533,6 +610,7 @@ Rung,Function,Arguments
 "60,1,2",MOVE,4,Divert[39].Config.Arm
 "60,1,2",MOVE,1,Divert[39].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "61,1,0",OTE,Divert[40].Config.Present
 "61,1,0",OTE,Divert[40].Config.Chute
 "61,1,0",OTE,Divert[40].Config.BagPresent
@@ -541,6 +619,7 @@ Rung,Function,Arguments
 "61,1,2",MOVE,3,Divert[40].Config.Arm
 "61,1,2",MOVE,1,Divert[40].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "62,1,0",OTE,Divert[41].Config.Present
 "62,1,0",OTE,Divert[41].Config.Chute
 "62,1,0",OTE,Divert[41].Config.BagPresent
@@ -549,6 +628,7 @@ Rung,Function,Arguments
 "62,1,2",MOVE,4,Divert[41].Config.Arm
 "62,1,2",MOVE,1,Divert[41].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "63,1,0",OTE,Divert[42].Config.Present
 "63,1,0",OTE,Divert[42].Config.Chute
 "63,1,0",OTE,Divert[42].Config.BagPresent
@@ -557,6 +637,7 @@ Rung,Function,Arguments
 "63,1,2",MOVE,3,Divert[42].Config.Arm
 "63,1,2",MOVE,1,Divert[42].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "64,1,0",OTE,Divert[43].Config.Present
 "64,1,0",OTE,Divert[43].Config.Chute
 "64,1,0",OTE,Divert[43].Config.BagPresent
@@ -565,6 +646,7 @@ Rung,Function,Arguments
 "64,1,2",MOVE,4,Divert[43].Config.Arm
 "64,1,2",MOVE,1,Divert[43].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "65,1,0",OTE,Divert[44].Config.Present
 "65,1,0",OTE,Divert[44].Config.Chute
 "65,1,0",OTE,Divert[44].Config.BagPresent
@@ -573,6 +655,7 @@ Rung,Function,Arguments
 "65,1,2",MOVE,3,Divert[44].Config.Arm
 "65,1,2",MOVE,1,Divert[44].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "66,1,0",OTE,Divert[45].Config.Present
 "66,1,0",OTE,Divert[45].Config.Chute
 "66,1,0",OTE,Divert[45].Config.BagPresent
@@ -581,6 +664,7 @@ Rung,Function,Arguments
 "66,1,2",MOVE,4,Divert[45].Config.Arm
 "66,1,2",MOVE,2,Divert[45].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "67,1,0",OTE,Divert[46].Config.Present
 "67,1,0",OTE,Divert[46].Config.Chute
 "67,1,0",OTE,Divert[46].Config.BagPresent
@@ -589,6 +673,7 @@ Rung,Function,Arguments
 "67,1,2",MOVE,3,Divert[46].Config.Arm
 "67,1,2",MOVE,2,Divert[46].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "68,1,0",OTE,Divert[47].Config.Present
 "68,1,0",OTE,Divert[47].Config.Chute
 "68,1,0",OTE,Divert[47].Config.BagPresent
@@ -597,6 +682,7 @@ Rung,Function,Arguments
 "68,1,2",MOVE,4,Divert[47].Config.Arm
 "68,1,2",MOVE,2,Divert[47].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "69,1,0",OTE,Divert[48].Config.Present
 "69,1,0",OTE,Divert[48].Config.Chute
 "69,1,0",OTE,Divert[48].Config.BagPresent
@@ -605,6 +691,7 @@ Rung,Function,Arguments
 "69,1,2",MOVE,3,Divert[48].Config.Arm
 "69,1,2",MOVE,2,Divert[48].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "70,1,0",OTE,Divert[49].Config.Present
 "70,1,0",OTE,Divert[49].Config.Chute
 "70,1,0",OTE,Divert[49].Config.BagPresent
@@ -613,6 +700,7 @@ Rung,Function,Arguments
 "70,1,2",MOVE,4,Divert[49].Config.Arm
 "70,1,2",MOVE,2,Divert[49].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "71,1,0",OTE,Divert[50].Config.Present
 "71,1,0",OTE,Divert[50].Config.Chute
 "71,1,0",OTE,Divert[50].Config.BagPresent
@@ -621,6 +709,7 @@ Rung,Function,Arguments
 "71,1,2",MOVE,3,Divert[50].Config.Arm
 "71,1,2",MOVE,2,Divert[50].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "72,1,0",OTE,Divert[51].Config.Present
 "72,1,0",OTE,Divert[51].Config.Chute
 "72,1,0",OTE,Divert[51].Config.BagPresent
@@ -629,6 +718,7 @@ Rung,Function,Arguments
 "72,1,2",MOVE,4,Divert[51].Config.Arm
 "72,1,2",MOVE,2,Divert[51].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "73,1,0",OTE,Divert[52].Config.Present
 "73,1,0",OTE,Divert[52].Config.Chute
 "73,1,0",OTE,Divert[52].Config.BagPresent
@@ -637,6 +727,7 @@ Rung,Function,Arguments
 "73,1,2",MOVE,3,Divert[52].Config.Arm
 "73,1,2",MOVE,2,Divert[52].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "74,1,0",OTE,Divert[53].Config.Present
 "74,1,0",OTE,Divert[53].Config.Chute
 "74,1,0",OTE,Divert[53].Config.BagPresent
@@ -645,6 +736,7 @@ Rung,Function,Arguments
 "74,1,2",MOVE,4,Divert[53].Config.Arm
 "74,1,2",MOVE,2,Divert[53].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "75,1,0",OTE,Divert[54].Config.Present
 "75,1,0",OTE,Divert[54].Config.Chute
 "75,1,0",OTE,Divert[54].Config.BagPresent
@@ -653,6 +745,7 @@ Rung,Function,Arguments
 "75,1,2",MOVE,3,Divert[54].Config.Arm
 "75,1,2",MOVE,2,Divert[54].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "76,1,0",OTE,Divert[55].Config.Present
 "76,1,0",OTE,Divert[55].Config.Chute
 "76,1,0",OTE,Divert[55].Config.BagPresent
@@ -661,6 +754,7 @@ Rung,Function,Arguments
 "76,1,2",MOVE,4,Divert[55].Config.Arm
 "76,1,2",MOVE,2,Divert[55].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "77,1,0",OTE,Divert[56].Config.Present
 "77,1,0",OTE,Divert[56].Config.Chute
 "77,1,0",OTE,Divert[56].Config.BagPresent
@@ -669,6 +763,7 @@ Rung,Function,Arguments
 "77,1,2",MOVE,3,Divert[56].Config.Arm
 "77,1,2",MOVE,2,Divert[56].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "78,1,0",OTE,Divert[57].Config.Present
 "78,1,0",OTE,Divert[57].Config.Chute
 "78,1,0",OTE,Divert[57].Config.BagPresent
@@ -677,6 +772,7 @@ Rung,Function,Arguments
 "78,1,2",MOVE,4,Divert[57].Config.Arm
 "78,1,2",MOVE,2,Divert[57].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "79,1,0",OTE,Divert[58].Config.Present
 "79,1,0",OTE,Divert[58].Config.Chute
 "79,1,0",OTE,Divert[58].Config.BagPresent
@@ -685,6 +781,7 @@ Rung,Function,Arguments
 "79,1,2",MOVE,3,Divert[58].Config.Arm
 "79,1,2",MOVE,2,Divert[58].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "80,1,0",OTE,Divert[59].Config.Present
 "80,1,0",OTE,Divert[59].Config.Chute
 "80,1,0",OTE,Divert[59].Config.BagPresent
@@ -693,6 +790,7 @@ Rung,Function,Arguments
 "80,1,2",MOVE,6,Divert[59].Config.Arm
 "80,1,2",MOVE,1,Divert[59].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "81,1,0",OTE,Divert[60].Config.Present
 "81,1,0",OTE,Divert[60].Config.Chute
 "81,1,0",OTE,Divert[60].Config.BagPresent
@@ -701,6 +799,7 @@ Rung,Function,Arguments
 "81,1,2",MOVE,5,Divert[60].Config.Arm
 "81,1,2",MOVE,1,Divert[60].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "82,1,0",OTE,Divert[61].Config.Present
 "82,1,0",OTE,Divert[61].Config.Chute
 "82,1,0",OTE,Divert[61].Config.BagPresent
@@ -709,6 +808,7 @@ Rung,Function,Arguments
 "82,1,2",MOVE,6,Divert[61].Config.Arm
 "82,1,2",MOVE,1,Divert[61].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "83,1,0",OTE,Divert[62].Config.Present
 "83,1,0",OTE,Divert[62].Config.Chute
 "83,1,0",OTE,Divert[62].Config.BagPresent
@@ -717,6 +817,7 @@ Rung,Function,Arguments
 "83,1,2",MOVE,5,Divert[62].Config.Arm
 "83,1,2",MOVE,1,Divert[62].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "84,1,0",OTE,Divert[63].Config.Present
 "84,1,0",OTE,Divert[63].Config.Chute
 "84,1,0",OTE,Divert[63].Config.BagPresent
@@ -725,6 +826,7 @@ Rung,Function,Arguments
 "84,1,2",MOVE,6,Divert[63].Config.Arm
 "84,1,2",MOVE,1,Divert[63].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "85,1,0",OTE,Divert[64].Config.Present
 "85,1,0",OTE,Divert[64].Config.Chute
 "85,1,0",OTE,Divert[64].Config.BagPresent
@@ -733,6 +835,7 @@ Rung,Function,Arguments
 "85,1,2",MOVE,5,Divert[64].Config.Arm
 "85,1,2",MOVE,1,Divert[64].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "86,1,0",OTE,Divert[65].Config.Present
 "86,1,0",OTE,Divert[65].Config.Chute
 "86,1,0",OTE,Divert[65].Config.BagPresent
@@ -741,6 +844,7 @@ Rung,Function,Arguments
 "86,1,2",MOVE,6,Divert[65].Config.Arm
 "86,1,2",MOVE,1,Divert[65].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "87,1,0",OTE,Divert[66].Config.Present
 "87,1,0",OTE,Divert[66].Config.Chute
 "87,1,0",OTE,Divert[66].Config.BagPresent
@@ -749,6 +853,7 @@ Rung,Function,Arguments
 "87,1,2",MOVE,5,Divert[66].Config.Arm
 "87,1,2",MOVE,1,Divert[66].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "88,1,0",OTE,Divert[67].Config.Present
 "88,1,0",OTE,Divert[67].Config.Chute
 "88,1,0",OTE,Divert[67].Config.BagPresent
@@ -757,6 +862,7 @@ Rung,Function,Arguments
 "88,1,2",MOVE,6,Divert[65].Config.Arm
 "88,1,2",MOVE,1,Divert[65].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "89,1,0",OTE,Divert[68].Config.Present
 "89,1,0",OTE,Divert[68].Config.Chute
 "89,1,0",OTE,Divert[68].Config.BagPresent
@@ -765,6 +871,7 @@ Rung,Function,Arguments
 "89,1,2",MOVE,5,Divert[68].Config.Arm
 "89,1,2",MOVE,1,Divert[68].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "90,1,0",OTE,Divert[69].Config.Present
 "90,1,0",OTE,Divert[69].Config.Chute
 "90,1,0",OTE,Divert[69].Config.BagPresent
@@ -773,6 +880,7 @@ Rung,Function,Arguments
 "90,1,2",MOVE,6,Divert[69].Config.Arm
 "90,1,2",MOVE,1,Divert[69].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "91,1,0",OTE,Divert[70].Config.Present
 "91,1,0",OTE,Divert[70].Config.Chute
 "91,1,0",OTE,Divert[70].Config.BagPresent
@@ -781,6 +889,7 @@ Rung,Function,Arguments
 "91,1,2",MOVE,5,Divert[70].Config.Arm
 "91,1,2",MOVE,1,Divert[70].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "92,1,0",OTE,Divert[71].Config.Present
 "92,1,0",OTE,Divert[71].Config.Chute
 "92,1,0",OTE,Divert[71].Config.BagPresent
@@ -789,6 +898,7 @@ Rung,Function,Arguments
 "92,1,2",MOVE,6,Divert[71].Config.Arm
 "92,1,2",MOVE,1,Divert[71].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "93,1,0",OTE,Divert[72].Config.Present
 "93,1,0",OTE,Divert[72].Config.Chute
 "93,1,0",OTE,Divert[72].Config.BagPresent
@@ -797,6 +907,7 @@ Rung,Function,Arguments
 "93,1,2",MOVE,5,Divert[72].Config.Arm
 "93,1,2",MOVE,1,Divert[72].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "94,1,0",OTE,Divert[73].Config.Present
 "94,1,0",OTE,Divert[73].Config.Chute
 "94,1,0",OTE,Divert[73].Config.BagPresent
@@ -805,6 +916,7 @@ Rung,Function,Arguments
 "94,1,2",MOVE,6,Divert[73].Config.Arm
 "94,1,2",MOVE,2,Divert[73].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "95,1,0",OTE,Divert[74].Config.Present
 "95,1,0",OTE,Divert[74].Config.Chute
 "95,1,0",OTE,Divert[74].Config.BagPresent
@@ -813,11 +925,13 @@ Rung,Function,Arguments
 "95,1,2",MOVE,5,Divert[74].Config.Arm
 "95,1,2",MOVE,2,Divert[74].Config.ArmAb[0]
 ""
+Rung Comment:,Divert Configuration Logic
 "96,1,0",OTE,Divert[75].Config.Present
 "96,1,0",OTE,Divert[75].Config.Chute
 "96,1,0",OTE,Divert[75].Config.OteDest
 "96,1,1",XIC,SafetyConsumed.data[0].2
 "96,1,1",OTE,Divert[75].TakeawayNotRunning_Input
 ""
+Rung Comment:,Call Build Tag Values Routine to Set Individual Tag Values
 "97,0,0",JSR,BuildTagValues,0
 ""

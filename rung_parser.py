@@ -45,7 +45,7 @@ def parse_routine(raw_routine_data=list()):
     rung_num = 0
     for rung in raw_routine_data: #Loops through all rungs in routine
         #clean up the string for formatting
-        temp_rung = rung.rstrip(';')
+        temp_rung = rung[0].rstrip(';')
         temp_rung = temp_rung.rstrip(']')
         temp_rung = temp_rung.replace(' ', '')
         raw_rung_data = temp_rung.split(')')
@@ -59,7 +59,11 @@ def parse_routine(raw_routine_data=list()):
             position = parsed_function[0].copy()
             parsed_rung_data.append(parsed_function)
 
-        parsed_routine_data.append(parsed_rung_data)
+        rung_comment = ["Rung Comment:", rung[1]]
+        idk_anymore = [parsed_rung_data.copy(), rung_comment]
+        #parsed_rung_data.append(rung_comment)
+        #print(parsed_rung_data)
+        parsed_routine_data.append(idk_anymore)
         rung_num += 1
 
     return parsed_routine_data
