@@ -64,6 +64,8 @@ def attach_rungs(dataframe):
             filledTemplate = fill_rung_template(root, rungNum, rung)
 
 def combo(l5xPath):
+
+    # Funtion to feed the list of all rungs into the deconstruction function
     allRungs = get_all_rungs(l5xPath)
     parsedRungs = parse_routine(allRungs)
     exl = write_param_sheet(parsedRungs, "csv_testing.csv") 
