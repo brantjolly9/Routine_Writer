@@ -43,8 +43,10 @@ def get_all_rungs(l5xPath):
     RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent/Rung')
     for rung in RLLContent:
         rungText = rung.find("Text").text.strip()
-        comment = rung.find("Comment").text.strip()
-
+        try:
+            comment = rung.find("Comment").text.strip()
+        except Exception as e:
+            coment = None
         rungs.append((rungText, comment))
 
     return rungs
