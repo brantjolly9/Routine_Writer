@@ -63,7 +63,7 @@ def attach_rungs(dataframe):
 
 def combo(l5xPath):
     allRungs = get_all_rungs(l5xPath)
-    parsedRungs = parse_routine(allRungs)
+    parsedRungs = parse_routine(allRungs[:10])
     exl = write_param_sheet(parsedRungs, "csv_testing.csv") 
     print("RAN")
 
