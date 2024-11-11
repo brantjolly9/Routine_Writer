@@ -133,7 +133,7 @@ def deconstruct():
     # Preparing working dir and testing for relevant files
     exeDirPath = os.path.dirname(os.path.realpath(__file__))
 
-    userPath = get_path_from_user(defaultPath=rootDir, defaultFolder="exeTesting")
+    userPath = get_path_from_user(exeDirPath, defaultPath=rootDir, defaultFolder="exeTesting")
     userFolder = os.path.basename(userPath)
     exportedFilesFolder = "Exported_Files"
     resultFilesFolder = "Result_Files"

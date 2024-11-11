@@ -42,7 +42,7 @@ def prepare_working_dir(
             #logger.error(f"Could not verify {path}", exc_info=True)
     #os.chdir(startDir)
     return verifiedPaths
-def get_path_from_user(defaultPath="C:\\", defaultFolder="C:\\exeTesting"):
+def get_path_from_user(exeDirPath, defaultPath="C:\\", defaultFolder="C:\\exeTesting"):
 
     print(
         "Make a folder somewhere on the computer (ideally C:\\FolderName)\n"
@@ -53,7 +53,6 @@ def get_path_from_user(defaultPath="C:\\", defaultFolder="C:\\exeTesting"):
         )
 
     workingDir = ""
-    exeDirPath = os.path.dirname(os.path.realpath(__file__))
     print(f"Your Current Directory:\n{exeDirPath}\n")
     while not os.path.isdir(workingDir):
         workingDir = input(f"Enter full or relative file path (defaults to {defaultPath}\\{defaultFolder}): ")
