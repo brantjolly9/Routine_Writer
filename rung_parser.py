@@ -4,7 +4,6 @@ def parse_funtion_block(cur_pos=list(), cur_block=str()):
 
     while position_found == False:
         first_char = cur_block[0]
-        print(first_char)
         match first_char:
             case '[':
                 function_pos[1] += 1

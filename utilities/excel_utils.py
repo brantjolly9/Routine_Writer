@@ -83,11 +83,12 @@ def get_column_titles(sheet):
     return columnTitles
 
 def write_param_sheet(routine, filename):
+    # Routine: [ RungText, Comment ]
     header = ["Rung", "Function", "Arguments"]
     new_rung = [""]
 
     '''
-    routine structure
+    formatted routine structure
 
     routine = [
     [[Rung Data 1], [Comment Data 1]],
