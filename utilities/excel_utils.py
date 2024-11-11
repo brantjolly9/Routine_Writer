@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import logging
 import json
-from utilities.os_utils import get_path_from_user
+# from utilities.os_utils import get_path_from_user
 import csv
 
 #from utilities import logger
@@ -139,3 +139,19 @@ def write_param_sheet(routine, filename):
             print(f"{filename} is already open, please close it and try again")
     #csvFile = pd.read_csv(filename)
     #csvFile.to_excel(cs)
+
+
+def read_param_sheet(filename):
+    lines = []
+    with open(filename, "r") as fn:
+        reader = csv.reader(fn)
+        readerDict = csv.DictReader(fn)
+        for line in reader:
+            print(line)
+            lines.append(line)
+    return lines
+
+
+
+filename = "csv_testing.csv"
+lines = read_param_sheet(filename)

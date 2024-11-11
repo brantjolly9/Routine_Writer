@@ -27,12 +27,13 @@ def parse_funtion_block(cur_pos=list(), cur_block=str()):
 
     return [function_pos, function]
 
+
 def parse_routine(raw_routine_data=list()):
-    '''     
+    '''
     Description
     -------
     Handles the parsing of LX5 plaintext routine data
-    
+
     Parameters
     ----------
     raw_routine_data of type list
