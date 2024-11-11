@@ -155,20 +155,3 @@ def read_param_sheet(filename, asJson=False):
             lines.append(line)
     return lines
 
-def zip_routine(csvLines):
-    curBranch = 0
-    curLevel = 0
-    finalRungText = ""
-    for line in csvLines:
-        try:
-            numItems = len(line)
-            position = line[0]
-            command = line[1]
-            params = line[2:]
-        except IndexError as ie:
-            print("LIST OUT OF RANGE")
-        finalRungText = finalRungText.join(params)
-    print(finalRungText)
-
-
-

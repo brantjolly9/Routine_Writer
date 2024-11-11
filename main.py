@@ -5,7 +5,8 @@ import re                           # REGEX library for working with strings
 from pprint import pprint           # Pretty Printing (For testing)
 import pandas as pd                 # Pandas Library for Excel to Dict Conversion
 import os                           # Operating System Library for working with folders
-from rung_parser import *
+#from rung_parser import *
+from dict_parser import *
 # Try to import custom Libraries stored in .\Utilities
 # Print an error if not found
 try:
@@ -65,7 +66,7 @@ def combo(l5xPath):
     allRungs = get_all_rungs(l5xPath)
     print(allRungs[:10])
     parsedRungs = parse_routine(allRungs[:10])
-    exl = write_param_sheet(parsedRungs, "csv_testing.csv") 
+    exl = write_param_sheet(parsedRungs, "dict_testing.csv") 
     print("RAN")
 
 def main():
@@ -154,19 +155,27 @@ def deconstruct():
     #dataframe = open_excel_as_pd(excelPath)
     combo(l5xFiles[0])
 
-def reconstruct():
+def make_buffer_dict(position):
+    rungNum = position[0]
+    branch = position[1]
+    level = position[2]
+
+def reconstruct(csvLines):
+    curBranch = 0
+    curLevel = 0
+    buffers = {}
     for line in csvLines:
         try:
             numItems = len(line)
-            print(numItems)
-            position = line[0]
+            position = line[0].split(",")
             command = line[1]
             params = line[2:]
-            print(f"FULL: {line}")
-            print(f"LAST: {line[-1]}")
-            print(f"PARAMS: {params}\n")
+            commandBuffer = command + "(" +  "".join(params) + ")"
+            buffers[f"branch{branch}"] = {}
+            buffers[f"branch{branch}"][f"level{level}"] = commandBuffer
         except IndexError as ie:
             print("LIST OUT OF RANGE")
+
 
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
@@ -180,4 +189,4 @@ if __name__ == "__main__":
     #write_param_sheet(parsedRungs, filename)
 
     lines = read_param_sheet(filename)
-    zip_routine(lines)
+    reconstruct(lines)
