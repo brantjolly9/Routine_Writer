@@ -5,8 +5,7 @@ import re                           # REGEX library for working with strings
 from pprint import pprint           # Pretty Printing (For testing)
 import pandas as pd                 # Pandas Library for Excel to Dict Conversion
 import os                           # Operating System Library for working with folders
-#from rung_parser import *
-from dict_parser import *
+from rung_parser import *
 # Try to import custom Libraries stored in .\Utilities
 # Print an error if not found
 try:
@@ -155,26 +154,41 @@ def deconstruct():
     #dataframe = open_excel_as_pd(excelPath)
     combo(l5xFiles[0])
 
-def make_buffer_dict(position):
+def make_buffer_dict(coordinates, bufferDict=dict()):
+    position = coordinates.split(",")
     rungNum = position[0]
     branch = position[1]
     level = position[2]
+    buffers = 0
+
+def clean_positions(postion):
+    pos = postion.split(",")
+    clean = []
+    for p in pos:
+        clean.append(int(p))
+    return clean
 
 def reconstruct(csvLines):
     curBranch = 0
     curLevel = 0
-    buffers = {}
-    for line in csvLines:
+    buffer = ""
+    bufferArray = [[],[],[]]
+    bufferDict = {}
+    for line in csvLines[2:]:
         try:
             numItems = len(line)
-            position = line[0].split(",")
+            pos = clean_positions(line[0])
+            print(line)
             command = line[1]
             params = line[2:]
             commandBuffer = command + "(" +  "".join(params) + ")"
-            buffers[f"branch{branch}"] = {}
-            buffers[f"branch{branch}"][f"level{level}"] = commandBuffer
+            #bufferDict[f"rung{pos[0]}"][f"branch{pos[1]}"][f"level{pos[2]}"] = commandBuffer 
+            bufferArray[pos[0]][pos[1]][pos[2]] = commandBuffer
+            pprint(bufferArray)
+
         except IndexError as ie:
             print("LIST OUT OF RANGE")
+    
 
 
 if __name__ == "__main__":
@@ -186,6 +200,7 @@ if __name__ == "__main__":
 
     #parsedRungs = parse_routine(testStr)
     filename = "rung_testing.csv"
+    #fullFile = "csv_testing.csv"
     #write_param_sheet(parsedRungs, filename)
 
     lines = read_param_sheet(filename)
