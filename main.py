@@ -5,7 +5,7 @@ import re                           # REGEX library for working with strings
 from pprint import pprint           # Pretty Printing (For testing)
 import pandas as pd                 # Pandas Library for Excel to Dict Conversion
 import os                           # Operating System Library for working with folders
-from rung_parser import parse_routine
+from rung_parser import *
 # Try to import custom Libraries stored in .\Utilities
 # Print an error if not found
 try:
@@ -63,13 +63,10 @@ def attach_rungs(dataframe):
 
 def combo(l5xPath):
     allRungs = get_all_rungs(l5xPath)
+    print(allRungs[:10])
     parsedRungs = parse_routine(allRungs[:10])
     exl = write_param_sheet(parsedRungs, "csv_testing.csv") 
     print("RAN")
-
-
-
-
 
 def main():
     # Refer to directory structure in README.txt
@@ -157,8 +154,30 @@ def deconstruct():
     #dataframe = open_excel_as_pd(excelPath)
     combo(l5xFiles[0])
 
+def reconstruct():
+    for line in csvLines:
+        try:
+            numItems = len(line)
+            print(numItems)
+            position = line[0]
+            command = line[1]
+            params = line[2:]
+            print(f"FULL: {line}")
+            print(f"LAST: {line[-1]}")
+            print(f"PARAMS: {params}\n")
+        except IndexError as ie:
+            print("LIST OUT OF RANGE")
 
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
     #deconstruct()
-    combo("24-071-Configuration_Routine_RLL.L5X")
+    #combo("24-071-Configuration_Routine_RLL.L5X")
+
+    testStr = [("[XIC(SLS1.Sorter.LostBearingFault)[XIO(Hmi.Sorter[0].Faults.MissingBearingFault)ADD(Hmi.Sorter[0].Stats.MissingBearingFaultCount,1,Hmi.Sorter[0].Stats.MissingBearingFaultCount)ADD(Hmi.Sorter[0].Stats.TotalFaultCount,1,Hmi.Sorter[0].Stats.TotalFaultCount),OTE(Hmi.Sorter[0].Faults.MissingBearingFault),XIC(OneSecondPulse)ADD(Hmi.Sorter[0].Stats.MissingBearingCurrentTime,1,Hmi.Sorter[0].Stats.MissingBearingCurrentTime)ADD(Hmi.Sorter[0].Stats.MissingBearingTotalTime,1,Hmi.Sorter[0].Stats.MissingBearingTotalTime)],XIO(SLS1.Sorter.LostBearingFault)CLR(Hmi.Sorter[0].Stats.MissingBearingCurrentTime)];", "COMMENT")]
+
+    #parsedRungs = parse_routine(testStr)
+    filename = "rung_testing.csv"
+    #write_param_sheet(parsedRungs, filename)
+
+    lines = read_param_sheet(filename)
+    zip_routine(lines)

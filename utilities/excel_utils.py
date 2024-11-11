@@ -2,11 +2,13 @@
 Holds the excel utilities for the main PLC routine config program
 """
 import openpyxl
+from pprint import pprint
 import pandas as pd
 import numpy as np
 import logging
 import json
 # from utilities.os_utils import get_path_from_user
+from rung_parser import *
 import csv
 
 #from utilities import logger
@@ -141,17 +143,32 @@ def write_param_sheet(routine, filename):
     #csvFile.to_excel(cs)
 
 
-def read_param_sheet(filename):
+def read_param_sheet(filename, asJson=False):
     lines = []
     with open(filename, "r") as fn:
-        reader = csv.reader(fn)
-        readerDict = csv.DictReader(fn)
+        reader = None
+        if asJson:
+            reader = csv.DictReader(fn)
+        else:
+            reader = csv.reader(fn)
         for line in reader:
-            print(line)
             lines.append(line)
     return lines
 
+def zip_routine(csvLines):
+    curBranch = 0
+    curLevel = 0
+    finalRungText = ""
+    for line in csvLines:
+        try:
+            numItems = len(line)
+            position = line[0]
+            command = line[1]
+            params = line[2:]
+        except IndexError as ie:
+            print("LIST OUT OF RANGE")
+        finalRungText = finalRungText.join(params)
+    print(finalRungText)
 
 
-filename = "csv_testing.csv"
-lines = read_param_sheet(filename)
+
