@@ -118,7 +118,7 @@ def write_param_sheet(routine, filename):
         formatted_routine.append(new_rung)
 
     continueCheck = True
-    with open("csvStruct.json", "x") as csvStruct:
+    with open("csvStruct.json", "w") as csvStruct:
         json.dump(formatted_routine, csvStruct, indent=3)
     #verifiedOutputFilePath = get_path_from_user()
     #print(verifiedOutputFilePath)
