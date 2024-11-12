@@ -69,10 +69,11 @@ def new_attach_rungs(rungList, outputFile):
         template = fill_rung_template(root, rungNum, rung[0], rung[1])
 
 def combo(l5xPath):
-    allRungs = get_all_rungs(l5xPath)
+    lFile = open(l5xPath, "r")
+    allRungs = get_all_rungs(lFile)
+    lFile.close()
     with open("inputRungs.txt", "w") as ir:
-        ir.writelines(allRungs)
-    print(allRungs)
+        ir.writelines(allRungs[1])
     parsedRungs = parse_routine(allRungs)
     exl = write_param_sheet(parsedRungs, "csv_testing.csv") 
 
@@ -182,7 +183,8 @@ def reconstruct(csvFile):
     xmlFile = et.parse(inputFile)
     outputFile = "output.L5X"
     formattedRungs = routine_handler(csvFile)
-    print(formattedRungs)
+    with open("outputRungs.txt", "w") as opr:
+        opr.writelines(formattedRungs[1])
     new_attach_rungs(formattedRungs, inputFile)
     write_to_file(xmlFile, outputFile)
 
