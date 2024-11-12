@@ -41,11 +41,10 @@ def fill_rung_template(root, rungNum, text, comment=None):
 
     # Check for comment, else leave tag blank
     if comment != "":
-        template.find("Comment").text = add_cdata(comment)
-        print(comment)
+        template.find("Comment").text = add_cdata(comment.strip())
 
     # Fill Rung Element Text Tag with rung text, if the element is valid
-    template.find("Text").text = add_cdata(text)
+    template.find("Text").text = add_cdata(text.strip())
     if isinstance(template, et._Element):
         RLLContent.append(template)
     else:
