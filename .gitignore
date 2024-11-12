@@ -4,6 +4,7 @@ exeTesting
 configenv
 __pycache__
 routine_writer.spec
+Tester/main.log
 dist
 Complex_Rung.txt
 *.json
