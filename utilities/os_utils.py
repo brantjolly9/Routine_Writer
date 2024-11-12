@@ -140,9 +140,6 @@ def user_file_selection(l5xFiles):
             "1,2,3,4,5,6,7,8,9,10,11",
 
             ]
-    print("Select an L5X File to Get Data From\n(X-Y) for a range\n(X,Y,Z) for individual files")
-    for index, lFile in enumerate(l5xFiles):
-        print(f"{lFile}: ({index + 1})")
     fileSelection = []
     seperator = None
     validStr = False
@@ -157,7 +154,6 @@ def user_file_selection(l5xFiles):
             #result = re.findall("(\d(-|,)?)+")
             if result != None:
                 seperator = result.groups()[-1]
-                print(seperator)
                 if seperator:
                     for i in result.string.split(seperator):
                         fileSelection.append(int(i) - 1)
@@ -167,7 +163,6 @@ def user_file_selection(l5xFiles):
         except ValueError as ve:
             print(f"Please Enter a Selection in the Range of 0-{len(l5xFiles)}")
 
-    print(fileSelection)
     if seperator == ",":
         for i in fileSelection:
             userFiles.append(l5xFiles[i])

@@ -153,7 +153,16 @@ def deconstruct():
     print("File Operations Completed\n--------------------\n")
     # Create the dicionary object (dataframe) from the excel sheet
     #dataframe = open_excel_as_pd(excelPath)
-    fileSelection = user_file_selection(l5xFiles)
+    validSelection = False
+    print("Select an L5X File to Get Data From\n(X-Y) for a range\n(X,Y,Z) for individual files")
+    for index, lFile in enumerate(l5xFiles):
+        print(f"{lFile}: ({index + 1})")
+    while not validSelection:
+        try:
+            fileSelection = user_file_selection(l5xFiles)
+            validSelection = True
+        except IndexError as ie:
+            print(f"Please Enter Integers in the range of 0-{len(l5xFiles)}")
     print(fileSelection)
     #combo(l5xFiles[fileSelection])
 
