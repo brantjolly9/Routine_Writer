@@ -6,6 +6,7 @@ from pprint import pprint           # Pretty Printing (For testing)
 import pandas as pd                 # Pandas Library for Excel to Dict Conversion
 import os                           # Operating System Library for working with folders
 from rung_parser import *
+from time import sleep
 # Try to import custom Libraries stored in .\Utilities
 # Print an error if not found
 try:
@@ -205,39 +206,32 @@ def zip(csvLines):
     oldBranch = 100
     oldLevel = 100
     buffers = []
+#    for line in csvLines:
+#        print(line)
+#        pos = clean_positions(line[0])
+#        mainBuffer = ""
+#        while pos[0] < oldRung:
+#            print("RUNG")
+#            while pos[1] < oldBranch:
+#                print("BRANCH")
+#                mainBuffer += "!!"
+#                while pos[2] <= oldLevel:
+#                    for b in line[1:]:
+#                        mainBuffer += "(" + b
+#                    sleep(1)
+#                    oldLevel = pos[2]
+#                    print(oldLevel)
+#                    print(line)
+#                mainBuffer += "??"
+#                oldBranch = pos[1]
+#            oldRung = pos[0]
+#        buffers.append(mainBuffer)
+
     for line in csvLines:
-        print(line)
         pos = clean_positions(line[0])
-        mainBuffer = ""
-        while pos[0] < oldRung:
-            print("RUNG")
-            while pos[1] < oldBranch:
-                print("BRANCH")
-                mainBuffer += "!!"
-                while pos[2] <= oldLevel:
-                    for b in line[1:]:
-                        mainBuffer += "(" + b
-                    oldLevel = pos[2]
-                    print(pos)
-                    print(oldLevel)
-                mainBuffer += "??"
-                oldBranch = pos[1]
-            oldRung = pos[0]
-        buffers.append(mainBuffer)
+        print(pos)
     return buffers
 
-def reeeeee():
-    l = [
-        [1, 2, 3, 3, 5, 2, 1, 4],
-        [9, 8, 4, 2, 4, 6, 7, 8],
-        [5, 6, 2, 1, 5, 6, 7, 8]]
-    oldPos = 100
-    for col in l:
-        print(col)
-        pos = col[1]
-        while oldPos <= pos:
-            print("Less Than")
-            oldPos = pos
 
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
@@ -249,10 +243,10 @@ if __name__ == "__main__":
     parsedRungs = parse_routine(testStr)
     filename = "rung_testing.csv"
     #fullFile = "csv_testing.csv"
-    singleLineTest = "single_line.csv"
-    write_param_sheet(parsedRungs, singleLineTest)
+#    singleLineTest = "single_line.csv"
+#    write_param_sheet(parsedRungs, singleLineTest)
 
-#    lines = read_param_sheet(filename)
-#    buff = zip(lines)
-#    print(buff)
-#    print("END")
+    lines = read_param_sheet(filename)
+    buff = zip(lines)
+    print(buff)
+    print("END")
