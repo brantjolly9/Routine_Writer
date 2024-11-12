@@ -1,6 +1,5 @@
 import lxml.etree as et
 from pprint import pprint
-import lxml
 import logging
 import re
 
@@ -39,13 +38,9 @@ def get_all_rung_strings(l5xPath):
 
 def get_all_rungs(l5xPath):
     rungs = []
-    try:
-        xmlDoc = et.parse(l5xPath)
-        root = xmlDoc.getroot()
-        RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent/Rung')
-    except OSError as oe:
-        print("ERROR")
-        return None
+    xmlDoc = et.parse(l5xPath)
+    root = xmlDoc.getroot()
+    RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent/Rung')
     for rung in RLLContent:
         rungText = rung.find("Text").text.strip()
         try:

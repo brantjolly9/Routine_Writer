@@ -119,6 +119,8 @@ def main():
     except AttributeError as ae:
         logger.error("Unable to find dataframe", exc_info=True)
 
+
+
 def deconstruct():
 
     # Refer to directory structure in README.txt
@@ -151,16 +153,9 @@ def deconstruct():
     print("File Operations Completed\n--------------------\n")
     # Create the dicionary object (dataframe) from the excel sheet
     #dataframe = open_excel_as_pd(excelPath)
-    print("Select an L5X File to Get Data From")
-    for index, lFile in enumerate(l5xFiles):
-        print(f"{lFile}: ({index})")
-    fileSelection = -1
-    while fileSelection not in range(len(l5xFiles)):
-        try:
-            fileSelection = int(input("Selection: "))
-        except ValueError as ve:
-            print("Please Enter a Number")
-    combo(l5xFiles[fileSelection])
+    fileSelection = user_file_selection(l5xFiles)
+    print(fileSelection)
+    #combo(l5xFiles[fileSelection])
 
 
 if __name__ == "__main__":
