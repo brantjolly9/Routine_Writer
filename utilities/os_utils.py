@@ -131,20 +131,11 @@ def makeLogFile(workingDir, logName="main.log"):
 def user_file_selection(l5xFiles):
 
     userFiles = []
-    testStrings = [
-            "1-4",
-            "5-1",
-            "5",
-            "4,5,6",
-            "a",
-            "1,2,3,4,5,6,7,8,9,10,11",
-
-            ]
     fileSelection = []
     seperator = None
     validStr = False
-    lenOnes = len(l5xFiles) % 10
-    lenTens = len(l5xFiles) % 100 // 10
+    #lenOnes = len(l5xFiles) % 10
+    #lenTens = len(l5xFiles) % 100 // 10
 
     while not validStr:
         try:
