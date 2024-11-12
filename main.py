@@ -161,34 +161,71 @@ def make_buffer_dict(coordinates, bufferDict=dict()):
     level = position[2]
     buffers = 0
 
+def ThreeD(a, b, c):
+    lst = [[ ['#' for col in range(a)] for col in range(b)] for row in range(c)]
+    return lst
+
 def clean_positions(postion):
     pos = postion.split(",")
     clean = []
-    for p in pos:
-        clean.append(int(p))
-    return clean
+    try:
+        for p in pos:
+            clean.append(int(p))
+        return clean
+    except:
+        return [100, 100, 100]
 
 def reconstruct(csvLines):
     curBranch = 0
     curLevel = 0
     buffer = ""
-    bufferArray = [[],[],[]]
-    bufferDict = {}
+    arr = ThreeD(4, 3, 2)
+    bufferArray = arr
+    #bufferDict = {{}, {}, {}}
     for line in csvLines[2:]:
         try:
             numItems = len(line)
             pos = clean_positions(line[0])
-            print(line)
             command = line[1]
             params = line[2:]
             commandBuffer = command + "(" +  "".join(params) + ")"
             #bufferDict[f"rung{pos[0]}"][f"branch{pos[1]}"][f"level{pos[2]}"] = commandBuffer 
+            #print(bufferDict)
             bufferArray[pos[0]][pos[1]][pos[2]] = commandBuffer
-            pprint(bufferArray)
+
 
         except IndexError as ie:
             print("LIST OUT OF RANGE")
-    
+            print(ie)
+            print(pos)
+        pprint(bufferArray)
+
+def zip(csvLines):
+    oldRung = 100
+    oldBranch = 100
+    oldLevel = 100
+    buffers = []
+    for line in csvLines[3:]:
+        print(line)
+        pos = clean_positions(line[0])
+        mainBuffer = ""
+        while pos[0] < oldRung:
+            print("RUNG")
+            while pos[1] < oldBranch:
+                print("BRANCH")
+                mainBuffer += "!!"
+                while pos[2] <= oldLevel:
+                    
+                    for b in line[1:]:
+                        mainBuffer += "(" + b
+                    oldLevel = pos[2]
+                    print(pos)
+                    print(oldLevel)
+                mainBuffer += "??"
+                oldBranch = pos[1]
+            oldRung = pos[0]
+        buffers.append(mainBuffer)
+    return buffers
 
 
 if __name__ == "__main__":
@@ -204,4 +241,6 @@ if __name__ == "__main__":
     #write_param_sheet(parsedRungs, filename)
 
     lines = read_param_sheet(filename)
-    reconstruct(lines)
+    buff = zip(lines)
+    print(buff)
+    print("END")
