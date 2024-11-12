@@ -1,0 +1,9 @@
+TODO:
+
+Change the way paths are made for the lxml parser
+
+Add CDATA prefix and suffix
+
+Rewrite main() to prompt user whether to construct or deconstruct
+
+Spaces prob dont matter
