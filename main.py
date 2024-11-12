@@ -63,14 +63,16 @@ def attach_rungs(dataframe):
             filledTemplate = fill_rung_template(root, rungNum, rung)
 
 def new_attach_rungs(rungList, outputFile):
-    xmlDoc = et.parse(outputFile)
+    lPath = os.path.join("Tester","Exported_Files", outputFile)
+    xmlDoc = et.parse(lPath)
     root = xmlDoc.getroot()
     for rungNum, rung in enumerate(rungList):
         template = fill_rung_template(root, rungNum, rung[0], rung[1])
 
 def combo(l5xPath):
-    lFile = open(l5xPath, "r")
-    allRungs = get_all_rungs(lFile)
+    lPath = os.path.join("Tester","Exported_Files", l5xPath)
+    lFile = open(lPath, "r")
+    allRungs = get_all_rungs(lPath)
     lFile.close()
     with open("inputRungs.txt", "w") as ir:
         ir.writelines(allRungs[1])
@@ -180,7 +182,9 @@ def compare(inputString, outputString):
 
 def reconstruct(csvFile):
     inputFile = "24-071-Configuration_Routine_RLL.L5X"
-    xmlFile = et.parse(inputFile)
+    lPath = os.path.join("Tester","Exported_Files", inputFile)
+    print(lPath)
+    xmlFile = et.parse(lPath)
     outputFile = "output.L5X"
     formattedRungs = routine_handler(csvFile)
     with open("outputRungs.txt", "w") as opr:
