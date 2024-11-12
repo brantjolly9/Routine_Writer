@@ -154,6 +154,7 @@ def user_file_selection(l5xFiles):
         except ValueError as ve:
             print(f"Please Enter a Selection in the Range of 0-{len(l5xFiles)}")
 
+    # Fill userFiles according to seperator (',' | '-' | '')
     if seperator == ",":
         for i in fileSelection:
             userFiles.append(l5xFiles[i])
