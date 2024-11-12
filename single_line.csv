@@ -1,0 +1,13 @@
+Rung,Function,Arguments
+Rung Comment:,COMMENT
+"0,1,0",XIC,SLS1.Sorter.LostBearingFault
+"0,2,0",XIO,Hmi.Sorter[0].Faults.MissingBearingFault
+"0,2,0",ADD,Hmi.Sorter[0].Stats.MissingBearingFaultCount,1,Hmi.Sorter[0].Stats.MissingBearingFaultCount
+"0,2,0",ADD,Hmi.Sorter[0].Stats.TotalFaultCount,1,Hmi.Sorter[0].Stats.TotalFaultCount
+"0,2,1",OTE,Hmi.Sorter[0].Faults.MissingBearingFault
+"0,2,2",XIC,OneSecondPulse
+"0,2,2",ADD,Hmi.Sorter[0].Stats.MissingBearingCurrentTime,1,Hmi.Sorter[0].Stats.MissingBearingCurrentTime
+"0,2,2",ADD,Hmi.Sorter[0].Stats.MissingBearingTotalTime,1,Hmi.Sorter[0].Stats.MissingBearingTotalTime
+"0,1,2",XIO,SLS1.Sorter.LostBearingFault
+"0,1,2",CLR,Hmi.Sorter[0].Stats.MissingBearingCurrentTime
+""

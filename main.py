@@ -205,7 +205,7 @@ def zip(csvLines):
     oldBranch = 100
     oldLevel = 100
     buffers = []
-    for line in csvLines[3:]:
+    for line in csvLines:
         print(line)
         pos = clean_positions(line[0])
         mainBuffer = ""
@@ -215,7 +215,6 @@ def zip(csvLines):
                 print("BRANCH")
                 mainBuffer += "!!"
                 while pos[2] <= oldLevel:
-                    
                     for b in line[1:]:
                         mainBuffer += "(" + b
                     oldLevel = pos[2]
@@ -227,6 +226,18 @@ def zip(csvLines):
         buffers.append(mainBuffer)
     return buffers
 
+def reeeeee():
+    l = [
+        [1, 2, 3, 3, 5, 2, 1, 4],
+        [9, 8, 4, 2, 4, 6, 7, 8],
+        [5, 6, 2, 1, 5, 6, 7, 8]]
+    oldPos = 100
+    for col in l:
+        print(col)
+        pos = col[1]
+        while oldPos <= pos:
+            print("Less Than")
+            oldPos = pos
 
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
@@ -235,12 +246,13 @@ if __name__ == "__main__":
 
     testStr = [("[XIC(SLS1.Sorter.LostBearingFault)[XIO(Hmi.Sorter[0].Faults.MissingBearingFault)ADD(Hmi.Sorter[0].Stats.MissingBearingFaultCount,1,Hmi.Sorter[0].Stats.MissingBearingFaultCount)ADD(Hmi.Sorter[0].Stats.TotalFaultCount,1,Hmi.Sorter[0].Stats.TotalFaultCount),OTE(Hmi.Sorter[0].Faults.MissingBearingFault),XIC(OneSecondPulse)ADD(Hmi.Sorter[0].Stats.MissingBearingCurrentTime,1,Hmi.Sorter[0].Stats.MissingBearingCurrentTime)ADD(Hmi.Sorter[0].Stats.MissingBearingTotalTime,1,Hmi.Sorter[0].Stats.MissingBearingTotalTime)],XIO(SLS1.Sorter.LostBearingFault)CLR(Hmi.Sorter[0].Stats.MissingBearingCurrentTime)];", "COMMENT")]
 
-    #parsedRungs = parse_routine(testStr)
+    parsedRungs = parse_routine(testStr)
     filename = "rung_testing.csv"
     #fullFile = "csv_testing.csv"
-    #write_param_sheet(parsedRungs, filename)
+    singleLineTest = "single_line.csv"
+    write_param_sheet(parsedRungs, singleLineTest)
 
-    lines = read_param_sheet(filename)
-    buff = zip(lines)
-    print(buff)
-    print("END")
+#    lines = read_param_sheet(filename)
+#    buff = zip(lines)
+#    print(buff)
+#    print("END")
