@@ -69,7 +69,7 @@ def new_attach_rungs(rungList, outputFile):
     for rungNum, rung in enumerate(rungList):
         template = fill_rung_template(root, rungNum, rung[0], rung[1])
 
-def combo(l5xPath):
+def unzip(l5xPath):
     lPath = os.path.join("Tester","Exported_Files", l5xPath)
     lFile = open(lPath, "r")
     allRungs = get_all_rungs(lPath)
@@ -174,7 +174,7 @@ def deconstruct():
         except IndexError as ie:
             print(f"Please Enter Integers in the range of 0-{len(l5xFiles)}")
     print(fileSelection)
-    combo(fileSelection[0])
+    unzip(fileSelection[0])
 
 def compare(inputString, outputString):
     pass
@@ -183,7 +183,6 @@ def compare(inputString, outputString):
 def reconstruct(csvFile):
     inputFile = "24-071-Configuration_Routine_RLL.L5X"
     lPath = os.path.join("Tester","Exported_Files", inputFile)
-    print(lPath)
     xmlFile = et.parse(lPath)
     outputFile = "output.L5X"
     formattedRungs = routine_handler(csvFile)
