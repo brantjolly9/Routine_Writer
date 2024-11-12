@@ -42,7 +42,7 @@ def get_all_rungs(l5xPath):
     root = xmlDoc.getroot()
     RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent/Rung')
     for rung in RLLContent:
-        rungText = rung.find("Text").text.strip()
+        rungText = rung.find("Text").text.strip("\n")
         try:
             comment = rung.find("Comment").text.strip()
         except Exception as e:

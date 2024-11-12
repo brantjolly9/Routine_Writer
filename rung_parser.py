@@ -65,5 +65,6 @@ def parse_routine(raw_routine_data=list()):
         #print(parsed_rung_data)
         parsed_routine_data.append(idk_anymore)
         rung_num += 1
+        
 
     return parsed_routine_data

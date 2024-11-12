@@ -1,0 +1,17 @@
+Routine takes Program Parameters and sets values necessary for the type of system the PLC is controllingSet the Parameter values associated with the system. All Parameters are Initialized to default values (typically zero) in the Initialization Routine. Any Parameter that needs set, can be set here.The Pre-Trip Timer Preset is calculated in the Commissioning Divert Offsets Routine and put into the Param.PreTripTime[#].PRE value. Zero this tag iniitally and then it needs to be hardcoded once it is calculated.Set the Network Switch Panel (NSP) Present bitsSet the Network Switch Panel (NSP) Present bitsSet the Network Switch Panel (NSP) Present bitsSet the Network Switch Panel (NSP) Present bitsConveyor Configuration mapping
+
+SAI1-7Conveyor Configuration mapping
+
+SAI1-8G1Conveyor Configuration mapping
+
+SAI1-8G2Conveyor Configuration mapping
+
+SAI1-8G3Conveyor Configuration mapping
+
+SLS1Conveyor Configuration mapping
+
+SLS1Conveyor Configuration mapping
+
+SLS1Conveyor Configuration mapping
+
+SLS1Sorter Armor Block IP AddressesSorter Armor Block IP AddressesSorter Armor Block IP AddressesSorter Armor Block IP AddressesMap the Train data into the configuration RoutineMap the Train data into the configuration RoutineMap the Train data into the configuration RoutineMap the Train data into the configuration RoutineDivert ConfigurationDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicDivert Configuration LogicCall Build Tag Values Routine to Set Individual Tag Values

@@ -14,6 +14,7 @@ try:
     from utilities.os_utils import *
     from utilities.xml_utils import *
     from utilities import makeLogger
+    from rung_builder import *
 
 except ModuleNotFoundError as mnf:
     print("Custom Modules Not Found")
@@ -39,8 +40,9 @@ def fill_rung_template(root, rungNum, text, comment=None):
         logger.critical(f"Rung Number: {rungNum} is not an integer")
 
     # Check for comment, else leave tag blank
-    if comment:
+    if comment != "":
         template.find("Comment").text = add_cdata(comment)
+        print(comment)
 
     # Fill Rung Element Text Tag with rung text, if the element is valid
     template.find("Text").text = add_cdata(text)
@@ -61,11 +63,17 @@ def attach_rungs(dataframe):
         for rungNum, rung in enumerate(rungs):
             filledTemplate = fill_rung_template(root, rungNum, rung)
 
+def new_attach_rungs(rungList, outputFile):
+    xmlDoc = et.parse(outputFile)
+    root = xmlDoc.getroot()
+    for rungNum, rung in enumerate(rungList):
+        template = fill_rung_template(root, rungNum, rung[0], rung[1])
+
 def combo(l5xPath):
     allRungs = get_all_rungs(l5xPath)
+    print(allRungs)
     parsedRungs = parse_routine(allRungs)
     exl = write_param_sheet(parsedRungs, "csv_testing.csv") 
-    print("RAN")
 
 def main():
     # Refer to directory structure in README.txt
@@ -119,8 +127,6 @@ def main():
     except AttributeError as ae:
         logger.error("Unable to find dataframe", exc_info=True)
 
-
-
 def deconstruct():
 
     # Refer to directory structure in README.txt
@@ -164,9 +170,23 @@ def deconstruct():
         except IndexError as ie:
             print(f"Please Enter Integers in the range of 0-{len(l5xFiles)}")
     print(fileSelection)
-    #combo(l5xFiles[fileSelection])
+    combo(fileSelection[0])
+
+def compare(inputString, outputString):
+    pass
+
+
+def reconstruct(csvFile):
+    inputFile = "24-071-Configuration_Routine_RLL.L5X"
+    xmlFile = et.parse(inputFile)
+    outputFile = "output.L5X"
+    r = routine_handler(csvFile)
+    print(r)
+    new_attach_rungs(r, inputFile)
+    write_to_file(xmlFile, outputFile)
 
 
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
     deconstruct()
+    reconstruct("csv_testing.csv")
