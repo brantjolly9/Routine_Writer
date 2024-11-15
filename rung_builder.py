@@ -84,7 +84,7 @@ def routine_handler(filename):
             for i in line[2:]:
                 #for i in range(2, len(line)):
                 argument_holder.append(i)
-            
+
             arguments = ",".join(argument_holder)
             function = f"{function_type}({arguments})"
 

@@ -69,98 +69,18 @@ def new_attach_rungs(rungList, outputFile):
     for rungNum, rung in enumerate(rungList):
         template = fill_rung_template(root, rungNum, rung[0], rung[1])
 
-def unzip(l5xPath):
-    lPath = os.path.join("Tester","Exported_Files", l5xPath)
+def unzip(l5xFile):
+    l5xPath = os.path.join(exportedFilesPath, l5xFile)
     lFile = open(lPath, "r")
-    allRungs = get_all_rungs(lPath)
+    allRungs = get_all_rungs(l5xPath)
     lFile.close()
     with open("inputRungs.txt", "w") as ir:
         ir.writelines(allRungs[1])
     parsedRungs = parse_routine(allRungs)
-    exl = write_param_sheet(parsedRungs, "csv_testing.csv") 
+    exl = write_param_sheet(parsedRungs, f"{l5xFile}.csv") 
 
-def main():
-    # Refer to directory structure in README.txt
-    # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
-    # leave testRootDir as is for this to work (will be changed later)
-    rootDir = os.getcwd()
+def deconstruct(l5xFiles):
 
-    userPath = get_path_from_user(defaultPath=rootDir, defaultFolder="exeTesting")
-    userFolder = os.path.basename(userPath)
-    exportedFilesFolder = "Exported_Files"
-    resultFilesFolder = "Result_Files"
-
-    # Preparing working dir and testing for relevant files
-    exeDirPath = os.path.dirname(os.path.realpath(__file__))
-
-    # Returns a Dictionary of verified paths
-    verifiedPaths = prepare_working_dir(workingDir=userPath)
-
-    # Get relevant path from the dictionary of verified paths
-    workingDir = verifiedPaths[userFolder]
-    makeLogFile(workingDir)
-    excelPath, l5xFiles = check_working_files(workingDir, logger)
-    exportedFilesPath = verifiedPaths[exportedFilesFolder] 
-    resultFilesPath = verifiedPaths[resultFilesFolder]
-
-    print("\nThe Program has created or verified the following paths:")
-    for path in verifiedPaths.values():
-        print(path)
-    print("File Operations Completed\n--------------------\n")
-    # Create the dicionary object (dataframe) from the excel sheet
-    dataframe = open_excel_as_pd(excelPath)
-
-    # load an xml file for each routine then fill xml doc with filename's rungs 
-    try:
-        for fileName, rungs in dataframe.items():
-
-            fullFileName = f"{fileName}_Routine_RLL.L5X"
-            fullResultPath = os.path.join(resultFilesPath, fullFileName)
-            fullExportedFilePath = os.path.join(exportedFilesPath, fullFileName)
-            if fullFileName in l5xFiles:
-                print(f"Currently Editing: {fullFileName}")
-                indivXmlFile = et.parse(fullExportedFilePath)
-                root = indivXmlFile.getroot()
-
-                for rungNum, rung in enumerate(rungs):
-                    filledTemplate = fill_rung_template(root, rungNum, rung)
-                    print(f"Filled {rungNum} rungs")
-
-                fileWritten = write_to_file(indivXmlFile, fullResultPath)
-                print(f"Wrote to: {fullResultPath}\n")
-    except AttributeError as ae:
-        logger.error("Unable to find dataframe", exc_info=True)
-
-def deconstruct():
-
-    # Refer to directory structure in README.txt
-    # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
-    # leave testRootDir as is for this to work (will be changed later)
-    rootDir = os.getcwd()
-
-    # Preparing working dir and testing for relevant files
-    exeDirPath = os.path.dirname(os.path.realpath(__file__))
-
-    userPath = get_path_from_user(exeDirPath, defaultPath=rootDir, defaultFolder="exeTesting")
-    userFolder = os.path.basename(userPath)
-    exportedFilesFolder = "Exported_Files"
-    resultFilesFolder = "Result_Files"
-
-
-    # Returns a Dictionary of verified paths
-    verifiedPaths = prepare_working_dir(workingDir=userPath)
-
-    # Get relevant path from the dictionary of verified paths
-    workingDir = verifiedPaths[userFolder]
-    makeLogFile(workingDir)
-    excelPath, l5xFiles = check_working_files(workingDir, logger)
-    exportedFilesPath = verifiedPaths[exportedFilesFolder] 
-    resultFilesPath = verifiedPaths[resultFilesFolder]
-
-    print("\nThe Program has created or verified the following paths:")
-    for path in verifiedPaths.values():
-        print(path)
-    print("File Operations Completed\n--------------------\n")
     # Create the dicionary object (dataframe) from the excel sheet
     #dataframe = open_excel_as_pd(excelPath)
     validSelection = False
@@ -169,30 +89,84 @@ def deconstruct():
         print(f"{lFile}: ({index + 1})")
     while not validSelection:
         try:
-            fileSelection = user_file_selection(l5xFiles)
+            fileSelection = l5x_file_selection(l5xFiles)
             validSelection = True
         except IndexError as ie:
             print(f"Please Enter Integers in the range of 0-{len(l5xFiles)}")
     print(fileSelection)
-    unzip(fileSelection[0])
+    for f in fileSelection:
+        unzip(f)
 
-def compare(inputString, outputString):
-    pass
+def reconstruct(csvFile, outputFile, inputFile):
+    # inputFile is opened because lxml.etree needs an open and non-empty file
+    # to write to outputFile
+    #
+    #  formattedRungs = [(rungText, commentText)]
 
+    # *Path is generated from the global *FilesPath var set in main()
+    inputPath = os.path.join(exportedFilesPath, inputFile)
+    outputPath = os.path.join(resultFilesPath, outputFile)
+    csvPath = os.path.join(resultFilesPath, csvFile)
 
-def reconstruct(csvFile):
-    inputFile = "24-071-Configuration_Routine_RLL.L5X"
-    lPath = os.path.join("Tester","Exported_Files", inputFile)
-    xmlFile = et.parse(lPath)
-    outputFile = "output.L5X"
+    xmlFile = et.parse(inputPath)
     formattedRungs = routine_handler(csvFile)
-    with open("outputRungs.txt", "w") as opr:
-        opr.writelines(formattedRungs[1])
-    new_attach_rungs(formattedRungs, inputFile)
-    write_to_file(xmlFile, outputFile)
+    new_attach_rungs(formattedRungs, inputPath)
+    write_to_file(xmlFile, outputPath)
+#    with open("outputRungs.txt", "w") as opr:
+#        opr.writelines(formattedRungs[1])
+
+
+
+def main():
+    global userWorkingDir
+    global exportedFilesPath
+    global resultFilesPath
+    # Refer to directory structure in README.txt
+    # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
+    # leave testRootDir as is for this to work (will be changed later)
+    rootDir = os.getcwd()
+
+    # Preparing working dir and testing for relevant files
+    exeDirPath = os.path.dirname(os.path.realpath(__file__))
+
+    userPath = get_path_from_user(exeDirPath,
+                                  defaultPath=rootDir,
+                                  defaultFolder="exeTesting")
+    userFolder = os.path.basename(userPath)
+    exportedFilesFolder = "Exported_Files"
+    resultFilesFolder = "Result_Files"
+
+    # Returns a Dictionary of verified paths
+    verifiedPaths = prepare_working_dir(workingDir=userPath)
+
+    # Get relevant path from the dictionary of verified paths
+    userWorkingDir = verifiedPaths[userFolder]
+    makeLogFile(userWorkingDir)
+    excelPath, l5xFiles = check_working_files(userWorkingDir, logger)
+    exportedFilesPath = verifiedPaths[exportedFilesFolder]
+    resultFilesPath = verifiedPaths[resultFilesFolder]
+    print("\nThe Program has created or verified the following paths:")
+    for path in verifiedPaths.values():
+        print(path)
+    print("File Operations Completed\n--------------------\n")
+
+    print("(R)econstruct or (D)econstruct?")
+    userChoice = None
+    while userChoice != "D" and userChoice != "R":
+        userChoice = input("Enter Choice: ")
+
+    if userChoice == "R":
+        inputFile = "24-071-Configuration_Routine_RLL.L5X"
+        outputFile = "testing.L5X"
+
+        reconstruct(csvFile="testing.csv",
+                    outputFile=outputFile,
+                    inputFile=inputFile)
+
+    elif userChoice == "D":
+        deconstruct()
 
 
 if __name__ == "__main__":
     logger = logging.getLogger("main.log")
-    deconstruct()
-    reconstruct("csv_testing.csv")
+    main()

@@ -64,7 +64,9 @@ def add_cdata(text = str()):
 def write_to_file(xmlFile, resultPath):
     # arg 2-4 populate xml declaration
     # <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+ 
     try:
+        x = et.parse(resultPath)
         xmlFile.write(
             resultPath,
             xml_declaration=True,

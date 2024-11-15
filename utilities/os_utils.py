@@ -41,7 +41,6 @@ def prepare_working_dir(
         except Exception as e: 
             print(f"Error verifying {path}")
             #logger.error(f"Could not verify {path}", exc_info=True)
-    #os.chdir(startDir)
     return verifiedPaths
 def get_path_from_user(exeDirPath, defaultPath="C:\\", defaultFolder="C:\\exeTesting"):
 
@@ -128,7 +127,7 @@ def makeLogFile(workingDir, logName="main.log"):
         log.close()
 
 
-def user_file_selection(l5xFiles):
+def l5x_file_selection(l5xFiles):
 
     userFiles = []
     fileSelection = []
@@ -141,7 +140,7 @@ def user_file_selection(l5xFiles):
         try:
             userInput = input("Selection: ")
             #result = re.search(f"([0-{lenTens}]?[0-{lenOnes}](-|,)?)+", userInput)
-            result = re.search(f"(\d(-|,)?)+", userInput)
+            result = re.search(r"(\d(-|,)?)+", userInput)
             #result = re.findall("(\d(-|,)?)+")
             if result != None:
                 seperator = result.groups()[-1]
@@ -163,3 +162,9 @@ def user_file_selection(l5xFiles):
     else:
         userFiles.append(l5xFiles[fileSelection[0]])
     return userFiles
+
+def user_file_selection(fileType):
+    print(f"Please Enter a {fileType} file")
+    
+
+
