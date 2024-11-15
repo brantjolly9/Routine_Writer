@@ -136,6 +136,10 @@ def l5x_file_selection(l5xFiles):
     #lenOnes = len(l5xFiles) % 10
     #lenTens = len(l5xFiles) % 100 // 10
 
+    print("\nSelect an L5X File to Get Data From\n(X-Y) for a range\n(X,Y,Z) for individual files")
+    for index, lFile in enumerate(l5xFiles):
+        print(f"{lFile}: ({index + 1})")
+
     while not validStr:
         try:
             userInput = input("Selection: ")

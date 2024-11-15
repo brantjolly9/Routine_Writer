@@ -45,6 +45,8 @@ def fill_rung_template(root, rungNum, text, comment=None):
 
     # Fill Rung Element Text Tag with rung text, if the element is valid
     template.find("Text").text = add_cdata(text.strip())
+    print(template.find('Text').text)
+    print(add_cdata(test.strip()))
     if isinstance(template, et._Element):
         RLLContent.append(template)
     else:
@@ -68,34 +70,16 @@ def new_attach_rungs(rungList, outputFile):
     root = xmlDoc.getroot()
     for rungNum, rung in enumerate(rungList):
         template = fill_rung_template(root, rungNum, rung[0], rung[1])
+        print(template)
 
 def unzip(l5xFile):
     l5xPath = os.path.join(exportedFilesPath, l5xFile)
-    lFile = open(lPath, "r")
     allRungs = get_all_rungs(l5xPath)
-    lFile.close()
     with open("inputRungs.txt", "w") as ir:
         ir.writelines(allRungs[1])
     parsedRungs = parse_routine(allRungs)
     exl = write_param_sheet(parsedRungs, f"{l5xFile}.csv") 
 
-def deconstruct(l5xFiles):
-
-    # Create the dicionary object (dataframe) from the excel sheet
-    #dataframe = open_excel_as_pd(excelPath)
-    validSelection = False
-    print("Select an L5X File to Get Data From\n(X-Y) for a range\n(X,Y,Z) for individual files")
-    for index, lFile in enumerate(l5xFiles):
-        print(f"{lFile}: ({index + 1})")
-    while not validSelection:
-        try:
-            fileSelection = l5x_file_selection(l5xFiles)
-            validSelection = True
-        except IndexError as ie:
-            print(f"Please Enter Integers in the range of 0-{len(l5xFiles)}")
-    print(fileSelection)
-    for f in fileSelection:
-        unzip(f)
 
 def reconstruct(csvFile, outputFile, inputFile):
     # inputFile is opened because lxml.etree needs an open and non-empty file
@@ -105,22 +89,38 @@ def reconstruct(csvFile, outputFile, inputFile):
 
     # *Path is generated from the global *FilesPath var set in main()
     inputPath = os.path.join(exportedFilesPath, inputFile)
-    outputPath = os.path.join(resultFilesPath, outputFile)
+    outputPath = os.path.join(resultFilesPath, inputFile)
     csvPath = os.path.join(resultFilesPath, csvFile)
+    filePaths = {
+            'inputPath': os.path.join(exportedFilesPath, inputFile),
+            'outputPath': os.path.join(resultFilesPath, inputFile),
+            'csvPath': os.path.join(resultFilesPath, csvFile),
+            }
+
+    for filePath in filePaths.values():
+        if not os.path.exists(filePath):
+            with open(filePath, "w") as fp:
+                print(f"Created {filePath}")
+    try:
+        with open(outputPath, "w") as op:
+            print("OPENED")
+    except FileExistsError as fe:
+        print("ALREADY EXISTS")
 
     xmlFile = et.parse(inputPath)
-    formattedRungs = routine_handler(csvFile)
+
+    formattedRungs = routine_handler(csvPath)
     new_attach_rungs(formattedRungs, inputPath)
     write_to_file(xmlFile, outputPath)
 #    with open("outputRungs.txt", "w") as opr:
 #        opr.writelines(formattedRungs[1])
 
-
-
 def main():
+    # Set global vars to be used in folder and file creation, should work on Windows
     global userWorkingDir
     global exportedFilesPath
     global resultFilesPath
+
     # Refer to directory structure in README.txt
     # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
     # leave testRootDir as is for this to work (will be changed later)
@@ -156,15 +156,23 @@ def main():
         userChoice = input("Enter Choice: ")
 
     if userChoice == "R":
-        inputFile = "24-071-Configuration_Routine_RLL.L5X"
-        outputFile = "testing.L5X"
 
-        reconstruct(csvFile="testing.csv",
+        l5xFileSelection = l5x_file_selection(l5xFiles)
+        print(l5xFileSelection)
+        
+        inputFile = "24-071-Configuration_Routine_RLL.L5X"
+        fileName = inputFile.split(".")[0]
+        outputFile = "testing.L5X"
+        csvFile = fileName + ".csv"
+
+        reconstruct(csvFile=csvFile,
                     outputFile=outputFile,
                     inputFile=inputFile)
 
     elif userChoice == "D":
-        deconstruct()
+        l5xFileSelection = l5x_file_selection(l5xFiles)
+        for l5xFile in l5xFileSelection:
+            unzip(l5xFile)
 
 
 if __name__ == "__main__":

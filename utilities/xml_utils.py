@@ -66,7 +66,6 @@ def write_to_file(xmlFile, resultPath):
     # <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
  
     try:
-        x = et.parse(resultPath)
         xmlFile.write(
             resultPath,
             xml_declaration=True,

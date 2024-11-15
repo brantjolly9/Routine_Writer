@@ -33,7 +33,7 @@ def build_rung(rung_data):
     rung_str = rung_str + ';'
 
     return rung_str  
-            
+
 def routine_handler(filename):
     '''     
     Description
@@ -51,17 +51,17 @@ def routine_handler(filename):
     '''
     #filename = "csv_testing.csv"
     fp = open(filename)
-    
+
     routine = []
 
     comment = ""
     new_rung = True
     got_comment = False
     raw_rung_data = list()
-    
+
     reader = csv.reader(fp) # attaches a reader to the file fp
     next(reader, None) # skips a line, such as a header line
-    
+
     for line in reader:
         if len(line) == 1:
             new_rung = True
