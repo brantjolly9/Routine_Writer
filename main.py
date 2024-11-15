@@ -46,7 +46,7 @@ def fill_rung_template(root, rungNum, text, comment=None):
     # Fill Rung Element Text Tag with rung text, if the element is valid
     template.find("Text").text = add_cdata(text.strip())
     print(template.find('Text').text)
-    print(add_cdata(test.strip()))
+    print(add_cdata(text.strip()))
     if isinstance(template, et._Element):
         RLLContent.append(template)
     else:
@@ -73,12 +73,14 @@ def new_attach_rungs(rungList, outputFile):
         print(template)
 
 def unzip(l5xFile):
+    csvName = l5xFile.split(".")[0] + ".csv"
     l5xPath = os.path.join(exportedFilesPath, l5xFile)
+    csvPath = os.path.join(resultFilesPath, csvName)
     allRungs = get_all_rungs(l5xPath)
     with open("inputRungs.txt", "w") as ir:
         ir.writelines(allRungs[1])
     parsedRungs = parse_routine(allRungs)
-    exl = write_param_sheet(parsedRungs, f"{l5xFile}.csv") 
+    exl = write_param_sheet(parsedRungs, csvPath) 
 
 
 def reconstruct(csvFile, outputFile, inputFile):
