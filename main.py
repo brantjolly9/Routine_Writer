@@ -135,8 +135,8 @@ def main():
                                   defaultPath=rootDir,
                                   defaultFolder="exeTesting")
     userFolder = os.path.basename(userPath)
-    exportedFilesFolder = "Exported_Files"
-    resultFilesFolder = "Result_Files"
+    exportedFilesFolder = "L5X_Files"
+    resultFilesFolder = "CSV_Files"
 
     # Returns a Dictionary of verified paths
     verifiedPaths = prepare_working_dir(workingDir=userPath)
