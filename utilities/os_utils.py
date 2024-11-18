@@ -57,6 +57,7 @@ def get_path_from_user(exeDirPath, defaultPath="C:\\", defaultFolder="C:\\exeTes
     while not os.path.isdir(workingDir):
         workingDir = input(f"Enter full or relative file path (defaults to {defaultPath}\\{defaultFolder}): ")
         if workingDir == "":
+            logger.debug("AHAHHAHAHAHHA")
             workingDir = os.path.join(defaultPath, defaultFolder)
         else:
             workingDir = os.path.join(defaultPath, workingDir)

@@ -178,5 +178,6 @@ def main():
 
 
 if __name__ == "__main__":
+    global logger
     logger = logging.getLogger("main.log")
     main()
