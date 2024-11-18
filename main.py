@@ -90,21 +90,22 @@ def reconstruct(csvFile, outputFile, inputFile):
     #  formattedRungs = [(rungText, commentText)]
 
     # *Path is generated from the global *FilesPath var set in main()
-    inputPath = os.path.join(exportedFilesPath, inputFile)
-    outputPath = os.path.join(resultFilesPath, inputFile)
-    csvPath = os.path.join(resultFilesPath, csvFile)
+    inputPath = os.path.join(CSV_FILES_PATH, inputFile)
+    outputPath = os.path.join(L5X_FILES_PATH, outputFile)
+    csvPath = os.path.join(CSV_FILES_PATH, csvFile)
     filePaths = {
-            'inputPath': os.path.join(exportedFilesPath, inputFile),
-            'outputPath': os.path.join(resultFilesPath, inputFile),
-            'csvPath': os.path.join(resultFilesPath, csvFile),
+            'inputPath': os.path.join(CSV_FILES_PATH, inputFile),
+            'outputPath': os.path.join(L5X_FILES_PATH, inputFile),
+            'csvPath': os.path.join(CSV_FILES_PATH, csvFile),
             }
 
     for filePath in filePaths.values():
         if not os.path.exists(filePath):
             with open(filePath, "w") as fp:
                 print(f"Created {filePath}")
+    print(filePaths["outputPath"])
     try:
-        with open(outputPath, "w") as op:
+        with open(filePaths["outputPath"], "x") as op:
             print("OPENED")
     except FileExistsError as fe:
         print("ALREADY EXISTS")
@@ -114,14 +115,17 @@ def reconstruct(csvFile, outputFile, inputFile):
     formattedRungs = routine_handler(csvPath)
     new_attach_rungs(formattedRungs, inputPath)
     write_to_file(xmlFile, outputPath)
+
 #    with open("outputRungs.txt", "w") as opr:
 #        opr.writelines(formattedRungs[1])
 
 def main():
     # Set global vars to be used in folder and file creation, should work on Windows
     global userWorkingDir
-    global exportedFilesPath
-    global resultFilesPath
+    global L5X_FILES_PATH
+    global CSV_FILES_PATH
+    l5xFilesFolder = "L5X_Files"
+    csvFilesFolder = "CSV_Files"
 
     # Refer to directory structure in README.txt
     # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
@@ -135,8 +139,6 @@ def main():
                                   defaultPath=rootDir,
                                   defaultFolder="exeTesting")
     userFolder = os.path.basename(userPath)
-    exportedFilesFolder = "L5X_Files"
-    resultFilesFolder = "CSV_Files"
 
     # Returns a Dictionary of verified paths
     verifiedPaths = prepare_working_dir(workingDir=userPath)
@@ -144,9 +146,9 @@ def main():
     # Get relevant path from the dictionary of verified paths
     userWorkingDir = verifiedPaths[userFolder]
     makeLogFile(userWorkingDir)
-    excelPath, l5xFiles = check_working_files(userWorkingDir, logger)
-    exportedFilesPath = verifiedPaths[exportedFilesFolder]
-    resultFilesPath = verifiedPaths[resultFilesFolder]
+    csvFiles, l5xFiles = check_working_files(userWorkingDir, logger)
+    L5X_FILES_PATH = verifiedPaths[l5xFilesFolder]
+    CSV_FILES_PATH = verifiedPaths[csvFilesFolder]
     print("\nThe Program has created or verified the following paths:")
     for path in verifiedPaths.values():
         print(path)
@@ -159,17 +161,19 @@ def main():
 
     if userChoice == "R":
 
-        l5xFileSelection = l5x_file_selection(l5xFiles)
-        print(l5xFileSelection)
+        csvFileSelection = user_file_selection(csvFiles)
 
+        # inputFile will eventually become the template. In essence reconstruct() adds all the rungs from the csvFile to the open xmlDoc i.e. inPutFile then writes the result to outputFile
         inputFile = "24-071-Configuration_Routine_RLL.L5X"
         fileName = inputFile.split(".")[0]
-        outputFile = "testing.L5X"
-        csvFile = fileName + ".csv"
 
-        reconstruct(csvFile=csvFile,
-                    outputFile=outputFile,
-                    inputFile=inputFile)
+        for csvFile in csvFileSelection:
+            print(csvFile)
+            outputFile = csvFile.replace(".csv", ".L5X")
+            print(outputFile)
+            reconstruct(csvFile=csvFile,
+                        outputFile=outputFile,
+                        inputFile=inputFile)
 
     elif userChoice == "D":
         l5xFileSelection = l5x_file_selection(l5xFiles)

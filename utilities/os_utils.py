@@ -70,33 +70,35 @@ def get_path_from_user(exeDirPath, defaultPath="C:\\", defaultFolder="C:\\exeTes
     return workingDir
 
 
-def check_working_files(workingDir, logger):
+def check_working_files(workingDir, logger, csvFolder="CSV_Files", l5xFolder="L5X_Files"):
     # workingDir is assumed to be the direcotry containing the xl and l5x files
 
     # Get cwd and init xl & l5x files
     startDir = os.getcwd()
-    exportedFilesPath = os.path.join(workingDir, "L5X_Files")
+    l5xFilesPath = os.path.join(workingDir, l5xFolder)
+    csvFilesPath = os.path.join(workingDir, csvFolder)
     excelFilePath = None
     l5xFilePaths = []
+    csvFilePaths = []
 
     # change to the directory containing the excel file, list all files in workingDir
     # test for presence of excel file, record it
     # if any part of this fails, *FilePath remains None
     try:
-        os.chdir(workingDir)
-        filesInPath = os.listdir(workingDir)
-        print(filesInPath)
+        os.chdir(csvFilesPath)
+        filesInPath = os.listdir(csvFilesPath)
         for fileName in filesInPath:
-            if fileName.endswith(".xlsx"):
-                excelFilePath = os.path.abspath(fileName)
+            if fileName.endswith(".csv"):
+                #excelFilePath = os.path.abspath(fileName)
+                csvFilePaths.append(fileName)
         os.chdir(startDir)
     except Exception as e:
         print("Error finding files")
         print(e)
 
     try:
-        os.chdir(exportedFilesPath)
-        filesInPath = os.listdir(exportedFilesPath)
+        os.chdir(l5xFilesPath)
+        filesInPath = os.listdir(l5xFilesPath)
         for fileName in filesInPath:
             if fileName.endswith(".L5X"):
                 l5xFilePaths.append(fileName)
@@ -105,11 +107,11 @@ def check_working_files(workingDir, logger):
         print("Error finding L5X_Files")
         print(e)
 
-    if not excelFilePath:
+    if len(csvFilePaths) == 0:
         logger.critical("No Excel File")
         print("No Excel File Found")
     else:
-        print(f"Found Excel File: {excelFilePath}")
+        print(f"Found {len(csvFilePaths)} CSV Files")
 
     if len(l5xFilePaths) == 0:
         logger.critical("No L5X File")
@@ -117,7 +119,7 @@ def check_working_files(workingDir, logger):
     else:
         print(f"Found {len(l5xFilePaths)} L5X Files")
 
-    return excelFilePath, l5xFilePaths
+    return csvFilePaths, l5xFilePaths
 
 
 def makeLogFile(workingDir, logName="main.log"):
@@ -130,7 +132,7 @@ def makeLogFile(workingDir, logName="main.log"):
         log.close()
 
 
-def l5x_file_selection(l5xFiles):
+def user_file_selection(l5xFiles):
 
     userFiles = []
     fileSelection = []
@@ -140,6 +142,7 @@ def l5x_file_selection(l5xFiles):
     #lenTens = len(l5xFiles) % 100 // 10
 
     print("\nSelect an L5X File to Get Data From\n(X-Y) for a range\n(X,Y,Z) for individual files")
+    print("-------------------------------------")
     for index, lFile in enumerate(l5xFiles):
         print(f"{lFile}: ({index + 1})")
 
@@ -170,8 +173,5 @@ def l5x_file_selection(l5xFiles):
         userFiles.append(l5xFiles[fileSelection[0]])
     return userFiles
 
-def user_file_selection(fileType):
-    print(f"Please Enter a {fileType} file")
-    
 
 
