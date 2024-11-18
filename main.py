@@ -161,7 +161,7 @@ def main():
 
         l5xFileSelection = l5x_file_selection(l5xFiles)
         print(l5xFileSelection)
-        
+
         inputFile = "24-071-Configuration_Routine_RLL.L5X"
         fileName = inputFile.split(".")[0]
         outputFile = "testing.L5X"
