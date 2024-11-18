@@ -85,6 +85,7 @@ def check_working_files(workingDir, logger):
     try:
         os.chdir(workingDir)
         filesInPath = os.listdir(workingDir)
+        print(filesInPath)
         for fileName in filesInPath:
             if fileName.endswith(".xlsx"):
                 excelFilePath = os.path.abspath(fileName)
@@ -117,6 +118,7 @@ def check_working_files(workingDir, logger):
         print(f"Found {len(l5xFilePaths)} L5X Files")
 
     return excelFilePath, l5xFilePaths
+
 
 def makeLogFile(workingDir, logName="main.log"):
     logPath = os.path.join(workingDir, logName)
