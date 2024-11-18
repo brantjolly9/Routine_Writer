@@ -46,7 +46,7 @@ def get_path_from_user(exeDirPath, defaultPath="C:\\", defaultFolder="C:\\exeTes
 
     print(
         "Make a folder somewhere on the computer (ideally C:\\FolderName)\n"
-        "When prompted enter the full path of a folder which contains the ExcelFile.xlsx, Exported_Files, and Result_Files\n"
+        "When prompted enter the full path of a folder which contains the ExcelFile.xlsx, L5X_Files, and CSV_Files\n"
         "Make sure the folder name only uses letters and underscores i.e. my_folder\n"
         "The full file path should resemble C:\\...\\...\\my_folder\n"
         "A relative file will instruct the program to create a folder in the current one\n"
@@ -74,7 +74,7 @@ def check_working_files(workingDir, logger):
 
     # Get cwd and init xl & l5x files
     startDir = os.getcwd()
-    exportedFilesPath = os.path.join(workingDir, "Exported_Files")
+    exportedFilesPath = os.path.join(workingDir, "L5X_Files")
     excelFilePath = None
     l5xFilePaths = []
 
@@ -100,7 +100,7 @@ def check_working_files(workingDir, logger):
                 l5xFilePaths.append(fileName)
         os.chdir(startDir)
     except Exception as e:
-        print("Error finding Exported_Files")
+        print("Error finding L5X_Files")
         print(e)
 
     if not excelFilePath:

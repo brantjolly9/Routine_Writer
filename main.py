@@ -65,7 +65,7 @@ def attach_rungs(dataframe):
             filledTemplate = fill_rung_template(root, rungNum, rung)
 
 def new_attach_rungs(rungList, outputFile):
-    lPath = os.path.join("Tester","Exported_Files", outputFile)
+    lPath = os.path.join("Tester","L5X_Files", outputFile)
     xmlDoc = et.parse(lPath)
     root = xmlDoc.getroot()
     for rungNum, rung in enumerate(rungList):
