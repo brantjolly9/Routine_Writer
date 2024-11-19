@@ -1,1 +1,0 @@
-[XIC(Param.HslaPresent) MOVE(Param.HslaInterlockBelt,HslaBelt) XIC(MCP.Out_HslaRunInterlock) OTE(MCP.Out_HslaRunInterlock) ,XIO(Param.HslaPresent) CLR(HslaBelt) ];HSLA Signals
