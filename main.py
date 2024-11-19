@@ -99,8 +99,7 @@ def reconstruct(csvFile, outputFile, inputFile):
         print("ALREADY EXISTS")
 
     #xmlFile = et.parse(filePaths['inputPath'])
-    xmlFile = et.parse(inputFile)
-    pprint(filePaths)
+    xmlFile = et.parse(filePaths["inputPath"])
 
     # Formatted Rungs returns correct data from csv
     formattedRungs = routine_handler(filePaths["csvPath"])
@@ -160,14 +159,14 @@ def main():
         csvFileSelection = user_file_selection(csvFiles)
 
         # inputFile will eventually become the template. In essence reconstruct() adds all the rungs from the csvFile to the open xmlDoc i.e. inPutFile then writes the result to outputFile
-        inputFile = "24-071-Configuration_Routine_RLL.L5X"
+        inputFile = "template.L5X"
         fileName = inputFile.split(".")[0]
 
         for csvFile in csvFileSelection:
             outputFile = csvFile.replace(".csv", ".L5X")
             reconstruct(csvFile=csvFile,
                         outputFile=outputFile,
-                        inputFile="template.L5X")
+                        inputFile=inputFile)
 
     elif userChoice == "D":
         l5xFileSelection = user_file_selection(l5xFiles)
