@@ -43,7 +43,6 @@ def fill_rung_template(root, rungNum, text, comment=None):
 
     # Fill Rung Element Text Tag with rung text, if the element is valid
     template.find("Text").text = add_cdata(text.strip())
-    print(et.tostring(template))
 
     # Return the Filled Template
     return template
@@ -51,14 +50,16 @@ def fill_rung_template(root, rungNum, text, comment=None):
 def new_attach_rungs(rungList, outputFile, xmlDoc):
     root = xmlDoc.getroot()
     # Get the RLLContent container tag to append rung tags to
-    RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent')
+    RLLContent = root.findall(
+            'Controller/Programs/Program/Routines/Routine/RLLContent')
     for rungNum, rung in enumerate(rungList):
         template = fill_rung_template(root, rungNum, rung[0], rung[1])
         if isinstance(template, et._Element):
-            RLLContent.append(template)
+            RLLContent.append(et.tostring(template))
         else:
             print(f"Rung Number {rungNum} is not valid XML")
             logging.warning(f"Number {rungNum} is not valid XML")
+    return xmlDoc
 
 def unzip(l5xFile):
     csvName = l5xFile.split(".")[0] + ".csv"
@@ -103,10 +104,13 @@ def reconstruct(csvFile, outputFile, inputFile):
     pprint(filePaths)
 
     # Formatted Rungs returns correct data from csv
-    formattedRungs = routine_handler(csvPath)
+    formattedRungs = routine_handler(filePaths["csvPath"])
 
-    new_attach_rungs(formattedRungs, outputPath, xmlFile)
-    write_to_file(xmlFile, outputPath)
+    xmlDoc = new_attach_rungs(
+            formattedRungs,
+            filePaths["outputPath"],
+            xmlFile)
+    write_to_file(xmlDoc, outputPath)
 
 #    with open("outputRungs.txt", "w") as opr:
 #        opr.writelines(formattedRungs[1])
