@@ -28,7 +28,7 @@ def fill_rung_template(root, rungNum, text, comment=None):
     template = et.fromstring(
         '<Rung Number="" Type="N">'
             '\n<Comment></Comment>'
-            '\n<Text></Text>\n.'
+            '\n<Text></Text>\n'
         '</Rung>')
     # Check if rungnum is a digit, and fill Rung Number in element  
     if re.search(r"^\d+$", rungNum):
