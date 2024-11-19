@@ -19,13 +19,11 @@ try:
 except ModuleNotFoundError as mnf:
     print("Custom Modules Not Found")
 
+# Problem lies here !!!!!!!!!!!!!!!!!!!
 def fill_rung_template(root, rungNum, text, comment=None):
 
     # Convert int to str
     rungNum = str(rungNum)
-
-    # Get the RLLContent container tag to append rung tags to
-    RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent')
 
     # Create an XML element from a blank Rung element
     template = et.fromstring(
@@ -45,37 +43,27 @@ def fill_rung_template(root, rungNum, text, comment=None):
 
     # Fill Rung Element Text Tag with rung text, if the element is valid
     template.find("Text").text = add_cdata(text.strip())
-    print(template.find('Text').text)
-    print(add_cdata(text.strip()))
-    if isinstance(template, et._Element):
-        RLLContent.append(template)
-    else:
-        print(f"Rung Number {rungNum} is not valid XML")
-        logging.warning(f"Number {rungNum} is not valid XML")
+    print(et.tostring(template))
 
     # Return the Filled Template
     return template
 
-def attach_rungs(dataframe):
-    for fileName, rungs in dataframe.items():
-        fullFileName = f"{fileName}_Routing_RLL.L5X"
-        indivXmlFile = et.parse(fullFileName)
-        root = indivXmlFile.getroot()
-        for rungNum, rung in enumerate(rungs):
-            filledTemplate = fill_rung_template(root, rungNum, rung)
-
-def new_attach_rungs(rungList, outputFile):
-    lPath = os.path.join("Tester","L5X_Files", outputFile)
-    xmlDoc = et.parse(lPath)
+def new_attach_rungs(rungList, outputFile, xmlDoc):
     root = xmlDoc.getroot()
+    # Get the RLLContent container tag to append rung tags to
+    RLLContent = root.findall('Controller/Programs/Program/Routines/Routine/RLLContent')
     for rungNum, rung in enumerate(rungList):
         template = fill_rung_template(root, rungNum, rung[0], rung[1])
-        print(template)
+        if isinstance(template, et._Element):
+            RLLContent.append(template)
+        else:
+            print(f"Rung Number {rungNum} is not valid XML")
+            logging.warning(f"Number {rungNum} is not valid XML")
 
 def unzip(l5xFile):
     csvName = l5xFile.split(".")[0] + ".csv"
-    l5xPath = os.path.join(exportedFilesPath, l5xFile)
-    csvPath = os.path.join(resultFilesPath, csvName)
+    l5xPath = os.path.join(L5X_FILES_PATH, l5xFile)
+    csvPath = os.path.join(CSV_FILES_PATH, csvName)
     allRungs = get_all_rungs(l5xPath)
     with open("inputRungs.txt", "w") as ir:
         ir.writelines(allRungs[1])
@@ -99,21 +87,25 @@ def reconstruct(csvFile, outputFile, inputFile):
             'csvPath': os.path.join(CSV_FILES_PATH, csvFile),
             }
 
-    for filePath in filePaths.values():
-        if not os.path.exists(filePath):
-            with open(filePath, "w") as fp:
-                print(f"Created {filePath}")
-    print(filePaths["outputPath"])
+    #for filePath in filePaths.values():
+    #    if not os.path.exists(filePath):
+    #        print("FILE" + filePath)
+    #        with open(filePath, "w") as fp:
+    #            print(f"Created {filePath}")
     try:
         with open(filePaths["outputPath"], "x") as op:
             print("OPENED")
     except FileExistsError as fe:
         print("ALREADY EXISTS")
 
-    xmlFile = et.parse(inputPath)
+    #xmlFile = et.parse(filePaths['inputPath'])
+    xmlFile = et.parse(inputFile)
+    pprint(filePaths)
 
+    # Formatted Rungs returns correct data from csv
     formattedRungs = routine_handler(csvPath)
-    new_attach_rungs(formattedRungs, inputPath)
+
+    new_attach_rungs(formattedRungs, outputPath, xmlFile)
     write_to_file(xmlFile, outputPath)
 
 #    with open("outputRungs.txt", "w") as opr:
@@ -137,7 +129,7 @@ def main():
 
     userPath = get_path_from_user(exeDirPath,
                                   defaultPath=rootDir,
-                                  defaultFolder="exeTesting")
+                                  defaultFolder="csv_Tester")
     userFolder = os.path.basename(userPath)
 
     # Returns a Dictionary of verified paths
@@ -168,15 +160,13 @@ def main():
         fileName = inputFile.split(".")[0]
 
         for csvFile in csvFileSelection:
-            print(csvFile)
             outputFile = csvFile.replace(".csv", ".L5X")
-            print(outputFile)
             reconstruct(csvFile=csvFile,
                         outputFile=outputFile,
-                        inputFile=inputFile)
+                        inputFile="template.L5X")
 
     elif userChoice == "D":
-        l5xFileSelection = l5x_file_selection(l5xFiles)
+        l5xFileSelection = user_file_selection(l5xFiles)
         for l5xFile in l5xFileSelection:
             unzip(l5xFile)
 
