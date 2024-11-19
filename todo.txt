@@ -7,3 +7,5 @@ Add CDATA prefix and suffix
 Rewrite main() to prompt user whether to construct or deconstruct
 
 Spaces prob dont matter
+
+cdata is correctley added but somehow is not appended to RLL Content

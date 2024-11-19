@@ -54,20 +54,16 @@ def get_all_rungs(l5xPath):
 def add_cdata(text = str()):
     # add CDATA prefix & suffix to element text; required to use special characters in L5X document
     # <Tag> SOME TEXT </Tag> --> <Tag> <![CDATA[ SOME TEXT ]]> </Tag>
-
     try:
         text = et.CDATA(text)
-
     except Exception as e:
-        print("AHHHHH")
         logger.error("ADD CDATA ERROR", exc_info=True)
     return text
 
 def write_to_file(xmlFile, resultPath):
     # arg 2-4 populate xml declaration
     # <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-    print(f"OUTPUT: {resultPath}")
-    
+ 
     try:
         xmlFile.write(
             resultPath,

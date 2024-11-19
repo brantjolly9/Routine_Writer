@@ -44,18 +44,22 @@ def fill_rung_template(root, rungNum, text, comment=None):
     # Fill Rung Element Text Tag with rung text, if the element is valid
     template.find("Text").text = add_cdata(text.strip())
 
-    # Return the Filled Template
+    # Return an et._Element containing a byte array of the element string 
     return template
 
 def new_attach_rungs(rungList, outputFile, xmlDoc):
     root = xmlDoc.getroot()
     # Get the RLLContent container tag to append rung tags to
-    RLLContent = root.findall(
+    # Going to kms, i had root.findall() which returned a list, instead of .find() to return an element
+    RLLContent = root.find(
             'Controller/Programs/Program/Routines/Routine/RLLContent')
     for rungNum, rung in enumerate(rungList):
         template = fill_rung_template(root, rungNum, rung[0], rung[1])
+        #! main problem is prob this secion, template is a byte array containing
+        # the full xml element. Maybe needs to be str?
         if isinstance(template, et._Element):
-            RLLContent.append(et.tostring(template))
+            #RLLContent.append(et.tostring(template))
+            RLLContent.append(template) 
         else:
             print(f"Rung Number {rungNum} is not valid XML")
             logging.warning(f"Number {rungNum} is not valid XML")
@@ -110,6 +114,7 @@ def reconstruct(csvFile, outputFile, inputFile):
             formattedRungs,
             filePaths["outputPath"],
             xmlFile)
+    print(xmlDoc)
     write_to_file(xmlDoc, outputPath)
 
 #    with open("outputRungs.txt", "w") as opr:
