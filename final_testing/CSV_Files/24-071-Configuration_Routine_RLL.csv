@@ -1,0 +1,937 @@
+Rung,Function,Arguments
+Rung Comment:,Routine takes Program Parameters and sets values necessary for the type of system the PLC is controlling
+"0,0,0",NOP,
+""
+Rung Comment:,"Set the Parameter values associated with the system. All Parameters are Initialized to default values (typically zero) in the Initialization Routine. Any Parameter that needs set, can be set here."
+"1,1,0",MOVE,'BRANT',Param.BuildingName
+"1,1,0",MOVE,'SL-0001',Param.SorterName
+"1,1,0",MOVE,5,Param.TotalNumberOfBelts
+"1,1,0",MOVE,5,Param.ConveyorNumberOfSorter[0]
+"1,1,1",OTL,Param.AcbPresent
+"1,1,1",OTL,Param.OutboundSorter
+"1,1,1",OTL,Param.SmallsSorter
+"1,1,1",OTL,Param.HytrolSorter
+"1,1,1",OTL,Param.ShoesPresortLeft
+"1,1,1",OTL,Param.DoubleSidedSorter
+"1,1,2",MOVE,75,Param.NumberOfDestinations
+"1,1,2",MOVE,75,Param.OverflowDestination
+"1,1,2",MOVE,3,Param.MinimumDivertLength
+"1,1,3",MOVE,22,Param.MaximumDivertLength
+"1,1,3",MOVE,10,Param.AverageParcelLength
+"1,1,3",MOVE,4,Param.WrongSorterDestination
+"1,1,3",MOVE,4,Param.CameraNoReadDestination
+"1,1,3",MOVE,3000,Param.ChuteNumberingOffset
+"1,1,4",MOVE,86,Param.PresortingDivertOffset
+"1,1,4",MOVE,5,Param.PresortingBuffer
+"1,1,4",MOVE,4,Param.PresortDivertInterlockingBelt
+"1,1,4",MOVE,3,Param.ShoeLength
+"1,1,5",MOVE,2,Param.ShoeOutOfPositionBelt
+"1,1,5",MOVE,20,Param.ShoeOutOfPositionOffset
+"1,1,6",MOVE,415,Param.SorterFpmSpeed
+"1,1,6",MOVE,415,Param.SorterHslaSpeed
+"1,1,6",MOVE,415,Param.SorterNonHslaSpeed
+"1,1,7",XIC,EmulatorActive
+"1,1,7",MOVE,10,Param.PlcChatIpAddress[0]
+"1,1,7",MOVE,71,Param.PlcChatIpAddress[1]
+"1,1,7",MOVE,168,Param.PlcChatIpAddress[2]
+"1,1,7",MOVE,131,Param.PlcChatIpAddress[3]
+"1,1,8",XIC,EmulatorActive
+"1,1,8",MOVE,192,Param.XleIpAddress[0]
+"1,1,8",MOVE,168,Param.XleIpAddress[1]
+"1,1,8",MOVE,10,Param.XleIpAddress[2]
+"1,1,8",MOVE,114,Param.XleIpAddress[3]
+"1,1,9",XIC,EmulatorActive
+"1,1,9",MOVE,Param.XleIpAddress[0],Param.ChatIpAddress[0]
+"1,1,9",MOVE,Param.XleIpAddress[1],Param.ChatIpAddress[1]
+"1,1,9",MOVE,Param.XleIpAddress[2],Param.ChatIpAddress[2]
+"1,1,9",MOVE,Param.XleIpAddress[3],Param.ChatIpAddress[3]
+"1,1,10",XIO,EmulatorActive
+"1,1,10",MOVE,10,Param.XleIpAddress[0]
+"1,1,10",MOVE,86,Param.XleIpAddress[1]
+"1,1,10",MOVE,80,Param.XleIpAddress[2]
+"1,1,10",MOVE,154,Param.XleIpAddress[3]
+"1,1,11",XIO,EmulatorActive
+"1,1,11",MOVE,10,Param.PlcChatIpAddress[0]
+"1,1,11",MOVE,86,Param.PlcChatIpAddress[1]
+"1,1,11",MOVE,80,Param.PlcChatIpAddress[2]
+"1,1,11",MOVE,156,Param.PlcChatIpAddress[3]
+"1,1,12",MOVE,10,Param.PrimaryCameraIpAddress[0]
+"1,1,12",MOVE,86,Param.PrimaryCameraIpAddress[1]
+"1,1,12",MOVE,80,Param.PrimaryCameraIpAddress[2]
+"1,1,12",MOVE,163,Param.PrimaryCameraIpAddress[3]
+"1,1,13",MOVE,10,Param.BackupCameraIpAddress[0]
+"1,1,13",MOVE,86,Param.BackupCameraIpAddress[1]
+"1,1,13",MOVE,80,Param.BackupCameraIpAddress[2]
+"1,1,13",MOVE,164,Param.BackupCameraIpAddress[3]
+""
+Rung Comment:,The Pre-Trip Timer Preset is calculated in the Commissioning Divert Offsets Routine and put into the Param.PreTripTime[#].PRE value. Zero this tag iniitally and then it needs to be hardcoded once it is calculated.
+"2,0,0",MOVE,13776,Param.PreTripTime[0]
+""
+Rung Comment:,Set the Network Switch Panel (NSP) Present bits
+"3,0,0",OTE,MCP.NetworkSwitch[0].Present
+""
+Rung Comment:,Set the Network Switch Panel (NSP) Present bits
+"4,0,0",NOP,
+""
+Rung Comment:,Set the Network Switch Panel (NSP) Present bits
+"5,0,0",NOP,
+""
+Rung Comment:,Set the Network Switch Panel (NSP) Present bits
+"6,0,0",NOP,
+""
+Rung Comment:,"Conveyor Configuration mapping
+
+SAI1-7"
+"7,1,0",OTL,Conveyor[1].Config.BeltPresent
+"7,1,0",OTL,Conveyor[1].Config.CameraBelt
+"7,1,0",OTL,Conveyor[1].Config.HslaInterlockingBelt
+"7,1,1",MOVE,1,Conveyor[1].Config.ConvNumber
+"7,1,1",MOVE,0,Conveyor[1].Config.Nsp
+"7,1,1",MOVE,'SAI1-7',Conveyor[1].Config.Name
+"7,1,2",MOVE,0,Conveyor[1].Config.UpstreamConveyor
+"7,1,2",MOVE,Conveyor[1].Config.UpstreamConveyor,Conveyor1Upstream
+"7,1,2",MOVE,Conveyor[Conveyor1Upstream].Config.Name,Conveyor[1].Config.UpstreamName
+"7,1,3",MOVE,2,Conveyor[1].Config.DownstreamConveyor
+"7,1,3",MOVE,Conveyor[1].Config.DownstreamConveyor,Conveyor1Downstream
+"7,1,3",MOVE,Conveyor[Conveyor1Downstream].Config.Name,Conveyor[1].Config.DownstreamName
+"7,1,4",MOVE,29.87,Conveyor[1].Config.VfdHertz
+"7,1,4",MOVE,TestSpeedRef[1],Conveyor[1].Config.VfdHertz
+"7,1,4",MOVE,415,Conveyor[1].Config.FpmSpeed
+"7,1,5",XIO,CommissioninRampsActive
+"7,1,5",MOVE,3.0,Conveyor[1].Config.AccelerationTime
+"7,1,5",MOVE,3.0,Conveyor[1].Config.DecelerationTime
+"7,1,6",MOVE,297,Conveyor[1].Tracking.HesOffset
+"7,1,7",MOVE,Conveyor[1].Config.ConvNumber,Conveyor[1].Config.HmiOffset
+"7,1,7",MOVE,Conveyor[1].Config.ConvNumber,Conveyor[1].Config.VfdNumber
+"7,1,8",MOVE,'192.168.1.37',Conveyor[1].Config.VfdIpAddress
+""
+Rung Comment:,"Conveyor Configuration mapping
+
+SAI1-8G1"
+"8,1,0",OTL,Conveyor[2].Config.BeltPresent
+"8,1,1",MOVE,2,Conveyor[2].Config.ConvNumber
+"8,1,1",MOVE,0,Conveyor[2].Config.Nsp
+"8,1,1",MOVE,'SAI1-8G1',Conveyor[2].Config.Name
+"8,1,2",MOVE,1,Conveyor[2].Config.UpstreamConveyor
+"8,1,2",MOVE,Conveyor[2].Config.UpstreamConveyor,Conveyor2Upstream
+"8,1,2",MOVE,Conveyor[Conveyor2Upstream].Config.Name,Conveyor[2].Config.UpstreamName
+"8,1,3",MOVE,3,Conveyor[2].Config.DownstreamConveyor
+"8,1,3",MOVE,Conveyor[2].Config.DownstreamConveyor,Conveyor2Downstream
+"8,1,3",MOVE,Conveyor[Conveyor2Downstream].Config.Name,Conveyor[2].Config.DownstreamName
+"8,1,4",MOVE,34.4,Conveyor[2].Config.VfdHertz
+"8,1,4",MOVE,TestSpeedRef[2],Conveyor[2].Config.VfdHertz
+"8,1,4",MOVE,415,Conveyor[2].Config.FpmSpeed
+"8,1,5",XIO,CommissioninRampsActive
+"8,1,5",MOVE,3.0,Conveyor[2].Config.AccelerationTime
+"8,1,5",MOVE,3.0,Conveyor[2].Config.DecelerationTime
+"8,1,6",MOVE,24,Conveyor[2].Tracking.HesOffset
+"8,1,7",MOVE,Conveyor[2].Config.ConvNumber,Conveyor[2].Config.HmiOffset
+"8,1,7",MOVE,Conveyor[2].Config.ConvNumber,Conveyor[2].Config.VfdNumber
+"8,1,8",MOVE,'192.168.1.36',Conveyor[2].Config.VfdIpAddress
+""
+Rung Comment:,"Conveyor Configuration mapping
+
+SAI1-8G2"
+"9,1,0",OTL,Conveyor[3].Config.BeltPresent
+"9,1,1",MOVE,3,Conveyor[3].Config.ConvNumber
+"9,1,1",MOVE,0,Conveyor[3].Config.Nsp
+"9,1,1",MOVE,'SAI1-8G2',Conveyor[3].Config.Name
+"9,1,2",MOVE,2,Conveyor[3].Config.UpstreamConveyor
+"9,1,2",MOVE,Conveyor[3].Config.UpstreamConveyor,Conveyor3Upstream
+"9,1,2",MOVE,Conveyor[Conveyor3Upstream].Config.Name,Conveyor[3].Config.UpstreamName
+"9,1,3",MOVE,4,Conveyor[3].Config.DownstreamConveyor
+"9,1,3",MOVE,Conveyor[3].Config.DownstreamConveyor,Conveyor3Downstream
+"9,1,3",MOVE,Conveyor[Conveyor3Downstream].Config.Name,Conveyor[3].Config.DownstreamName
+"9,1,4",MOVE,34.4,Conveyor[3].Config.VfdHertz
+"9,1,4",MOVE,TestSpeedRef[3],Conveyor[3].Config.VfdHertz
+"9,1,4",MOVE,415,Conveyor[3].Config.FpmSpeed
+"9,1,5",XIO,CommissioninRampsActive
+"9,1,5",MOVE,3.0,Conveyor[3].Config.AccelerationTime
+"9,1,5",MOVE,3.0,Conveyor[3].Config.DecelerationTime
+"9,1,6",MOVE,24,Conveyor[3].Tracking.HesOffset
+"9,1,7",MOVE,Conveyor[3].Config.ConvNumber,Conveyor[3].Config.HmiOffset
+"9,1,7",MOVE,Conveyor[3].Config.ConvNumber,Conveyor[3].Config.VfdNumber
+"9,1,8",MOVE,'192.168.1.39',Conveyor[3].Config.VfdIpAddress
+""
+Rung Comment:,"Conveyor Configuration mapping
+
+SAI1-8G3"
+"10,1,0",OTL,Conveyor[4].Config.BeltPresent
+"10,1,0",OTL,Conveyor[4].Config.SorterDownstream
+"10,1,0",OTL,Conveyor[4].Config.LastPresortBelt
+"10,1,1",MOVE,4,Conveyor[4].Config.ConvNumber
+"10,1,1",MOVE,0,Conveyor[4].Config.Nsp
+"10,1,1",MOVE,'SAI1-8G3',Conveyor[4].Config.Name
+"10,1,2",MOVE,3,Conveyor[4].Config.UpstreamConveyor
+"10,1,2",MOVE,Conveyor[4].Config.UpstreamConveyor,Conveyor4Upstream
+"10,1,2",MOVE,Conveyor[Conveyor4Upstream].Config.Name,Conveyor[4].Config.UpstreamName
+"10,1,3",MOVE,5,Conveyor[4].Config.DownstreamConveyor
+"10,1,3",MOVE,Conveyor[4].Config.DownstreamConveyor,Conveyor4Downstream
+"10,1,3",MOVE,Conveyor[Conveyor4Downstream].Config.Name,Conveyor[4].Config.DownstreamName
+"10,1,4",MOVE,34.4,Conveyor[4].Config.VfdHertz
+"10,1,4",MOVE,TestSpeedRef[4],Conveyor[4].Config.VfdHertz
+"10,1,4",MOVE,415,Conveyor[4].Config.FpmSpeed
+"10,1,5",XIO,CommissioninRampsActive
+"10,1,5",MOVE,3.0,Conveyor[4].Config.AccelerationTime
+"10,1,5",MOVE,3.0,Conveyor[4].Config.DecelerationTime
+"10,1,6",MOVE,156,Conveyor[4].Tracking.HesOffset
+"10,1,7",MOVE,Conveyor[4].Config.ConvNumber,Conveyor[4].Config.HmiOffset
+"10,1,7",MOVE,Conveyor[4].Config.ConvNumber,Conveyor[4].Config.VfdNumber
+"10,1,8",MOVE,'192.168.1.38',Conveyor[4].Config.VfdIpAddress
+""
+Rung Comment:,"Conveyor Configuration mapping
+
+SLS1"
+"11,1,0",OTL,Conveyor[Sorter0Conv].Config.BeltPresent
+"11,1,0",OTL,Conveyor[Sorter0Conv].Config.SorterBelt
+"11,1,0",OTL,Conveyor[Sorter0Conv].Config.FirstSorterBelt
+"11,1,1",MOVE,0,Conveyor[Sorter0Conv].Config.SorterNumber
+"11,1,1",MOVE,1,Conveyor[Sorter0Conv].Config.Ab1Number
+"11,1,2",MOVE,5,Conveyor[Sorter0Conv].Config.ConvNumber
+"11,1,2",MOVE,0,Conveyor[Sorter0Conv].Config.Nsp
+"11,1,2",MOVE,'SLS1',Conveyor[Sorter0Conv].Config.Name
+"11,1,3",MOVE,4,Conveyor[Sorter0Conv].Config.UpstreamConveyor
+"11,1,3",MOVE,Conveyor[Sorter0Conv].Config.UpstreamConveyor,Conveyor5Upstream
+"11,1,3",MOVE,Conveyor[Conveyor5Upstream].Config.Name,Conveyor[Sorter0Conv].Config.UpstreamName
+"11,1,4",MOVE,0,Conveyor[Sorter0Conv].Config.DownstreamConveyor
+"11,1,4",MOVE,Conveyor[Sorter0Conv].Config.DownstreamConveyor,Conveyor5Downstream
+"11,1,4",MOVE,Conveyor[Conveyor5Downstream].Config.Name,Conveyor[5].Config.DownstreamName
+"11,1,5",MOVE,59.0,Conveyor[Sorter0Conv].Config.VfdHertz
+"11,1,5",MOVE,415,Conveyor[Sorter0Conv].Config.FpmSpeed
+"11,1,6",XIO,CommissioninRampsActive
+"11,1,6",MOVE,10.0,Conveyor[Sorter0Conv].Config.AccelerationTime
+"11,1,6",MOVE,10.0,Conveyor[Sorter0Conv].Config.DecelerationTime
+"11,1,7",MOVE,1196,Conveyor[Sorter0Conv].Tracking.HesOffset
+"11,1,7",MOVE,29316,Conveyor[Sorter0Conv].Sorter.Config.SorterRevolutionTime
+"11,1,8",MOVE,Conveyor[Sorter0Conv].Config.ConvNumber,Conveyor[Sorter0Conv].Config.HmiOffset
+"11,1,8",MOVE,Conveyor[Sorter0Conv].Config.ConvNumber,Conveyor[Sorter0Conv].Config.VfdNumber
+"11,1,9",MOVE,'192.168.1.63',Conveyor[Sorter0Conv].Config.VfdIpAddress
+"11,1,9",MOVE,'192.168.1.141',Conveyor[Sorter0Conv].Config.AbIpAddress[1]
+"11,1,9",MOVE,'SLS1-ARM-7',Conveyor[Sorter0Conv].Config.AbName[1]
+"11,1,10",MOVE,1.025,Conveyor[Sorter0Conv].Config.PulseMultiplier
+""
+Rung Comment:,"Conveyor Configuration mapping
+
+SLS1"
+"12,0,0",NOP,
+""
+Rung Comment:,"Conveyor Configuration mapping
+
+SLS1"
+"13,0,0",NOP,
+""
+Rung Comment:,"Conveyor Configuration mapping
+
+SLS1"
+"14,0,0",NOP,
+""
+Rung Comment:,Sorter Armor Block IP Addresses
+"15,1,0",MOVE,'SLS1-ARM-1',Conveyor[Sorter0Conv].Sorter.Config.Arm[1].Name
+"15,1,0",MOVE,'192.168.1.201',Conveyor[Sorter0Conv].Sorter.Config.Arm[1].AbIpAddress[1]
+"15,1,0",MOVE,'192.168.1.202',Conveyor[Sorter0Conv].Sorter.Config.Arm[1].AbIpAddress[2]
+"15,1,1",MOVE,'SLS1-ARM-2',Conveyor[Sorter0Conv].Sorter.Config.Arm[2].Name
+"15,1,1",MOVE,'192.168.1.203',Conveyor[Sorter0Conv].Sorter.Config.Arm[2].AbIpAddress[1]
+"15,1,1",MOVE,'192.168.1.204',Conveyor[Sorter0Conv].Sorter.Config.Arm[2].AbIpAddress[2]
+"15,1,2",MOVE,'SLS1-ARM-3',Conveyor[Sorter0Conv].Sorter.Config.Arm[3].Name
+"15,1,2",MOVE,'192.168.1.205',Conveyor[Sorter0Conv].Sorter.Config.Arm[3].AbIpAddress[1]
+"15,1,2",MOVE,'192.168.1.206',Conveyor[Sorter0Conv].Sorter.Config.Arm[3].AbIpAddress[2]
+"15,1,3",MOVE,'SLS1-ARM-4',Conveyor[Sorter0Conv].Sorter.Config.Arm[4].Name
+"15,1,3",MOVE,'192.168.1.207',Conveyor[Sorter0Conv].Sorter.Config.Arm[4].AbIpAddress[1]
+"15,1,3",MOVE,'192.168.1.208',Conveyor[Sorter0Conv].Sorter.Config.Arm[4].AbIpAddress[2]
+"15,1,4",MOVE,'SLS1-ARM-5',Conveyor[Sorter0Conv].Sorter.Config.Arm[5].Name
+"15,1,4",MOVE,'192.168.1.209',Conveyor[Sorter0Conv].Sorter.Config.Arm[5].AbIpAddress[1]
+"15,1,4",MOVE,'192.168.1.210',Conveyor[Sorter0Conv].Sorter.Config.Arm[5].AbIpAddress[2]
+"15,1,5",MOVE,'SLS1-ARM-6',Conveyor[Sorter0Conv].Sorter.Config.Arm[6].Name
+"15,1,5",MOVE,'192.168.1.211',Conveyor[Sorter0Conv].Sorter.Config.Arm[6].AbIpAddress[1]
+"15,1,5",MOVE,'192.168.1.212',Conveyor[Sorter0Conv].Sorter.Config.Arm[6].AbIpAddress[2]
+""
+Rung Comment:,Sorter Armor Block IP Addresses
+"16,0,0",NOP,
+""
+Rung Comment:,Sorter Armor Block IP Addresses
+"17,0,0",NOP,
+""
+Rung Comment:,Sorter Armor Block IP Addresses
+"18,0,0",NOP,
+""
+Rung Comment:,Map the Train data into the configuration Routine
+"19,0,0",MOVE,1,Config.FirstConveyorInTheTrain
+"19,0,0",MOVE,5,Config.LastConveyorInTheTrain
+"19,0,0",MOVE,'SAI',Train.Config.Name
+""
+Rung Comment:,Map the Train data into the configuration Routine
+"20,0,0",NOP,
+""
+Rung Comment:,Map the Train data into the configuration Routine
+"21,0,0",NOP,
+""
+Rung Comment:,Map the Train data into the configuration Routine
+"22,0,0",NOP,
+""
+Rung Comment:,Divert Configuration
+"23,1,0",MOVE,Param.OverflowDestination,Config.OverflowDestination
+"23,1,0",SUB,Config.OverflowDestination,1,Config.NumberOfDivertPoints
+"23,1,1",MOVE,Param.MinimumDivertLength,Config.MinimumDivertLength
+"23,1,1",MOVE,Param.MaximumDivertLength,Config.MaximumDivertLength
+"23,1,2",MOVE,2999,Param.ChuteNumberingOffsetLeft
+"23,1,2",MOVE,3001,Param.ChuteNumberingOffsetRight
+""
+Rung Comment:,Divert Configuration Logic
+"24,1,0",OTE,Divert[3].Config.Present
+"24,1,0",OTE,Divert[3].Config.Chute
+"24,1,0",OTE,Divert[3].Config.BagPresent
+"24,1,1",MOVE,46,Divert[3].Config.Offset
+"24,1,1",MOVE,'CH3004',Divert[3].Config.Name
+"24,1,2",MOVE,2,Divert[3].Config.Arm
+"24,1,2",MOVE,1,Divert[3].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"25,1,0",OTE,Divert[4].Config.Present
+"25,1,0",OTE,Divert[4].Config.Chute
+"25,1,1",XIC,SafetyConsumed.data[0].3
+"25,1,1",OTE,Divert[4].TakeawayNotRunning_Input
+"25,1,2",MOVE,46,Divert[4].Config.Offset
+"25,1,2",MOVE,'CH3003',Divert[4].Config.Name
+"25,1,3",MOVE,1,Divert[4].Config.Arm
+"25,1,3",MOVE,1,Divert[4].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"26,1,0",OTE,Divert[5].Config.Present
+"26,1,0",OTE,Divert[5].Config.Chute
+"26,1,0",OTE,Divert[5].Config.BagPresent
+"26,1,1",MOVE,75,Divert[5].Config.Offset
+"26,1,1",MOVE,'CH3006',Divert[5].Config.Name
+"26,1,2",MOVE,2,Divert[5].Config.Arm
+"26,1,2",MOVE,1,Divert[5].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"27,1,0",OTE,Divert[6].Config.Present
+"27,1,0",OTE,Divert[6].Config.Chute
+"27,1,0",OTE,Divert[6].Config.BagPresent
+"27,1,1",MOVE,75,Divert[6].Config.Offset
+"27,1,1",MOVE,'CH3005',Divert[6].Config.Name
+"27,1,2",MOVE,1,Divert[6].Config.Arm
+"27,1,2",MOVE,1,Divert[6].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"28,1,0",OTE,Divert[7].Config.Present
+"28,1,0",OTE,Divert[7].Config.Chute
+"28,1,0",OTE,Divert[7].Config.BagPresent
+"28,1,1",MOVE,108,Divert[7].Config.Offset
+"28,1,1",MOVE,'CH3008',Divert[7].Config.Name
+"28,1,2",MOVE,2,Divert[7].Config.Arm
+"28,1,2",MOVE,1,Divert[7].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"29,1,0",OTE,Divert[8].Config.Present
+"29,1,0",OTE,Divert[8].Config.Chute
+"29,1,0",OTE,Divert[8].Config.BagPresent
+"29,1,1",MOVE,108,Divert[8].Config.Offset
+"29,1,1",MOVE,'CH3007',Divert[8].Config.Name
+"29,1,2",MOVE,1,Divert[8].Config.Arm
+"29,1,2",MOVE,1,Divert[8].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"30,1,0",OTE,Divert[9].Config.Present
+"30,1,0",OTE,Divert[9].Config.Chute
+"30,1,0",OTE,Divert[9].Config.BagPresent
+"30,1,1",MOVE,131,Divert[9].Config.Offset
+"30,1,1",MOVE,'CH3010',Divert[9].Config.Name
+"30,1,2",MOVE,2,Divert[9].Config.Arm
+"30,1,2",MOVE,1,Divert[9].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"31,1,0",OTE,Divert[10].Config.Present
+"31,1,0",OTE,Divert[10].Config.Chute
+"31,1,0",OTE,Divert[10].Config.BagPresent
+"31,1,1",MOVE,131,Divert[10].Config.Offset
+"31,1,1",MOVE,'CH3009',Divert[10].Config.Name
+"31,1,2",MOVE,1,Divert[10].Config.Arm
+"31,1,2",MOVE,1,Divert[10].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"32,1,0",OTE,Divert[11].Config.Present
+"32,1,0",OTE,Divert[11].Config.Chute
+"32,1,0",OTE,Divert[11].Config.BagPresent
+"32,1,1",MOVE,162,Divert[11].Config.Offset
+"32,1,1",MOVE,'CH3012',Divert[11].Config.Name
+"32,1,2",MOVE,2,Divert[11].Config.Arm
+"32,1,2",MOVE,1,Divert[11].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"33,1,0",OTE,Divert[12].Config.Present
+"33,1,0",OTE,Divert[12].Config.Chute
+"33,1,0",OTE,Divert[12].Config.BagPresent
+"33,1,1",MOVE,162,Divert[12].Config.Offset
+"33,1,1",MOVE,'CH3011',Divert[12].Config.Name
+"33,1,2",MOVE,1,Divert[12].Config.Arm
+"33,1,2",MOVE,1,Divert[12].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"34,1,0",OTE,Divert[13].Config.Present
+"34,1,0",OTE,Divert[13].Config.Chute
+"34,1,0",OTE,Divert[13].Config.BagPresent
+"34,1,1",MOVE,191,Divert[13].Config.Offset
+"34,1,1",MOVE,'CH3014',Divert[13].Config.Name
+"34,1,2",MOVE,2,Divert[13].Config.Arm
+"34,1,2",MOVE,1,Divert[13].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"35,1,0",OTE,Divert[14].Config.Present
+"35,1,0",OTE,Divert[14].Config.Chute
+"35,1,0",OTE,Divert[14].Config.BagPresent
+"35,1,1",MOVE,191,Divert[14].Config.Offset
+"35,1,1",MOVE,'CH3013',Divert[14].Config.Name
+"35,1,2",MOVE,1,Divert[14].Config.Arm
+"35,1,2",MOVE,1,Divert[14].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"36,1,0",OTE,Divert[15].Config.Present
+"36,1,0",OTE,Divert[15].Config.Chute
+"36,1,0",OTE,Divert[15].Config.BagPresent
+"36,1,1",MOVE,220,Divert[15].Config.Offset
+"36,1,1",MOVE,'CH3016',Divert[15].Config.Name
+"36,1,2",MOVE,2,Divert[15].Config.Arm
+"36,1,2",MOVE,1,Divert[15].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"37,1,0",OTE,Divert[16].Config.Present
+"37,1,0",OTE,Divert[16].Config.Chute
+"37,1,0",OTE,Divert[16].Config.BagPresent
+"37,1,1",MOVE,220,Divert[16].Config.Offset
+"37,1,1",MOVE,'CH3015',Divert[16].Config.Name
+"37,1,2",MOVE,1,Divert[16].Config.Arm
+"37,1,2",MOVE,1,Divert[16].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"38,1,0",OTE,Divert[17].Config.Present
+"38,1,0",OTE,Divert[17].Config.Chute
+"38,1,0",OTE,Divert[17].Config.BagPresent
+"38,1,1",MOVE,249,Divert[17].Config.Offset
+"38,1,1",MOVE,'CH3018',Divert[17].Config.Name
+"38,1,2",MOVE,1,Divert[17].Config.Arm
+"38,1,2",MOVE,2,Divert[17].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"39,1,0",OTE,Divert[18].Config.Present
+"39,1,0",OTE,Divert[18].Config.Chute
+"39,1,0",OTE,Divert[18].Config.BagPresent
+"39,1,1",MOVE,249,Divert[18].Config.Offset
+"39,1,1",MOVE,'CH3017',Divert[18].Config.Name
+"39,1,2",MOVE,1,Divert[18].Config.Arm
+"39,1,2",MOVE,2,Divert[18].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"40,1,0",OTE,Divert[19].Config.Present
+"40,1,0",OTE,Divert[19].Config.Chute
+"40,1,0",OTE,Divert[19].Config.BagPresent
+"40,1,1",MOVE,278,Divert[19].Config.Offset
+"40,1,1",MOVE,'CH3020',Divert[19].Config.Name
+"40,1,2",MOVE,2,Divert[19].Config.Arm
+"40,1,2",MOVE,2,Divert[19].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"41,1,0",OTE,Divert[20].Config.Present
+"41,1,0",OTE,Divert[20].Config.Chute
+"41,1,0",OTE,Divert[20].Config.BagPresent
+"41,1,1",MOVE,278,Divert[20].Config.Offset
+"41,1,1",MOVE,'CH3019',Divert[20].Config.Name
+"41,1,2",MOVE,1,Divert[20].Config.Arm
+"41,1,2",MOVE,2,Divert[20].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"42,1,0",OTE,Divert[21].Config.Present
+"42,1,0",OTE,Divert[21].Config.Chute
+"42,1,0",OTE,Divert[21].Config.BagPresent
+"42,1,1",MOVE,307,Divert[21].Config.Offset
+"42,1,1",MOVE,'CH3022',Divert[21].Config.Name
+"42,1,2",MOVE,2,Divert[21].Config.Arm
+"42,1,2",MOVE,2,Divert[21].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"43,1,0",OTE,Divert[22].Config.Present
+"43,1,0",OTE,Divert[22].Config.Chute
+"43,1,0",OTE,Divert[22].Config.BagPresent
+"43,1,1",MOVE,307,Divert[22].Config.Offset
+"43,1,1",MOVE,'CH3021',Divert[22].Config.Name
+"43,1,2",MOVE,1,Divert[22].Config.Arm
+"43,1,2",MOVE,2,Divert[22].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"44,1,0",OTE,Divert[23].Config.Present
+"44,1,0",OTE,Divert[23].Config.Chute
+"44,1,0",OTE,Divert[23].Config.BagPresent
+"44,1,1",MOVE,336,Divert[23].Config.Offset
+"44,1,1",MOVE,'CH3024',Divert[23].Config.Name
+"44,1,2",MOVE,2,Divert[23].Config.Arm
+"44,1,2",MOVE,2,Divert[23].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"45,1,0",OTE,Divert[24].Config.Present
+"45,1,0",OTE,Divert[24].Config.Chute
+"45,1,0",OTE,Divert[24].Config.BagPresent
+"45,1,1",MOVE,336,Divert[24].Config.Offset
+"45,1,1",MOVE,'CH3023',Divert[24].Config.Name
+"45,1,2",MOVE,1,Divert[24].Config.Arm
+"45,1,2",MOVE,2,Divert[24].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"46,1,0",OTE,Divert[25].Config.Present
+"46,1,0",OTE,Divert[25].Config.Chute
+"46,1,0",OTE,Divert[25].Config.BagPresent
+"46,1,1",MOVE,366,Divert[25].Config.Offset
+"46,1,1",MOVE,'CH3026',Divert[25].Config.Name
+"46,1,2",MOVE,2,Divert[25].Config.Arm
+"46,1,2",MOVE,2,Divert[25].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"47,1,0",OTE,Divert[26].Config.Present
+"47,1,0",OTE,Divert[26].Config.Chute
+"47,1,0",OTE,Divert[26].Config.BagPresent
+"47,1,1",MOVE,366,Divert[26].Config.Offset
+"47,1,1",MOVE,'CH3025',Divert[26].Config.Name
+"47,1,2",MOVE,1,Divert[26].Config.Arm
+"47,1,2",MOVE,2,Divert[26].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"48,1,0",OTE,Divert[27].Config.Present
+"48,1,0",OTE,Divert[27].Config.Chute
+"48,1,0",OTE,Divert[27].Config.BagPresent
+"48,1,1",MOVE,396,Divert[27].Config.Offset
+"48,1,1",MOVE,'CH3028',Divert[27].Config.Name
+"48,1,2",MOVE,2,Divert[27].Config.Arm
+"48,1,2",MOVE,2,Divert[27].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"49,1,0",OTE,Divert[28].Config.Present
+"49,1,0",OTE,Divert[28].Config.Chute
+"49,1,0",OTE,Divert[28].Config.BagPresent
+"49,1,1",MOVE,396,Divert[28].Config.Offset
+"49,1,1",MOVE,'CH3027',Divert[28].Config.Name
+"49,1,2",MOVE,1,Divert[28].Config.Arm
+"49,1,2",MOVE,2,Divert[28].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"50,1,0",OTE,Divert[29].Config.Present
+"50,1,0",OTE,Divert[29].Config.Chute
+"50,1,0",OTE,Divert[29].Config.BagPresent
+"50,1,1",MOVE,325,Divert[29].Config.Offset
+"50,1,1",MOVE,'CH3030',Divert[29].Config.Name
+"50,1,2",MOVE,4,Divert[29].Config.Arm
+"50,1,2",MOVE,1,Divert[29].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"51,1,0",OTE,Divert[30].Config.Present
+"51,1,0",OTE,Divert[30].Config.Chute
+"51,1,0",OTE,Divert[30].Config.BagPresent
+"51,1,1",MOVE,425,Divert[30].Config.Offset
+"51,1,1",MOVE,'CH3029',Divert[30].Config.Name
+"51,1,2",MOVE,3,Divert[30].Config.Arm
+"51,1,2",MOVE,1,Divert[30].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"52,1,0",OTE,Divert[31].Config.Present
+"52,1,0",OTE,Divert[31].Config.Chute
+"52,1,0",OTE,Divert[31].Config.BagPresent
+"52,1,1",MOVE,455,Divert[31].Config.Offset
+"52,1,1",MOVE,'CH3032',Divert[31].Config.Name
+"52,1,2",MOVE,4,Divert[31].Config.Arm
+"52,1,2",MOVE,1,Divert[31].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"53,1,0",OTE,Divert[32].Config.Present
+"53,1,0",OTE,Divert[32].Config.Chute
+"53,1,0",OTE,Divert[32].Config.BagPresent
+"53,1,1",MOVE,455,Divert[32].Config.Offset
+"53,1,1",MOVE,'CH3031',Divert[32].Config.Name
+"53,1,2",MOVE,3,Divert[32].Config.Arm
+"53,1,2",MOVE,1,Divert[32].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"54,1,0",OTE,Divert[33].Config.Present
+"54,1,0",OTE,Divert[33].Config.Chute
+"54,1,0",OTE,Divert[33].Config.BagPresent
+"54,1,1",MOVE,485,Divert[33].Config.Offset
+"54,1,1",MOVE,'CH3034',Divert[33].Config.Name
+"54,1,2",MOVE,4,Divert[33].Config.Arm
+"54,1,2",MOVE,1,Divert[33].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"55,1,0",OTE,Divert[34].Config.Present
+"55,1,0",OTE,Divert[34].Config.Chute
+"55,1,0",OTE,Divert[34].Config.BagPresent
+"55,1,1",MOVE,485,Divert[34].Config.Offset
+"55,1,1",MOVE,'CH3033',Divert[34].Config.Name
+"55,1,2",MOVE,3,Divert[34].Config.Arm
+"55,1,2",MOVE,1,Divert[34].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"56,1,0",OTE,Divert[35].Config.Present
+"56,1,0",OTE,Divert[35].Config.Chute
+"56,1,0",OTE,Divert[35].Config.BagPresent
+"56,1,1",MOVE,513,Divert[35].Config.Offset
+"56,1,1",MOVE,'CH3036',Divert[35].Config.Name
+"56,1,2",MOVE,4,Divert[35].Config.Arm
+"56,1,2",MOVE,1,Divert[35].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"57,1,0",OTE,Divert[36].Config.Present
+"57,1,0",OTE,Divert[36].Config.Chute
+"57,1,0",OTE,Divert[36].Config.BagPresent
+"57,1,1",MOVE,513,Divert[36].Config.Offset
+"57,1,1",MOVE,'CH3035',Divert[36].Config.Name
+"57,1,2",MOVE,3,Divert[36].Config.Arm
+"57,1,2",MOVE,1,Divert[36].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"58,1,0",OTE,Divert[37].Config.Present
+"58,1,0",OTE,Divert[37].Config.Chute
+"58,1,0",OTE,Divert[37].Config.BagPresent
+"58,1,1",MOVE,543,Divert[37].Config.Offset
+"58,1,1",MOVE,'CH3038',Divert[37].Config.Name
+"58,1,2",MOVE,4,Divert[37].Config.Arm
+"58,1,2",MOVE,1,Divert[37].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"59,1,0",OTE,Divert[38].Config.Present
+"59,1,0",OTE,Divert[38].Config.Chute
+"59,1,0",OTE,Divert[38].Config.BagPresent
+"59,1,1",MOVE,543,Divert[38].Config.Offset
+"59,1,1",MOVE,'CH3037',Divert[38].Config.Name
+"59,1,2",MOVE,3,Divert[38].Config.Arm
+"59,1,2",MOVE,1,Divert[38].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"60,1,0",OTE,Divert[39].Config.Present
+"60,1,0",OTE,Divert[39].Config.Chute
+"60,1,0",OTE,Divert[39].Config.BagPresent
+"60,1,1",MOVE,571,Divert[39].Config.Offset
+"60,1,1",MOVE,'CH3040',Divert[39].Config.Name
+"60,1,2",MOVE,4,Divert[39].Config.Arm
+"60,1,2",MOVE,1,Divert[39].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"61,1,0",OTE,Divert[40].Config.Present
+"61,1,0",OTE,Divert[40].Config.Chute
+"61,1,0",OTE,Divert[40].Config.BagPresent
+"61,1,1",MOVE,571,Divert[40].Config.Offset
+"61,1,1",MOVE,'CH3039',Divert[40].Config.Name
+"61,1,2",MOVE,3,Divert[40].Config.Arm
+"61,1,2",MOVE,1,Divert[40].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"62,1,0",OTE,Divert[41].Config.Present
+"62,1,0",OTE,Divert[41].Config.Chute
+"62,1,0",OTE,Divert[41].Config.BagPresent
+"62,1,1",MOVE,600,Divert[41].Config.Offset
+"62,1,1",MOVE,'CH3042',Divert[41].Config.Name
+"62,1,2",MOVE,4,Divert[41].Config.Arm
+"62,1,2",MOVE,1,Divert[41].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"63,1,0",OTE,Divert[42].Config.Present
+"63,1,0",OTE,Divert[42].Config.Chute
+"63,1,0",OTE,Divert[42].Config.BagPresent
+"63,1,1",MOVE,600,Divert[42].Config.Offset
+"63,1,1",MOVE,'CH3041',Divert[42].Config.Name
+"63,1,2",MOVE,3,Divert[42].Config.Arm
+"63,1,2",MOVE,1,Divert[42].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"64,1,0",OTE,Divert[43].Config.Present
+"64,1,0",OTE,Divert[43].Config.Chute
+"64,1,0",OTE,Divert[43].Config.BagPresent
+"64,1,1",MOVE,631,Divert[43].Config.Offset
+"64,1,1",MOVE,'CH3044',Divert[43].Config.Name
+"64,1,2",MOVE,4,Divert[43].Config.Arm
+"64,1,2",MOVE,1,Divert[43].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"65,1,0",OTE,Divert[44].Config.Present
+"65,1,0",OTE,Divert[44].Config.Chute
+"65,1,0",OTE,Divert[44].Config.BagPresent
+"65,1,1",MOVE,631,Divert[44].Config.Offset
+"65,1,1",MOVE,'CH3043',Divert[44].Config.Name
+"65,1,2",MOVE,3,Divert[44].Config.Arm
+"65,1,2",MOVE,1,Divert[44].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"66,1,0",OTE,Divert[45].Config.Present
+"66,1,0",OTE,Divert[45].Config.Chute
+"66,1,0",OTE,Divert[45].Config.BagPresent
+"66,1,1",MOVE,660,Divert[45].Config.Offset
+"66,1,1",MOVE,'CH3046',Divert[45].Config.Name
+"66,1,2",MOVE,4,Divert[45].Config.Arm
+"66,1,2",MOVE,2,Divert[45].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"67,1,0",OTE,Divert[46].Config.Present
+"67,1,0",OTE,Divert[46].Config.Chute
+"67,1,0",OTE,Divert[46].Config.BagPresent
+"67,1,1",MOVE,660,Divert[46].Config.Offset
+"67,1,1",MOVE,'CH3045',Divert[46].Config.Name
+"67,1,2",MOVE,3,Divert[46].Config.Arm
+"67,1,2",MOVE,2,Divert[46].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"68,1,0",OTE,Divert[47].Config.Present
+"68,1,0",OTE,Divert[47].Config.Chute
+"68,1,0",OTE,Divert[47].Config.BagPresent
+"68,1,1",MOVE,689,Divert[47].Config.Offset
+"68,1,1",MOVE,'CH3048',Divert[47].Config.Name
+"68,1,2",MOVE,4,Divert[47].Config.Arm
+"68,1,2",MOVE,2,Divert[47].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"69,1,0",OTE,Divert[48].Config.Present
+"69,1,0",OTE,Divert[48].Config.Chute
+"69,1,0",OTE,Divert[48].Config.BagPresent
+"69,1,1",MOVE,689,Divert[48].Config.Offset
+"69,1,1",MOVE,'CH3047',Divert[48].Config.Name
+"69,1,2",MOVE,3,Divert[48].Config.Arm
+"69,1,2",MOVE,2,Divert[48].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"70,1,0",OTE,Divert[49].Config.Present
+"70,1,0",OTE,Divert[49].Config.Chute
+"70,1,0",OTE,Divert[49].Config.BagPresent
+"70,1,1",MOVE,718,Divert[49].Config.Offset
+"70,1,1",MOVE,'CH3050',Divert[49].Config.Name
+"70,1,2",MOVE,4,Divert[49].Config.Arm
+"70,1,2",MOVE,2,Divert[49].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"71,1,0",OTE,Divert[50].Config.Present
+"71,1,0",OTE,Divert[50].Config.Chute
+"71,1,0",OTE,Divert[50].Config.BagPresent
+"71,1,1",MOVE,718,Divert[50].Config.Offset
+"71,1,1",MOVE,'CH3049',Divert[50].Config.Name
+"71,1,2",MOVE,3,Divert[50].Config.Arm
+"71,1,2",MOVE,2,Divert[50].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"72,1,0",OTE,Divert[51].Config.Present
+"72,1,0",OTE,Divert[51].Config.Chute
+"72,1,0",OTE,Divert[51].Config.BagPresent
+"72,1,1",MOVE,748,Divert[51].Config.Offset
+"72,1,1",MOVE,'CH3052',Divert[51].Config.Name
+"72,1,2",MOVE,4,Divert[51].Config.Arm
+"72,1,2",MOVE,2,Divert[51].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"73,1,0",OTE,Divert[52].Config.Present
+"73,1,0",OTE,Divert[52].Config.Chute
+"73,1,0",OTE,Divert[52].Config.BagPresent
+"73,1,1",MOVE,748,Divert[52].Config.Offset
+"73,1,1",MOVE,'CH3051',Divert[52].Config.Name
+"73,1,2",MOVE,3,Divert[52].Config.Arm
+"73,1,2",MOVE,2,Divert[52].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"74,1,0",OTE,Divert[53].Config.Present
+"74,1,0",OTE,Divert[53].Config.Chute
+"74,1,0",OTE,Divert[53].Config.BagPresent
+"74,1,1",MOVE,776,Divert[53].Config.Offset
+"74,1,1",MOVE,'CH3054',Divert[53].Config.Name
+"74,1,2",MOVE,4,Divert[53].Config.Arm
+"74,1,2",MOVE,2,Divert[53].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"75,1,0",OTE,Divert[54].Config.Present
+"75,1,0",OTE,Divert[54].Config.Chute
+"75,1,0",OTE,Divert[54].Config.BagPresent
+"75,1,1",MOVE,776,Divert[54].Config.Offset
+"75,1,1",MOVE,'CH3053',Divert[54].Config.Name
+"75,1,2",MOVE,3,Divert[54].Config.Arm
+"75,1,2",MOVE,2,Divert[54].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"76,1,0",OTE,Divert[55].Config.Present
+"76,1,0",OTE,Divert[55].Config.Chute
+"76,1,0",OTE,Divert[55].Config.BagPresent
+"76,1,1",MOVE,806,Divert[55].Config.Offset
+"76,1,1",MOVE,'CH3056',Divert[55].Config.Name
+"76,1,2",MOVE,4,Divert[55].Config.Arm
+"76,1,2",MOVE,2,Divert[55].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"77,1,0",OTE,Divert[56].Config.Present
+"77,1,0",OTE,Divert[56].Config.Chute
+"77,1,0",OTE,Divert[56].Config.BagPresent
+"77,1,1",MOVE,806,Divert[56].Config.Offset
+"77,1,1",MOVE,'CH3055',Divert[56].Config.Name
+"77,1,2",MOVE,3,Divert[56].Config.Arm
+"77,1,2",MOVE,2,Divert[56].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"78,1,0",OTE,Divert[57].Config.Present
+"78,1,0",OTE,Divert[57].Config.Chute
+"78,1,0",OTE,Divert[57].Config.BagPresent
+"78,1,1",MOVE,835,Divert[57].Config.Offset
+"78,1,1",MOVE,'CH3058',Divert[57].Config.Name
+"78,1,2",MOVE,4,Divert[57].Config.Arm
+"78,1,2",MOVE,2,Divert[57].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"79,1,0",OTE,Divert[58].Config.Present
+"79,1,0",OTE,Divert[58].Config.Chute
+"79,1,0",OTE,Divert[58].Config.BagPresent
+"79,1,1",MOVE,835,Divert[58].Config.Offset
+"79,1,1",MOVE,'CH3057',Divert[58].Config.Name
+"79,1,2",MOVE,3,Divert[58].Config.Arm
+"79,1,2",MOVE,2,Divert[58].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"80,1,0",OTE,Divert[59].Config.Present
+"80,1,0",OTE,Divert[59].Config.Chute
+"80,1,0",OTE,Divert[59].Config.BagPresent
+"80,1,1",MOVE,864,Divert[59].Config.Offset
+"80,1,1",MOVE,'CH3060',Divert[59].Config.Name
+"80,1,2",MOVE,6,Divert[59].Config.Arm
+"80,1,2",MOVE,1,Divert[59].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"81,1,0",OTE,Divert[60].Config.Present
+"81,1,0",OTE,Divert[60].Config.Chute
+"81,1,0",OTE,Divert[60].Config.BagPresent
+"81,1,1",MOVE,864,Divert[60].Config.Offset
+"81,1,1",MOVE,'CH3059',Divert[60].Config.Name
+"81,1,2",MOVE,5,Divert[60].Config.Arm
+"81,1,2",MOVE,1,Divert[60].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"82,1,0",OTE,Divert[61].Config.Present
+"82,1,0",OTE,Divert[61].Config.Chute
+"82,1,0",OTE,Divert[61].Config.BagPresent
+"82,1,1",MOVE,894,Divert[61].Config.Offset
+"82,1,1",MOVE,'CH3062',Divert[61].Config.Name
+"82,1,2",MOVE,6,Divert[61].Config.Arm
+"82,1,2",MOVE,1,Divert[61].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"83,1,0",OTE,Divert[62].Config.Present
+"83,1,0",OTE,Divert[62].Config.Chute
+"83,1,0",OTE,Divert[62].Config.BagPresent
+"83,1,1",MOVE,894,Divert[62].Config.Offset
+"83,1,1",MOVE,'CH3061',Divert[62].Config.Name
+"83,1,2",MOVE,5,Divert[62].Config.Arm
+"83,1,2",MOVE,1,Divert[62].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"84,1,0",OTE,Divert[63].Config.Present
+"84,1,0",OTE,Divert[63].Config.Chute
+"84,1,0",OTE,Divert[63].Config.BagPresent
+"84,1,1",MOVE,922,Divert[63].Config.Offset
+"84,1,1",MOVE,'CH3064',Divert[63].Config.Name
+"84,1,2",MOVE,6,Divert[63].Config.Arm
+"84,1,2",MOVE,1,Divert[63].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"85,1,0",OTE,Divert[64].Config.Present
+"85,1,0",OTE,Divert[64].Config.Chute
+"85,1,0",OTE,Divert[64].Config.BagPresent
+"85,1,1",MOVE,922,Divert[64].Config.Offset
+"85,1,1",MOVE,'CH3063',Divert[64].Config.Name
+"85,1,2",MOVE,5,Divert[64].Config.Arm
+"85,1,2",MOVE,1,Divert[64].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"86,1,0",OTE,Divert[65].Config.Present
+"86,1,0",OTE,Divert[65].Config.Chute
+"86,1,0",OTE,Divert[65].Config.BagPresent
+"86,1,1",MOVE,951,Divert[65].Config.Offset
+"86,1,1",MOVE,'CH3066',Divert[65].Config.Name
+"86,1,2",MOVE,6,Divert[65].Config.Arm
+"86,1,2",MOVE,1,Divert[65].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"87,1,0",OTE,Divert[66].Config.Present
+"87,1,0",OTE,Divert[66].Config.Chute
+"87,1,0",OTE,Divert[66].Config.BagPresent
+"87,1,1",MOVE,951,Divert[66].Config.Offset
+"87,1,1",MOVE,'CH3065',Divert[66].Config.Name
+"87,1,2",MOVE,5,Divert[66].Config.Arm
+"87,1,2",MOVE,1,Divert[66].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"88,1,0",OTE,Divert[67].Config.Present
+"88,1,0",OTE,Divert[67].Config.Chute
+"88,1,0",OTE,Divert[67].Config.BagPresent
+"88,1,1",MOVE,980,Divert[67].Config.Offset
+"88,1,1",MOVE,'CH3068',Divert[67].Config.Name
+"88,1,2",MOVE,6,Divert[65].Config.Arm
+"88,1,2",MOVE,1,Divert[65].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"89,1,0",OTE,Divert[68].Config.Present
+"89,1,0",OTE,Divert[68].Config.Chute
+"89,1,0",OTE,Divert[68].Config.BagPresent
+"89,1,1",MOVE,980,Divert[68].Config.Offset
+"89,1,1",MOVE,'CH3067',Divert[68].Config.Name
+"89,1,2",MOVE,5,Divert[68].Config.Arm
+"89,1,2",MOVE,1,Divert[68].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"90,1,0",OTE,Divert[69].Config.Present
+"90,1,0",OTE,Divert[69].Config.Chute
+"90,1,0",OTE,Divert[69].Config.BagPresent
+"90,1,1",MOVE,1009,Divert[69].Config.Offset
+"90,1,1",MOVE,'CH3070',Divert[69].Config.Name
+"90,1,2",MOVE,6,Divert[69].Config.Arm
+"90,1,2",MOVE,1,Divert[69].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"91,1,0",OTE,Divert[70].Config.Present
+"91,1,0",OTE,Divert[70].Config.Chute
+"91,1,0",OTE,Divert[70].Config.BagPresent
+"91,1,1",MOVE,1009,Divert[70].Config.Offset
+"91,1,1",MOVE,'CH3069',Divert[70].Config.Name
+"91,1,2",MOVE,5,Divert[70].Config.Arm
+"91,1,2",MOVE,1,Divert[70].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"92,1,0",OTE,Divert[71].Config.Present
+"92,1,0",OTE,Divert[71].Config.Chute
+"92,1,0",OTE,Divert[71].Config.BagPresent
+"92,1,1",MOVE,1038,Divert[71].Config.Offset
+"92,1,1",MOVE,'CH3072',Divert[71].Config.Name
+"92,1,2",MOVE,6,Divert[71].Config.Arm
+"92,1,2",MOVE,1,Divert[71].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"93,1,0",OTE,Divert[72].Config.Present
+"93,1,0",OTE,Divert[72].Config.Chute
+"93,1,0",OTE,Divert[72].Config.BagPresent
+"93,1,1",MOVE,1038,Divert[72].Config.Offset
+"93,1,1",MOVE,'CH3071',Divert[72].Config.Name
+"93,1,2",MOVE,5,Divert[72].Config.Arm
+"93,1,2",MOVE,1,Divert[72].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"94,1,0",OTE,Divert[73].Config.Present
+"94,1,0",OTE,Divert[73].Config.Chute
+"94,1,0",OTE,Divert[73].Config.BagPresent
+"94,1,1",MOVE,1069,Divert[73].Config.Offset
+"94,1,1",MOVE,'CH3074',Divert[73].Config.Name
+"94,1,2",MOVE,6,Divert[73].Config.Arm
+"94,1,2",MOVE,2,Divert[73].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"95,1,0",OTE,Divert[74].Config.Present
+"95,1,0",OTE,Divert[74].Config.Chute
+"95,1,0",OTE,Divert[74].Config.BagPresent
+"95,1,1",MOVE,1069,Divert[74].Config.Offset
+"95,1,1",MOVE,'CH3073',Divert[74].Config.Name
+"95,1,2",MOVE,5,Divert[74].Config.Arm
+"95,1,2",MOVE,2,Divert[74].Config.ArmAb[0]
+""
+Rung Comment:,Divert Configuration Logic
+"96,1,0",OTE,Divert[75].Config.Present
+"96,1,0",OTE,Divert[75].Config.Chute
+"96,1,0",OTE,Divert[75].Config.OteDest
+"96,1,1",XIC,SafetyConsumed.data[0].2
+"96,1,1",OTE,Divert[75].TakeawayNotRunning_Input
+""
+Rung Comment:,Call Build Tag Values Routine to Set Individual Tag Values
+"97,0,0",JSR,BuildTagValues,0
+""
