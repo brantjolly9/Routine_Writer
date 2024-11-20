@@ -125,9 +125,11 @@ def main():
     # workingDir will be located in the root directory, then the *_Files directories will be located in the working dir
     # leave testRootDir as is for this to work (will be changed later)
     rootDir = os.getcwd()
+    logger.debug(f"ROOTDIR: {rootDir}")
 
     # Preparing working dir and testing for relevant files
     exeDirPath = os.path.dirname(os.path.realpath(__file__))
+    logger.debug(f"EXE_DIR_PATH: {exeDirPath}")
 
     userPath = get_path_from_user(exeDirPath,
                                   defaultPath=rootDir,
@@ -139,6 +141,8 @@ def main():
 
     # Get relevant path from the dictionary of verified paths
     userWorkingDir = verifiedPaths[userFolder]
+    logger.debug(f"USER_WORKING_DIR: {userWorkingDir}")
+    
     makeLogFile(userWorkingDir)
     csvFiles, l5xFiles = check_working_files(userWorkingDir, logger)
     L5X_FILES_PATH = verifiedPaths[l5xFilesFolder]
