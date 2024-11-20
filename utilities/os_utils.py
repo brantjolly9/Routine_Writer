@@ -46,8 +46,8 @@ def get_path_from_user(exeDirPath, defaultPath="C:\\", defaultFolder="C:\\exeTes
 
     print(
         "Make a folder somewhere on the computer (ideally C:\\FolderName)\n"
-        "When prompted enter the full path of a folder which contains the ExcelFile.xlsx, L5X_Files, and CSV_Files\n"
-        "Make sure the folder name only uses letters and underscores i.e. my_folder\n"
+        "When prompted enter the full path of a folder which contains the L5X_Files, and CSV_Files\n"
+        "Make sure the folder name only uses letters and underscores, no spaces; i.e. my_folder\n"
         "The full file path should resemble C:\\...\\...\\my_folder\n"
         "A relative file will instruct the program to create a folder in the current one\n"
         "Press \'Enter\' for the default folder\n"
