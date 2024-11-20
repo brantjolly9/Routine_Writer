@@ -159,6 +159,7 @@ def main():
         csvFileSelection = user_file_selection(csvFiles)
 
         # inputFile will eventually become the template. In essence reconstruct() adds all the rungs from the csvFile to the open xmlDoc i.e. inPutFile then writes the result to outputFile
+        inputFile = os.path.join(userWorkingDir, "template.L5X")
         inputFile = "template.L5X"
         fileName = inputFile.split(".")[0]
 
