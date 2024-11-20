@@ -64,15 +64,16 @@ def write_to_file(xmlFile, resultPath):
     # arg 2-4 populate xml declaration
     # <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 
+
     try:
         xmlFile.write(
             resultPath,
             xml_declaration=True,
             encoding="UTF-8",
             standalone=True)
+        logger.debug(f"Wrote to file: {resultPath}")
         return True
     except Exception as e:
-        print("AHHHHHHH")
         logger.error(f"Cant write to file: {resultPath}", exc_info=True)
         return False
 

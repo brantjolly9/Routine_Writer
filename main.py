@@ -65,8 +65,9 @@ def unzip(l5xFile):
     l5xPath = os.path.join(L5X_FILES_PATH, l5xFile)
     csvPath = os.path.join(CSV_FILES_PATH, csvName)
     allRungs = get_all_rungs(l5xPath)
-    with open("inputRungs.txt", "w") as ir:
-        ir.writelines(allRungs[1])
+    logger.debug(f"L5X_FILE_PATH: {l5xPath}")
+    logger.debug(f"CSV_FILE_PATH: {csvPath}")
+    logger.debug(f"{len(allRungs)} rungs")
     parsedRungs = parse_routine(allRungs)
     exl = write_param_sheet(parsedRungs, csvPath) 
 
@@ -94,8 +95,10 @@ def reconstruct(csvFile, outputFile, inputFile):
     #            print(f"Created {filePath}")
     try:
         with open(filePaths["outputPath"], "x") as op:
+            logger.debug(f"Opened new {filePaths['outputPath']} for reconstruct")
             print("OPENED")
     except FileExistsError as fe:
+        logger.debug(f"{filePaths['outputPath']} already exists for reconstruct")
         print("ALREADY EXISTS")
 
     #xmlFile = et.parse(filePaths['inputPath'])
@@ -103,6 +106,7 @@ def reconstruct(csvFile, outputFile, inputFile):
 
     # Formatted Rungs returns correct data from csv
     formattedRungs = routine_handler(filePaths["csvPath"])
+    logger.debug(f"{len(formattedRungs)} formatted rungs")
 
     xmlDoc = new_attach_rungs(
             formattedRungs,
@@ -126,6 +130,7 @@ def main():
     # leave testRootDir as is for this to work (will be changed later)
     rootDir = os.getcwd()
     logger.debug(f"ROOTDIR: {rootDir}")
+    print(rootDir)
 
     # Preparing working dir and testing for relevant files
     exeDirPath = os.path.dirname(os.path.realpath(__file__))
@@ -142,7 +147,7 @@ def main():
     # Get relevant path from the dictionary of verified paths
     userWorkingDir = verifiedPaths[userFolder]
     logger.debug(f"USER_WORKING_DIR: {userWorkingDir}")
-    
+
     makeLogFile(userWorkingDir)
     csvFiles, l5xFiles = check_working_files(userWorkingDir, logger)
     L5X_FILES_PATH = verifiedPaths[l5xFilesFolder]
@@ -156,6 +161,7 @@ def main():
     userChoice = None
     while userChoice != "D" and userChoice != "R":
         userChoice = input("Enter Choice: ")
+    logger.debug(f"USER CHOICE: {userChoice}")
 
     if userChoice == "R":
 
@@ -163,9 +169,12 @@ def main():
 
         # inputFile will eventually become the template. In essence reconstruct() adds all the rungs from the csvFile to the open xmlDoc i.e. inPutFile then writes the result to outputFile
         inputFile = os.path.join(userWorkingDir, "template.L5X")
+        logger.debug(f"TEMPLATE PATH: {inputFile}")
 
         for csvFile in csvFileSelection:
             outputFile = csvFile.replace(".csv", ".L5X")
+            logger.debug(f"OUTPUT_FILE_PATH: {outputFile}")
+            logger.debug(f"CSV_FILE_PATH: {csvFile}")
             reconstruct(csvFile=csvFile,
                         outputFile=outputFile,
                         inputFile=inputFile)
