@@ -50,6 +50,7 @@ def get_path_from_user(exeDirPath, defaultPath="C:\\", defaultFolder="C:\\exeTes
         "Make sure the folder name only uses letters and underscores i.e. my_folder\n"
         "The full file path should resemble C:\\...\\...\\my_folder\n"
         "A relative file will instruct the program to create a folder in the current one\n"
+        "Press \'Enter\' for the default folder\n"
         )
 
     workingDir = ""
@@ -57,7 +58,6 @@ def get_path_from_user(exeDirPath, defaultPath="C:\\", defaultFolder="C:\\exeTes
     while not os.path.isdir(workingDir):
         workingDir = input(f"Enter full or relative file path (defaults to {defaultPath}\\{defaultFolder}): ")
         if workingDir == "":
-            logger.debug("AHAHHAHAHAHHA")
             workingDir = os.path.join(defaultPath, defaultFolder)
         else:
             workingDir = os.path.join(defaultPath, workingDir)

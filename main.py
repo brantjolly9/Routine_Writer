@@ -99,7 +99,7 @@ def reconstruct(csvFile, outputFile, inputFile):
         print("ALREADY EXISTS")
 
     #xmlFile = et.parse(filePaths['inputPath'])
-    xmlFile = et.parse("template.L5X")
+    xmlFile = et.parse(filePaths["inputPath"])
 
     # Formatted Rungs returns correct data from csv
     formattedRungs = routine_handler(filePaths["csvPath"])
@@ -108,7 +108,6 @@ def reconstruct(csvFile, outputFile, inputFile):
             formattedRungs,
             filePaths["outputPath"],
             xmlFile)
-    print(xmlDoc)
     write_to_file(xmlDoc, outputPath)
 
 #    with open("outputRungs.txt", "w") as opr:
@@ -160,8 +159,6 @@ def main():
 
         # inputFile will eventually become the template. In essence reconstruct() adds all the rungs from the csvFile to the open xmlDoc i.e. inPutFile then writes the result to outputFile
         inputFile = os.path.join(userWorkingDir, "template.L5X")
-        inputFile = "template.L5X"
-        fileName = inputFile.split(".")[0]
 
         for csvFile in csvFileSelection:
             outputFile = csvFile.replace(".csv", ".L5X")
