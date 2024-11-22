@@ -99,7 +99,7 @@ def reconstruct(csvFile, outputFile, inputFile):
         print("ALREADY EXISTS")
 
     #xmlFile = et.parse(filePaths['inputPath'])
-    xmlFile = et.parse(filePaths["inputPath"])
+    xmlFile = et.parse("template.L5X")
 
     # Formatted Rungs returns correct data from csv
     formattedRungs = routine_handler(filePaths["csvPath"])

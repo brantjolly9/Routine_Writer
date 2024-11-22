@@ -1,0 +1,2 @@
+[XIC(Hmi.System.Cmds.StopAll) XIC(Conveyor[Sorter0Conv].Run.Run_Output) ,XIC(HmiStopped) XIO(MasterReset) ]XIO(HmiStopped)ADD(Hmi.System.Stats.HmiStops,1,Hmi.System.Stats.HmiStops) ,OTE(HmiStopped) ];
+[XIC(Hmi.System.Cmds.StopAll) XIC(Conveyor[Sorter0Conv].Run.Run_Output) ,XIC(HmiStopped) XIO(MasterReset) ][XIO(HmiStopped) ADD(Hmi.System.Stats.HmiStops,1,Hmi.System.Stats.HmiStops) ,OTE(HmiStopped) ];

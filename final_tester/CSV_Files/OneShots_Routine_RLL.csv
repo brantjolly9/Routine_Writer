@@ -1,11 +1,11 @@
 Rung,Function,Arguments
-Rung Comment:,"STERLING The main purpose of the OneShots Routine is to process Start and Reset signals. The Routine monitors the HMI, Panel, and Control Station Start buttons and sets single bits. The single bits are set to make programming simpler and easier to follow. For example, all of the Transport control station start buttons turn on a single TransportCSStart bit. This bit can be used throughout the program instead of entering every single Transport control station where needed. This is repeated for each of the types of conveyors. Each of the conveyor type control station bits are then joined together and used along with the HMI Start bit to turn on the MasterStart bit. The MasterStart bit is used throughout the program to start the system, reset faults, etc. The same is done using the HMI Reset bit to turn on the MasterReset bit which is used throughout the program to clear faults.  
+Rung Comment:,"The main purpose of the OneShots Routine is to process Start and Reset signals. The Routine monitors the HMI, Panel, and Control Station Start buttons and sets single bits. The single bits are set to make programming simpler and easier to follow. For example, all of the Transport control station start buttons turn on a single TransportCSStart bit. This bit can be used throughout the program instead of entering every single Transport control station where needed. This is repeated for each of the types of conveyors. Each of the conveyor type control station bits are then joined together and used along with the HMI Start bit to turn on the MasterStart bit. The MasterStart bit is used throughout the program to start the system, reset faults, etc. The same is done using the HMI Reset bit to turn on the MasterReset bit which is used throughout the program to clear faults.  
 
 The OneShots Routine is also responsible for turning on and off the Commissioning Mode bit. The logic allows the system to operate in Commissioning Mode for 20 minutes. After 20 minutes, the program turns off all Commissioning bits to ensure the system is not left in Commissioning Mode. If the system is in Commissioning Mode, it can be reset by holding the MCP Lamp Test pushbutton and MCP Reset pushbutton for three seconds. This triggers the logic to clear the Commissioning Mode bits. The last way to clear Commissioning Mode is upon receipt of the HMI Data Reset command."
 "0,0,0",NOP,
 ""
-Rung Comment:,Data Reset Trigger Logic
-"1,1,0",XIC,Hmi.System.Cmds.DataResetAll
+Rung Comment:,Sterling is the best and he deserves a big raise
+"1,1,0",XIC,DataResetTrigger
 "1,1,1",XIC,Commissioning.PlcDataReset
 "1,0,0",OTE,DataResetTrigger
 "1,1,0",TON,ResetCountsTimer,?,?

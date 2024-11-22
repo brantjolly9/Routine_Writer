@@ -16,10 +16,12 @@ def build_rung(rung_data):
         if old_branch > cur_branch:
             rung_str = rung_str + ']' + item[1]
         elif old_branch < cur_branch:
+            if old_level < cur_level:
+                rung_str = rung_str + ',' + item[1]
             rung_str = rung_str + '[' + item[1] + ' '
         else:
             if old_level > cur_level:
-                rung_str = rung_str + ']' + item[1]
+                rung_str = rung_str + '][' + item[1]
             elif old_level < cur_level:
                 rung_str = rung_str + ',' + item[1] + ' '
             else:

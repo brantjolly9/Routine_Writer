@@ -71,7 +71,9 @@ Rung Comment:,Set the Network Switch Panel (NSP) Present bits
 "3,0,0",OTE,MCP.NetworkSwitch[0].Present
 ""
 Rung Comment:,Set the Network Switch Panel (NSP) Present bits
-"4,0,0",NOP,
+"4,0,0",MOVE,1,Config.FirstConveyorInTheTrain
+"4,0,0",MOVE,5,Config.LastConveyorInTheTrain
+"4,0,0",MOVE,'SAI',Train.Config.Name
 ""
 Rung Comment:,Set the Network Switch Panel (NSP) Present bits
 "5,0,0",NOP,
